@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django database (local only)
+db.sqlite3
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
