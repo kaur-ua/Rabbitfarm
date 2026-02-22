@@ -1,0 +1,17 @@
+body {
+    background-color: #f4f6f5;
+}
+
+.navbar {
+    background-color: #2f6f3e !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+}
+
+.table thead {
+    background-color: #2f6f3e;
+    color: white;
+}

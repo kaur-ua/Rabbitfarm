@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Список кроликів</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Стать</th>
+            <th>Порода</th>
+            <th>Клітка</th>
+            <th>Статус</th>
+            <th>Дата народження</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rabbit in rabbits %}
+        <tr>
+            <td>{{ rabbit.name }}</td>
+            <td>{{ rabbit.get_sex_display }}</td>
+            <td>{{ rabbit.breed }}</td>
+            <td>{{ rabbit.cage }}</td>
+            <td>{{ rabbit.get_status_display }}</td>
+            <td>{{ rabbit.birth_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">
+                Поки що немає жодного кролика.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
