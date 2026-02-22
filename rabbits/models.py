@@ -8,6 +8,12 @@ class Rabbit(models.Model):
         ("M", "Самець"),
     ]
 
+    STATUS_CHOICES = [
+        ("ACTIVE", "Активний"),
+        ("SOLD", "Проданий"),
+        ("CULLED", "Вибракований"),
+    ]
+
     owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -21,6 +27,32 @@ class Rabbit(models.Model):
         choices=SEX_CHOICES
     )
 
+    breed = models.CharField(max_length=100, blank=True)
+
+    cage = models.CharField(max_length=50, blank=True)
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default="ACTIVE"
+    )
+
+    mother = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children_from_mother"
+    )
+
+    father = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children_from_father"
+    )
+
     birth_date = models.DateField(
         null=True,
         blank=True
@@ -30,6 +62,7 @@ class Rabbit(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Event(models.Model):
     EVENT_TYPES = [
@@ -54,6 +87,26 @@ class Event(models.Model):
     date = models.DateField()
 
     notes = models.TextField(blank=True)
+
+    responsible = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="recorded_events"
+    )
+
+    weight = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    kits_count = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
