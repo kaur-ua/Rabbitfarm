@@ -9,7 +9,7 @@ class EventInline(admin.TabularInline):
 
 @admin.register(Rabbit)
 class RabbitAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "sex", "birth_date", "owner")
+    list_display = ("inventory_number","id", "name", "sex", "birth_date", "owner")
     list_display_links = ("name",)
 
     list_filter = ("sex",)

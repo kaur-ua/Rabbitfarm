@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Картка кролика</h2>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>Інвентарний номер:</strong> {{ rabbit.inventory_number }}</p>
+        <p><strong>Ім'я:</strong> {{ rabbit.name }}</p>
+        <p><strong>Стать:</strong> {{ rabbit.get_sex_display }}</p>
+        <p><strong>Статус:</strong> {{ rabbit.status }}</p>
+        <p><strong>Дата народження:</strong> {{ rabbit.birth_date }}</p>
+        <p><strong>Порода:</strong> {{ rabbit.breed }}</p>
+        <p><strong>Клітка:</strong> {{ rabbit.cage }}</p>
+    </div>
+</div>
+
+<a href="/" class="btn btn-secondary">Назад до списку</a>
+
+<hr>
+
+<h4>Журнал подій</h4>
+
+{% if events %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Тип</th>
+            <th>Вага</th>
+            <th>Примітка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.date }}</td>
+            <td>{{ event.get_event_type_display }}</td>
+            <td>{{ event.weight }}</td>
+            <td>{{ event.notes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Подій ще немає.</p>
+{% endif %}
+
+{% endblock %}
