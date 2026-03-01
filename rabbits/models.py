@@ -1,11 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+from farms.models import Farm
 
 
 class Rabbit(models.Model):
+    farm = models.ForeignKey(
+         Farm,
+         on_delete=models.CASCADE,
+         related_name="rabbits"
+    )
     SEX_CHOICES = [
-        ("F", "Самка"),
-        ("M", "Самець"),
+         ("F", "Самка"),
+         ("M", "Самець"),
     ]
 
     STATUS_CHOICES = [
@@ -14,11 +20,7 @@ class Rabbit(models.Model):
         ("CULLED", "Вибракований"),
     ]
 
-    owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="rabbits"
-    )
+    
 
     name = models.CharField(max_length=100)
     inventory_number = models.CharField(
