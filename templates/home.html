@@ -1,0 +1,24 @@
+<h1>Ферма: {{ farm.name }}</h1>
+
+<h2>Стан ферми</h2>
+
+<ul>
+    <li>Всього кролів: {{ rabbit_count }}</li>
+    <li>Самки: {{ female_count }}</li>
+    <li>Самці: {{ male_count }}</li>
+</ul>
+<h2>🚦 Що потрібно зробити</h2>
+
+{% if due_events %}
+<ul>
+    {% for event in due_events %}
+        <li>
+            {{ event.date }} —
+            {{ event.rabbit.inventory_number }}
+            ({{ event.get_event_type_display }})
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>✅ На сьогодні завдань немає</p>
+{% endif %}
