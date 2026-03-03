@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
      'rabbits',
      'farms',
+     'events',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +77,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rabbitfarm',
+        'USER': 'rabbitfarm',
+        'PASSWORD': 'Ac4828cm',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
