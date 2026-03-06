@@ -16,10 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rabbits.views import home
+
+from .views import landing
+from rabbits.views import rabbit_list, home
 
 urlpatterns = [
+    path('', landing, name='landing'),
+    path('home/', home, name='home'),
+    path('rabbits/', rabbit_list, name='rabbit_list'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path("", home, name="home"),
-     path('', include('rabbits.urls')),
 ]
+ 

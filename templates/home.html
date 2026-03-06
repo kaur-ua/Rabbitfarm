@@ -1,12 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>Ферма: {{ farm.name }}</h1>
 
 <h2>Стан ферми</h2>
 
-<ul>
-    <li>Всього кролів: {{ rabbit_count }}</li>
-    <li>Самки: {{ female_count }}</li>
-    <li>Самці: {{ male_count }}</li>
-</ul>
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Кролі</h5>
+        <h2>{{ rabbit_count }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Самки</h5>
+        <h2>{{ female_count }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">Самці</h5>
+        <h2>{{ male_count }}</h2>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <h2>🚦 Що потрібно зробити</h2>
 
 {% if due_events %}
@@ -22,3 +52,5 @@
 {% else %}
 <p>✅ На сьогодні завдань немає</p>
 {% endif %}
+
+{% endblock %}
