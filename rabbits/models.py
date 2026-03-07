@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from farms.models import Farm
 
 
+
+
 class Rabbit(models.Model):
     farm = models.ForeignKey(
          Farm,
