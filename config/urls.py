@@ -26,5 +26,6 @@ urlpatterns = [
     path('rabbits/', rabbit_list, name='rabbit_list'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path("farms/", include("farms.urls")),
 ]
  

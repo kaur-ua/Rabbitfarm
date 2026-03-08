@@ -4,8 +4,10 @@ from django.db import models
 
 class Farm(models.Model):
 
-    name = models.CharField(max_length=200)
-
+    name = models.CharField(
+    max_length=200,
+    verbose_name="Назва ферми"
+)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -14,11 +16,13 @@ class Farm(models.Model):
 
     location = models.CharField(
         max_length=200,
-        blank=True
+        blank=True,
+        verbose_name="Місцезнаходження"
     )
 
     description = models.TextField(
-        blank=True
+        blank=True,
+        verbose_name="Опис"
     )
 
     created_at = models.DateTimeField(

@@ -1,0 +1,7 @@
+<h2>Створіть свою ферму</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Створити ферму</button>
+</form>
