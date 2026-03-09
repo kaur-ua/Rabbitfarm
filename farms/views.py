@@ -9,7 +9,7 @@ def create_farm(request):
             farm = form.save(commit=False)
             farm.owner = request.user
             farm.save()
-            return redirect("dashboard")
+            return redirect("home")
     else:
         form = FarmForm()
 

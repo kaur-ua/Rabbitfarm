@@ -40,6 +40,7 @@ INSTALLED_APPS = [
      'rabbits',
      'farms',
      'events',
+     'accounts',
 ]
 
 MIDDLEWARE = [

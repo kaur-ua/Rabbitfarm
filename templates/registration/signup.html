@@ -1,0 +1,16 @@
+<h2>Реєстрація</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 10px;">
+            <strong>Будь ласка, виправте помилки:</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Зареєструватися</button>
+</form>

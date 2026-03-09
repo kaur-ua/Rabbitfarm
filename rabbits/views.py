@@ -1,12 +1,8 @@
-from django.shortcuts import render
-from .models import Rabbit
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from farms.utils import get_user_farm
-from django.shortcuts import render, get_object_or_404
-from .models import Rabbit
 from django.utils.timezone import now
-from .models import Event
-
+from .models import Rabbit, Event
 
 def rabbit_detail(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk)
@@ -17,6 +13,7 @@ def rabbit_detail(request, pk):
         {"rabbit": rabbit, "events": events}
     )
 
+
 def rabbit_list(request):
     rabbits = Rabbit.objects.all()
     return render(request, "rabbits/rabbit_list.html", {"rabbits": rabbits})
@@ -24,6 +21,9 @@ def rabbit_list(request):
 @login_required
 def home(request):
     farm = get_user_farm(request.user)
+
+    if not farm:
+        return redirect("create_farm")
 
     rabbits = Rabbit.objects.filter(farm=farm)
 

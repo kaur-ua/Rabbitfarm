@@ -1,9 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
-
-def landing(request):
-    return render(request, "landing.html")
 
 
 def signup(request):
