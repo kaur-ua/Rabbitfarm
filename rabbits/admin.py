@@ -1,28 +1,5 @@
 from django.contrib import admin
-from .models import Rabbit, Event
+from .models import Rabbit
 
-
-class EventInline(admin.TabularInline):
-    model = Event
-    extra = 1
-
-
-@admin.register(Rabbit)
-class RabbitAdmin(admin.ModelAdmin):
-    list_display = ("inventory_number","id", "name", "sex", "birth_date", "farm")
-    list_display_links = ("name",)
-
-    list_filter = ("sex",)
-    search_fields = ("name",)
-
-    inlines = [EventInline]
-
-
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ("id", "rabbit", "event_type", "date")
-    list_filter = ("event_type",)
-
-
-
+admin.site.register(Rabbit)
 

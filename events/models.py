@@ -1,41 +1,36 @@
-import uuid
 from django.db import models
 
 
-class FarmEvent(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Event(models.Model):
 
-    farm = models.ForeignKey(
-        "farms.Farm",
+    EVENT_TYPES = [
+        ("mating", "Злучка"),
+        ("kindling", "Окрол"),
+        ("vaccination", "Вакцинація"),
+        ("weaning", "Відсадка"),
+    ]
+
+    rabbit = models.ForeignKey(
+        "rabbits.Rabbit",
         on_delete=models.CASCADE,
         related_name="events"
     )
 
-    entity_type = models.CharField(max_length=20)
-    entity_id = models.UUIDField()
-
-    event_type = models.CharField(max_length=50)
-
-    due_date = models.DateField()
-
-    status = models.CharField(
+    event_type = models.CharField(
         max_length=20,
-        default="pending"
+        choices=EVENT_TYPES
     )
 
-    auto_generated = models.BooleanField(default=True)
+    date = models.DateField()
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    note = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["farm", "entity_type", "entity_id", "event_type"],
-                condition=models.Q(status="pending"),
-                name="farm_events_unique_active"
-            )
-        ]
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
-        return f"{self.event_type} ({self.status})"
+        return f"{self.rabbit} - {self.event_type} ({self.date})"

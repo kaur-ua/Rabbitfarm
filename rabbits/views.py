@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from farms.utils import get_user_farm
 from django.utils.timezone import now
-from .models import Rabbit, Event
+from .models import Rabbit
+from events.models import Event
 
 def rabbit_detail(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk)
