@@ -2,11 +2,25 @@
 
 {% block content %}
 
-<h1 style="color:red">DASHBOARD TEST</h1>
 
 <h1>Ферма: {{ farm.name }}</h1>
 
 <h2>Стан ферми</h2>
+<div class="d-flex justify-content-between align-items-center">
+
+    <h3>Стан ферми</h3>
+
+    <div class="traffic-light">
+
+        <div class="lamp {% if traffic_light == 'green' %}active-green{% endif %}"></div>
+
+        <div class="lamp {% if traffic_light == 'yellow' %}active-yellow{% endif %}"></div>
+
+        <div class="lamp {% if traffic_light == 'red' %}active-red{% endif %}"></div>
+
+    </div>
+
+</div>
 
 <div class="row">
 

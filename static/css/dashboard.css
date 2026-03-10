@@ -1,0 +1,25 @@
+.traffic-light {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.lamp {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #5b7ea6;
+    background: white;
+}
+
+.active-green {
+    background: #2ecc71;
+}
+
+.active-yellow {
+    background: #f1c40f;
+}
+
+.active-red {
+    background: #e74c3c;
+}

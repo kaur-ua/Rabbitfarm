@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from farms.utils import get_user_farm
-from django.utils.timezone import now
-from .models import Rabbit
+from django.shortcuts import render
+from rabbits.models import Rabbit
 from events.models import Event
+from datetime import date, timedelta
 
 def rabbit_detail(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk)
@@ -20,27 +19,41 @@ def rabbit_list(request):
     return render(request, "rabbits/rabbit_list.html", {"rabbits": rabbits})
 
 @login_required
+
 def home(request):
-    farm = get_user_farm(request.user)
 
-    if not farm:
-        return redirect("create_farm")
+    rabbits = Rabbit.objects.all()
 
-    rabbits = Rabbit.objects.filter(farm=farm)
+    rabbits_count = rabbits.count()
+    males = rabbits.filter(sex="M").count()
+    females = rabbits.filter(sex="F").count()
 
-    today = now().date()
 
-    due_events = Event.objects.filter(
-        rabbit__farm=farm,
-        date__lte=today
-    ).order_by("date")
+    # 🚦 Логіка світлофора
+    today = date.today()
+
+    red_events = Event.objects.filter(date__lte=today + timedelta(days=2))
+
+    yellow_events = Event.objects.filter(
+        date__gt=today + timedelta(days=2),
+        date__lte=today + timedelta(days=5)
+    )
+
+    if red_events.exists():
+        traffic_light = "red"
+    elif yellow_events.exists():
+        traffic_light = "yellow"
+    else:
+        traffic_light = "green"
+
 
     context = {
-        "farm": farm,
-        "rabbit_count": rabbits.count(),
-        "female_count": rabbits.filter(sex="F").count(),
-        "male_count": rabbits.filter(sex="M").count(),
-        "due_events": due_events,
+        "rabbits_count": rabbits_count,
+        "males": males,
+        "females": females,
+        "traffic_light": traffic_light,
     }
 
     return render(request, "home.html", context)
+
+    
