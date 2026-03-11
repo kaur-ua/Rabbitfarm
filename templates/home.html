@@ -5,19 +5,17 @@
 
 <h1>Ферма: {{ farm.name }}</h1>
 
-<h2>Стан ферми</h2>
 <div class="d-flex justify-content-between align-items-center">
 
     <h3>Стан ферми</h3>
 
     <div class="traffic-light">
 
-        <div class="lamp {% if traffic_light == 'green' %}active-green{% endif %}"></div>
+        <div class="lamp {% if green_light %}active-green{% endif %}"></div>
 
-        <div class="lamp {% if traffic_light == 'yellow' %}active-yellow{% endif %}"></div>
+<div class="lamp {% if yellow_light %}active-yellow{% endif %}"></div>
 
-        <div class="lamp {% if traffic_light == 'red' %}active-red{% endif %}"></div>
-
+<div class="lamp {% if red_light %}active-red{% endif %}"></div>
     </div>
 
 </div>
@@ -28,7 +26,7 @@
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title">Кролі</h5>
-        <h2>{{ rabbit_count }}</h2>
+        <h2>{{ rabbits_count }}</h2>
       </div>
     </div>
   </div>
@@ -37,7 +35,7 @@
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title">Самки</h5>
-        <h2>{{ female_count }}</h2>
+        <h2>{{ females }}</h2>
       </div>
     </div>
   </div>
@@ -46,7 +44,7 @@
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title">Самці</h5>
-        <h2>{{ male_count }}</h2>
+        <h2>{{ males }}</h2>
       </div>
     </div>
   </div>
