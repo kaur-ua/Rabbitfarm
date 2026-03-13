@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from rabbits.models import Rabbit
 from events.models import Event
 from datetime import date, timedelta
@@ -18,11 +17,14 @@ def rabbit_detail(request, pk):
 
 def rabbit_list(request):
     rabbits = Rabbit.objects.all()
-    farm = Farm.objects.first()
 
-    return render(request, "rabbits/rabbit_list.html", {
-        "rabbits": rabbits,
-        "farm": farm,
+    for rabbit in rabbits:
+        rabbit.last_event = Event.objects.filter(
+            rabbit=rabbit
+        ).order_by('-date').first()
+
+    return render(request, 'rabbits/rabbit_list.html', {
+        'rabbits': rabbits
     })
 @login_required
 

@@ -12,6 +12,7 @@
             <th>Стать</th>
             <th>Порода</th>
             <th>Остання подія</th>
+            <th>Дата</th>
             <th>Наступна дія</th>
             <th>Статус</th>
         </tr>
@@ -23,12 +24,44 @@
             <td>{{ rabbit.name }}</td>
             <td>{{ rabbit.sex }}</td>
             <td>{{ rabbit.breed }}</td>
-            <td>—</td>
-            <td>—</td>
-            <td>🟢</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+
+```
+        <td>
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.event_type }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+
+        <td>
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.date }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+
+        <td>
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.next_action }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+
+        <td>
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.status }}
+            {% else %}
+                —
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+```
+
 </table>
 
 {% endblock %}
