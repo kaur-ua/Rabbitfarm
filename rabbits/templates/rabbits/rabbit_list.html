@@ -55,10 +55,16 @@
 
             <td>
                 {% if rabbit.last_event %}
-                    {{ rabbit.last_event.status }}
-                {% else %}
-                    —
-                {% endif %}
+                {% if rabbit.last_event.status == "критична подія" %}
+            🔴 {{ rabbit.last_event.status }}
+        {% elif rabbit.last_event.status == "важлива подія" %}
+            🟡 {{ rabbit.last_event.status }}
+        {% else %}
+            🟢 {{ rabbit.last_event.status }}
+        {% endif %}
+    {% else %}
+        —
+    {% endif %}
             </td>
         </tr>
         {% endfor %}
