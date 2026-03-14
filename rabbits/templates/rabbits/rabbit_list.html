@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -21,47 +22,49 @@
         {% for rabbit in rabbits %}
         <tr>
             <td>{{ rabbit.inventory_number }}</td>
-            <td>{{ rabbit.name }}</td>
-            <td>{{ rabbit.sex }}</td>
+            <td> <a href="{% url 'rabbit_detail' rabbit.pk %}">
+                    {{ rabbit.name }}
+                 </a>
+            </td>
+            <td>{{ rabbit.get_sex_display }}</td>
             <td>{{ rabbit.breed }}</td>
 
-```
-        <td>
-            {% if rabbit.last_event %}
-                {{ rabbit.last_event.event_type }}
-            {% else %}
-                —
-            {% endif %}
-        </td>
+            <td>
+                {% if rabbit.last_event %}
+                    {{ rabbit.last_event.get_event_type_display }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
 
-        <td>
-            {% if rabbit.last_event %}
-                {{ rabbit.last_event.date }}
-            {% else %}
-                —
-            {% endif %}
-        </td>
+            <td>
+                {% if rabbit.last_event %}
+                    {{ rabbit.last_event.date }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
 
-        <td>
-            {% if rabbit.last_event %}
-                {{ rabbit.last_event.next_action }}
-            {% else %}
-                —
-            {% endif %}
-        </td>
+            <td>
+                {% if rabbit.last_event %}
+                    {{ rabbit.last_event.next_action }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
 
-        <td>
-            {% if rabbit.last_event %}
-                {{ rabbit.last_event.status }}
-            {% else %}
-                —
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</tbody>
-```
-
+            <td>
+                {% if rabbit.last_event %}
+                    {{ rabbit.last_event.status }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
 {% endblock %}
+
+

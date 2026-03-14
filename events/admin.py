@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Event
 
-admin.site.register(Event)
 
-# Register your models here.
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ("rabbit", "event_type", "date", "next_action", "status")
+    search_fields = ("rabbit__name", "event_type")

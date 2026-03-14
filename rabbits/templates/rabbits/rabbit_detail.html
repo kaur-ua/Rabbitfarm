@@ -28,7 +28,8 @@
         <tr>
             <th>Дата</th>
             <th>Тип</th>
-            <th>Вага</th>
+            <th>Наступна дія</th>
+            <th>Статус</th>
             <th>Примітка</th>
         </tr>
     </thead>
@@ -37,8 +38,9 @@
         <tr>
             <td>{{ event.date }}</td>
             <td>{{ event.get_event_type_display }}</td>
-            <td>{{ event.weight }}</td>
-            <td>{{ event.notes }}</td>
+            <td>{{ event.next_action }}</td>
+            <td>{{ event.status }}</td>
+            <td>{{ event.note }}</td>
         </tr>
         {% endfor %}
     </tbody>
