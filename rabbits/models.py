@@ -68,6 +68,14 @@ class Rabbit(models.Model):
         blank=True
     )
 
+    weight = models.DecimalField(
+    max_digits=4,
+    decimal_places=2,
+    null=True,
+    blank=True,
+    verbose_name="Вага"
+)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

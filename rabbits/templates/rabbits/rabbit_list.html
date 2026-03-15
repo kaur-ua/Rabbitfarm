@@ -11,6 +11,8 @@
             <th>№</th>
             <th>Кличка</th>
             <th>Стать</th>
+            <th>Вік</th>
+            <th>Вага</th>
             <th>Порода</th>
             <th>Остання подія</th>
             <th>Дата</th>
@@ -27,6 +29,13 @@
                  </a>
             </td>
             <td>{{ rabbit.get_sex_display }}</td>
+            <td>{{ rabbit.age_display }}</td>
+            <td>{% if rabbit.weight %}
+                    {{ rabbit.weight }} кг
+                {% else %}
+                    —
+                {% endif %}
+            </td>
             <td>{{ rabbit.breed }}</td>
 
             <td>
