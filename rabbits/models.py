@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from farms.models import Farm
+from datetime import date
 
 
 
@@ -69,14 +70,32 @@ class Rabbit(models.Model):
     )
 
     weight = models.DecimalField(
-    max_digits=4,
-    decimal_places=2,
-    null=True,
-    blank=True,
-    verbose_name="Вага"
-)
+        max_digits=4,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        verbose_name="Вага"
+    )
+
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+   
+    @property
+    def event_status(self):
+        last_event = self.events.order_by('-date').first()
+
+        if last_event and last_event.next_action_date:
+            days_left = (last_event.next_action_date - date.today()).days
+
+            if days_left <= 3:
+                return 'critical'
+            elif days_left <= 10:
+                return 'warning'
+            else:
+                return 'normal'
+
+        return 'none'
 
     def __str__(self):
         return self.name

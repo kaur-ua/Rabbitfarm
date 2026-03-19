@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 class Event(models.Model):
 
@@ -21,6 +22,10 @@ class Event(models.Model):
     )
 
     date = models.DateField()
+    next_action_date = models.DateField(
+        null=True,
+        blank=True
+    )
 
     next_action = models.CharField(
         max_length=200,
@@ -42,6 +47,17 @@ class Event(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+
+    def save(self, *args, **kwargs):
+        if self.event_type == "mating":
+            self.next_action_date = self.date + timedelta(days=28)
+            self.next_action = "Окрол"
+
+        elif self.event_type == "kindling":
+            self.next_action_date = self.date + timedelta(days=60)
+            self.next_action = "Відсадка"
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.rabbit} - {self.event_type} ({self.date})"

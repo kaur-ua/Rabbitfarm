@@ -4,6 +4,8 @@ from events.models import Event
 from datetime import date, timedelta
 from farms.models import Farm
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+
 
 
 def rabbit_detail(request, pk):
@@ -17,7 +19,11 @@ def rabbit_detail(request, pk):
 
 
 def rabbit_list(request):
-    rabbits = Rabbit.objects.all()
+    rabbits_list = Rabbit.objects.all().order_by("inventory_number")
+
+    paginator = Paginator(rabbits_list, 5)
+    page_number = request.GET.get("page")
+    rabbits = paginator.get_page(page_number)
 
     for rabbit in rabbits:
         rabbit.last_event = Event.objects.filter(

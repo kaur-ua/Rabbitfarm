@@ -17,6 +17,7 @@
             <th>Остання подія</th>
             <th>Дата</th>
             <th>Наступна дія</th>
+            <th>Дата наступної дії</th>
             <th>Статус</th>
         </tr>
     </thead>
@@ -48,7 +49,7 @@
 
             <td>
                 {% if rabbit.last_event %}
-                    {{ rabbit.last_event.date }}
+                    {{ rabbit.last_event.date|date:"d.m.Y" }}
                 {% else %}
                     —
                 {% endif %}
@@ -61,24 +62,72 @@
                     —
                 {% endif %}
             </td>
+            <td>
+                {% if rabbit.last_event and rabbit.last_event.next_action_date %}
+                    {{ rabbit.last_event.next_action_date|date:"d.m.Y" }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
 
             <td>
-                {% if rabbit.last_event %}
-                {% if rabbit.last_event.status == "критична подія" %}
-            🔴 {{ rabbit.last_event.status }}
-        {% elif rabbit.last_event.status == "важлива подія" %}
-            🟡 {{ rabbit.last_event.status }}
-        {% else %}
-            🟢 {{ rabbit.last_event.status }}
-        {% endif %}
-    {% else %}
-        —
-    {% endif %}
+                <td>
+                 {% if rabbit.event_status == "critical" %}
+                     🔴 критичний
+                 {% elif rabbit.event_status == "warning" %}
+                     🟡 важлива
+                 {% elif rabbit.event_status == "normal" %}
+                     🟢 нормальний
+                 {% else %}
+                     —
+                 {% endif %}
+</td>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+
+<nav>
+  <ul class="pagination">
+
+    {% if rabbits.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ rabbits.previous_page_number }}">Попередня</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">Попередня</span>
+      </li>
+    {% endif %}
+
+    {% for num in rabbits.paginator.page_range %}
+      {% if rabbits.number == num %}
+        <li class="page-item active">
+          <span class="page-link">{{ num }}</span>
+        </li>
+      {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if rabbits.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ rabbits.next_page_number }}">Наступна</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">Наступна</span>
+      </li>
+    {% endif %}
+
+  </ul>
+</nav>
+
+
 
 {% endblock %}
 
