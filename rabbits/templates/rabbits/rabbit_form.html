@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Додати кролика</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-outline-secondary px-4">
+        Зберегти
+    </button>
+</form>
+
+{% endblock %}

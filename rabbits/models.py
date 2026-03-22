@@ -96,6 +96,17 @@ class Rabbit(models.Model):
                 return 'normal'
 
         return 'none'
+    
+    def save(self, *args, **kwargs):
+        if not self.inventory_number:
+            last_rabbit = Rabbit.objects.order_by("-id").first()
+
+            if last_rabbit and last_rabbit.inventory_number:
+                self.inventory_number = str(int(last_rabbit.inventory_number) + 1).zfill(4)
+            else:
+                self.inventory_number = "0001"
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

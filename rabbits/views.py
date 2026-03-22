@@ -3,8 +3,10 @@ from rabbits.models import Rabbit
 from events.models import Event
 from datetime import date, timedelta
 from farms.models import Farm
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.contrib import messages
+from .forms import RabbitForm
 
 
 
@@ -43,6 +45,20 @@ def rabbit_list(request):
 
     return render(request, "rabbits/rabbit_list.html", {
         "rabbits": rabbits
+    })
+
+def rabbit_create(request):
+    if request.method == "POST":
+        form = RabbitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Кролика додано успішно")
+            return redirect("rabbit_list")
+    else:
+        form = RabbitForm()
+
+    return render(request, "rabbits/rabbit_form.html", {
+        "form": form
     })
 
 
