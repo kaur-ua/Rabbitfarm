@@ -2,7 +2,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success mt-3">
+            {{ message }}
+        
+    {% endfor %}
+{% endif %}</div>
 <h2>Журнал обліку кроликів</h2>
 
 <table class="table">
