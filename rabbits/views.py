@@ -43,9 +43,12 @@ def rabbit_list(request):
             months = (days % 365) // 30
             rabbit.age_display = f"{years} р. {months} міс."
 
+    farm = Farm.objects.filter(owner=request.user).first()
+
     return render(request, "rabbits/rabbit_list.html", {
-        "rabbits": rabbits
-    })
+        "rabbits": rabbits,
+        "farm": farm
+})
 
 def rabbit_create(request):
     if request.method == "POST":
