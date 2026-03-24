@@ -14,7 +14,9 @@
 <nav class="navbar navbar-dark bg-success px-3">
 
 {% if farm %}
-<span class="navbar-brand">{{ farm.name }}</span>
+<a href="{% url 'farm_page' %}" class="navbar-brand">
+    {{ farm.name }}
+</a>
 {% endif %}
 
 <div class="ms-auto">

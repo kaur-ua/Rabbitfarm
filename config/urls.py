@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rabbits.views import home
 from accounts.views import signup
+from farms.views import farm_page
 
 urlpatterns = [
     path('', home, name='home'),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('farms/', include('farms.urls')),
     path("rabbits/", include("rabbits.urls")),
+    
 ]
  

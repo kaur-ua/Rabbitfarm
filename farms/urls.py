@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import farm_page
 
 urlpatterns = [
-    path("create/", views.create_farm, name="create_farm"),
+    path('', farm_page, name='farm_page'),
 ]
