@@ -4,14 +4,43 @@ from farms.models import Farm
 from datetime import date
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=100)
 
+    description = models.TextField(blank=True)
+
+    cage_number = models.CharField(max_length=50, blank=True)
+
+    farm = models.ForeignKey(
+        Farm,
+        on_delete=models.CASCADE,
+        related_name="groups"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def rabbits_count(self):
+        return self.rabbits.count()
+    
 
 class Rabbit(models.Model):
     farm = models.ForeignKey(
          Farm,
          on_delete=models.CASCADE,
          related_name="rabbits"
-    )
+            )
+
+    group = models.ForeignKey(
+        Group,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="rabbits"
+            )
     SEX_CHOICES = [
          ("F", "Самка"),
          ("M", "Самець"),

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Rabbit
+from .models import Rabbit, Group
 
 
 class RabbitForm(forms.ModelForm):
@@ -7,6 +7,7 @@ class RabbitForm(forms.ModelForm):
         model = Rabbit
         fields = [
             "farm",
+            "group",
             "name",
             "sex",
             "breed",
@@ -17,3 +18,9 @@ class RabbitForm(forms.ModelForm):
             "mother",
             "father",
         ]
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'cage_number', 'description']

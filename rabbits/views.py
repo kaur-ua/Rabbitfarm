@@ -6,9 +6,23 @@ from farms.models import Farm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .forms import RabbitForm
+from .forms import RabbitForm, GroupForm
 
+@login_required
+def create_group(request):
+    farm = request.user.farms.first()
 
+    if request.method == "POST":
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            group = form.save(commit=False)
+            group.farm = farm
+            group.save()
+            return redirect("home")
+    else:
+        form = GroupForm()
+
+    return render(request, "rabbits/create_group.html", {"form": form})
 
 def rabbit_detail(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk)

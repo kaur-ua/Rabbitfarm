@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ farm.name }}</h2>
-<p>Farm page works</p>
+
+<div class="card p-4">
+
+    <h2>{{ farm.name }}</h2>
+
+    <p><strong>Location:</strong> {{ farm.location }}</p>
+    <p><strong>Phone:</strong> {{ farm.phone }}</p>
+    <p><strong>Description:</strong> {{ farm.description }}</p>
+    <a href="{% url 'edit_farm' %}" class="btn btn-success mt-3">Edit Farm</a>
+
+</div>
+
 {% endblock %}

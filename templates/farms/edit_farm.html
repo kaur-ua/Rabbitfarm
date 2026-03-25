@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-4 shadow-sm">
+
+    <h2>Edit Farm</h2>
+
+    <form method="post">
+    {% csrf_token %}
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Назва ферми</label>
+        <div class="col-sm-5">
+            {{ form.name }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Розташування</label>
+        <div class="col-sm-5">
+            {{ form.location }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Телефон</label>
+        <div class="col-sm-5">
+            {{ form.phone }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Опис</label>
+        <div class="col-sm-7">
+            {{ form.description }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset-sm-3 col-sm-5">
+            <button type="submit" class="btn btn-success">Зберегти</button>
+        </div>
+    </div>
+
+</form>
+        
+
+</div>
+
+{% endblock %}

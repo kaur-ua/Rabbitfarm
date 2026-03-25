@@ -21,3 +21,18 @@ def create_farm(request):
 def farm_page(request):
     farm = Farm.objects.get(owner=request.user)
     return render(request, "farms/farm_page.html", {"farm": farm})
+
+@login_required
+def edit_farm(request):
+    farm = Farm.objects.get(owner=request.user)
+
+    if request.method == "POST":
+        form = FarmForm(request.POST, instance=farm)
+        if form.is_valid():
+            form.save()
+            return redirect("farm_page")
+    else:
+        form = FarmForm(instance=farm)
+
+    return render(request, "farms/edit_farm.html", {"form": form})
+

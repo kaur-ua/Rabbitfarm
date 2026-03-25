@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-4 shadow-sm" style="max-width: 800px;">
+
+    <h2>Add Event</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success">
+            Save
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}
