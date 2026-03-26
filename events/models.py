@@ -48,6 +48,9 @@ class Event(models.Model):
         auto_now_add=True
     )
 
+    born_alive = models.PositiveIntegerField(null=True, blank=True)
+    born_dead = models.PositiveIntegerField(null=True, blank=True)
+
     def save(self, *args, **kwargs):
         if self.event_type == "mating":
             self.next_action_date = self.date + timedelta(days=28)

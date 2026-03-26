@@ -6,6 +6,10 @@
 
     <h2>{{ farm.name }}</h2>
 
+    {% if farm.image %}
+        <img src="{{ farm.image.url }}" class="img-fluid rounded mb-3" width="400">
+    {% endif %}
+
     <p><strong>Location:</strong> {{ farm.location }}</p>
     <p><strong>Phone:</strong> {{ farm.phone }}</p>
     <p><strong>Description:</strong> {{ farm.description }}</p>

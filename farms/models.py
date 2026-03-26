@@ -25,10 +25,17 @@ class Farm(models.Model):
         verbose_name="Опис"
     )
 
+    image = models.ImageField(
+        upload_to="farm_images/",
+        blank=True,
+        null=True,
+        verbose_name="Фото ферми"
+    )
+
     phone = models.CharField(
-    max_length=20,
-    blank=True,
-    verbose_name="Телефон"
+        max_length=20,
+        blank=True,
+        verbose_name="Телефон"
     )
 
     created_at = models.DateTimeField(

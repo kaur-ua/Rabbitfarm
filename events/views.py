@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import EventForm
+from farms.models import Farm
 
 
 def add_event(request):
@@ -10,5 +11,9 @@ def add_event(request):
             return redirect("home")
     else:
         form = EventForm()
+        farm = request.user.farms.first()
 
-    return render(request, "events/add_event.html", {"form": form})
+    return render(request, "events/add_event.html", {
+        "form": form,
+        "farm": farm
+    })

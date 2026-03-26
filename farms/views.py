@@ -6,7 +6,7 @@ from .models import Farm
 
 def create_farm(request):
     if request.method == "POST":
-        form = FarmForm(request.POST)
+        form = FarmForm(request.POST, request.FILES)
         if form.is_valid():
             farm = form.save(commit=False)
             farm.owner = request.user
@@ -27,7 +27,7 @@ def edit_farm(request):
     farm = Farm.objects.get(owner=request.user)
 
     if request.method == "POST":
-        form = FarmForm(request.POST, instance=farm)
+        form = FarmForm(request.POST, request.FILES, instance=farm)
         if form.is_valid():
             form.save()
             return redirect("farm_page")

@@ -5,4 +5,4 @@ from .models import Farm
 class FarmForm(forms.ModelForm):
     class Meta:
         model = Farm
-        fields = ['name', 'location', 'phone', 'description']
+        fields = ['name', 'location', 'phone', 'description', 'image']

@@ -31,6 +31,8 @@
             <th>Наступна дія</th>
             <th>Статус</th>
             <th>Примітка</th>
+            <th>Живих</th>
+            <th>Мертвих</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +43,8 @@
             <td>{{ event.next_action }}</td>
             <td>{{ event.status }}</td>
             <td>{{ event.note }}</td>
+            <td>{{ event.born_alive|default:"—" }}</td>
+            <td>{{ event.born_dead|default:"—" }}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .forms import RabbitForm, GroupForm
+from .models import Group
 
 @login_required
 def create_group(request):
@@ -21,6 +22,31 @@ def create_group(request):
             return redirect("home")
     else:
         form = GroupForm()
+
+    return render(request, "rabbits/create_group.html", {"form": form})
+
+@login_required
+def group_list(request):
+    farm = request.user.farms.first()
+    groups = Group.objects.filter(farm=farm)
+
+    return render(request, 'rabbits/group_list.html', {
+        'groups': groups,
+        'farm': farm
+    })
+
+@login_required
+def edit_group(request, pk):
+    farm = request.user.farms.first()
+    group = get_object_or_404(Group, pk=pk, farm=farm)
+
+    if request.method == "POST":
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect("group_list")
+    else:
+        form = GroupForm(instance=group)
 
     return render(request, "rabbits/create_group.html", {"form": form})
 
