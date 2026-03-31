@@ -27,7 +27,7 @@ def create_group(request):
 
 @login_required
 def group_list(request):
-    farm = request.user.farms.first()
+    farm = Farm.objects.filter(owner=request.user).first()
     groups = Group.objects.filter(farm=farm)
 
     return render(request, 'rabbits/group_list.html', {
@@ -114,10 +114,25 @@ def home(request):
     males = rabbits.filter(sex="M").count()
     females = rabbits.filter(sex="F").count()
 
-    red_light = True
-    yellow_light = False
-    green_light = False
+    today = date.today()
 
+    events = Event.objects.filter(next_action_date__isnull=False)
+
+    red_light = events.filter(next_action_date__lt=today).exists()
+
+    yellow_light = events.filter(
+        next_action_date__gte=today,
+        next_action_date__lte=today + timedelta(days=3)
+    ).exists()
+
+    green_light = events.filter(
+        next_action_date__gt=today + timedelta(days=3)
+    ).exists()
+    if red_light:
+        yellow_light = False
+        green_light = False
+    elif yellow_light:
+        green_light = False
     context = {
         "farm": farm,
         "rabbits_count": rabbits_count,

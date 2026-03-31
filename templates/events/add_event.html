@@ -7,14 +7,44 @@
     <h2>Add Event</h2>
 
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    {% csrf_token %}
 
-        <button type="submit" class="btn btn-success">
-            Save
-        </button>
-    </form>
+    <p>{{ form.rabbit.label_tag }} {{ form.rabbit }}</p>
+    <p>{{ form.event_type.label_tag }} {{ form.event_type }}</p>
+    <p>{{ form.date.label_tag }} {{ form.date }}</p>
+
+    <div id="birth-fields">
+        <p>{{ form.born_alive.label_tag }} {{ form.born_alive }}</p>
+        <p>{{ form.born_dead.label_tag }} {{ form.born_dead }}</p>
+    </div>
+
+    <p>{{ form.note.label_tag }} {{ form.note }}</p>
+
+    <button type="submit" class="btn btn-success">
+        Save
+    </button>
+</form>
 
 </div>
+<script>
+window.onload = function() {
+    const eventType = document.getElementById("id_event_type");
+    const birthFields = document.getElementById("birth-fields");
+
+    function toggleBirthFields() {
+        if (eventType.value === "kindling") {
+            birthFields.style.display = "block";
+        } else {
+            birthFields.style.display = "none";
+        }
+    }
+
+    toggleBirthFields();
+
+    eventType.addEventListener("change", function() {
+        toggleBirthFields();
+    });
+};
+</script>
 
 {% endblock %}
