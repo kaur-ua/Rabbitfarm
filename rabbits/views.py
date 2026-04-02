@@ -104,6 +104,8 @@ def rabbit_create(request):
         "form": form
     })
 
+def landing(request):
+    return render(request, "landing.html")
 
 @login_required
 def home(request):
