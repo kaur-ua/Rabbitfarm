@@ -15,6 +15,7 @@
                 <th>Name</th>
                 <th>Cage</th>
                 <th>Rabbits count</th>
+                <th>Description</th>
                 <th>Дія</th>
             </tr>
         </thead>
@@ -24,8 +25,9 @@
                 <td>{{ group.name }}</td>
                 <td>{{ group.cage_number }}</td>
                 <td>{{ group.rabbits_count }}</td>
+                <td>{{ group.description }}</td>
                 <td>
-                    <a href="{% url 'edit_group' group.pk %}" class="btn btn-sm btn-warning">
+                    <a href="{% url 'edit_group' group.pk %}" class="btn btn-outline-secondary btn-sm">
                       Edit
                     </a>
                 </td>
