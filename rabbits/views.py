@@ -48,7 +48,7 @@ def edit_group(request, pk):
     else:
         form = GroupForm(instance=group)
 
-    return render(request, "rabbits/create_group.html", {"form": form})
+    return render(request, "rabbits/edit_group.html", {"form": form})
 
 def rabbit_detail(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk)

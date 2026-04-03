@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card p-4 shadow-sm" style="max-width: 800px;">
+
+   
+    <h1>Edit Group</h1>
+    
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Назва групи</label>
+            <div class="col-sm-5">
+                {{ form.name }}
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">№ клітки</label>
+            <div class="col-sm-5">
+                {{ form.cage_number }}
+                <small style="display:block; margin-top:5px; color: #6c757d;
+font-size: 13px;">
+                Клітку можна змінити пізніше.
+                </small>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Опис</label>
+            <div class="col-sm-7">
+            {{ form.description }}
+            <small style="display:block; margin-top:5px; color: #6c757d;
+font-size: 13px;">
+                Походження групи, стать або призначення.
+            </small>
+            </div>
+        </div>
+
+    <div style="margin-top: 20px; margin-left: 190px;">
+    <button type="submit">Зберегти</button>
+
+    <div style="margin-top: 6px;">
+        <a href="{% url 'group_list' %}" style="color: #198754; text-decoration: none; font-size: 15px;">
+    Назад до груп
+</a>
+    </div>
+</div>
+    </form>
+
+</div>
+
+{% endblock %}
