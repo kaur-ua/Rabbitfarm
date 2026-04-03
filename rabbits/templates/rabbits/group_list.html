@@ -2,7 +2,12 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Groups</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Groups</h1>
+    <a href="{% url 'create_group' %}" class="btn btn-outline-success">+ Create Group</a>
+</div>
+
+    
 
     <table class="table table-bordered">
         <thead>
@@ -32,5 +37,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <p style="margin-top: 24px; color: gray; font-size: 15px;">
+    Група створюється після відсадки, коли молодняк переходить до окремого обліку.
+    До цього часу кроленята перебувають із самкою.
+</p>
 </div>
 {% endblock %}

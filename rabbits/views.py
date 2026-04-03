@@ -19,7 +19,7 @@ def create_group(request):
             group = form.save(commit=False)
             group.farm = farm
             group.save()
-            return redirect("home")
+            return redirect("group_list")
     else:
         form = GroupForm()
 
