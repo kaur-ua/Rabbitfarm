@@ -50,8 +50,10 @@ def edit_group(request, pk):
 
     return render(request, "rabbits/edit_group.html", {"form": form})
 
+@login_required
 def rabbit_detail(request, pk):
-    rabbit = get_object_or_404(Rabbit, pk=pk)
+    farm = request.user.farms.first()
+    rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
     events = rabbit.events.all().order_by("-date")
     return render(
         request,
@@ -60,8 +62,10 @@ def rabbit_detail(request, pk):
     )
 
 
+@login_required
 def rabbit_list(request):
-    rabbits_list = Rabbit.objects.all().order_by("inventory_number")
+    farm = Farm.objects.filter(owner=request.user).first()
+    rabbits_list = Rabbit.objects.filter(farm=farm).order_by("inventory_number")
 
     paginator = Paginator(rabbits_list, 5)
     page_number = request.GET.get("page")
@@ -83,18 +87,21 @@ def rabbit_list(request):
             months = (days % 365) // 30
             rabbit.age_display = f"{years} р. {months} міс."
 
-    farm = Farm.objects.filter(owner=request.user).first()
-
-    return render(request, "rabbits/rabbit_list.html", {
+        return render(request, "rabbits/rabbit_list.html", {
         "rabbits": rabbits,
         "farm": farm
 })
 
+@login_required
 def rabbit_create(request):
+    farm = request.user.farms.first()
+
     if request.method == "POST":
         form = RabbitForm(request.POST)
         if form.is_valid():
-            form.save()
+            rabbit = form.save(commit=False)
+            rabbit.farm = farm
+            rabbit.save()
             messages.success(request, "Кролика додано успішно")
             return redirect("rabbit_list")
     else:
@@ -109,8 +116,13 @@ def landing(request):
 
 @login_required
 def home(request):
-    rabbits = Rabbit.objects.all()
-    farm = Farm.objects.first()
+    farm = Farm.objects.filter(owner=request.user).first()
+
+    if not farm:
+        return redirect("create_farm")
+
+    rabbits = Rabbit.objects.filter(farm=farm)
+    
 
     rabbits_count = rabbits.count()
     males = rabbits.filter(sex="M").count()
@@ -118,7 +130,10 @@ def home(request):
 
     today = date.today()
 
-    events = Event.objects.filter(next_action_date__isnull=False)
+    events = Event.objects.filter(
+        rabbit__farm=farm,
+        next_action_date__isnull=False
+    )
 
     red_light = events.filter(next_action_date__lt=today).exists()
 
@@ -130,6 +145,11 @@ def home(request):
     green_light = events.filter(
         next_action_date__gt=today + timedelta(days=3)
     ).exists()
+
+    upcoming_event = events.filter(
+        next_action_date__gte=today
+    ).order_by("next_action_date").first()
+
     if red_light:
         yellow_light = False
         green_light = False
@@ -143,6 +163,7 @@ def home(request):
         "red_light": red_light,
         "yellow_light": yellow_light,
         "green_light": green_light,
+        "upcoming_event": upcoming_event,
     }
 
     return render(request, "home.html", context)

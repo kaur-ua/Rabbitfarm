@@ -53,18 +53,12 @@
 
 <h2>🚦 Що потрібно зробити</h2>
 
-{% if due_events %}
-<ul>
-    {% for event in due_events %}
-        <li>
-            {{ event.date }} —
-            {{ event.rabbit.inventory_number }}
-            ({{ event.get_event_type_display }})
-        </li>
-    {% endfor %}
-</ul>
+{% if red_light %}
+    🔴 Є прострочені події
+{% elif yellow_light %}
+    🟡 Найближча подія: {{ upcoming_event.next_action }} ({{ upcoming_event.next_action_date }})
 {% else %}
-<p>✅ На сьогодні завдань немає</p>
+    ✅ На сьогодні завдань немає
 {% endif %}
 
 {% endblock %}

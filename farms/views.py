@@ -3,9 +3,13 @@ from .forms import FarmForm
 from django.contrib.auth.decorators import login_required
 from .models import Farm
 
-
+@login_required
 def create_farm(request):
+    if Farm.objects.filter(owner=request.user).exists():
+        return redirect("farm_page")
+    
     if request.method == "POST":
+
         form = FarmForm(request.POST, request.FILES)
         if form.is_valid():
             farm = form.save(commit=False)
@@ -19,7 +23,7 @@ def create_farm(request):
 
 @login_required
 def farm_page(request):
-    farm = Farm.objects.get(owner=request.user)
+    farm = Farm.objects.filter(owner=request.user).first()
     return render(request, "farms/farm_page.html", {"farm": farm})
 
 @login_required
