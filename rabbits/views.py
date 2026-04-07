@@ -87,10 +87,10 @@ def rabbit_list(request):
             months = (days % 365) // 30
             rabbit.age_display = f"{years} р. {months} міс."
 
-        return render(request, "rabbits/rabbit_list.html", {
+    return render(request, "rabbits/rabbit_list.html", {
         "rabbits": rabbits,
         "farm": farm
-})
+    })
 
 @login_required
 def rabbit_create(request):

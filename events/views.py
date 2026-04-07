@@ -3,11 +3,14 @@ from datetime import timedelta
 from .forms import EventForm
 from farms.models import Farm
 from rabbits.models import Group
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def add_event(request):
+    farm = request.user.farms.first()
     if request.method == "POST":
         form = EventForm(request.POST)
+        form.fields["rabbit"].queryset = farm.rabbits.all()
         if form.is_valid():
             event = form.save(commit=False)
             
@@ -26,11 +29,10 @@ def add_event(request):
 
             elif event.event_type == "weaning":
                 event.next_action = "Групу створено"
+            
             event.save()
 
             if event.event_type == "weaning":
-                farm = request.user.farms.first()
-
                 Group.objects.get_or_create(
                    name=f"{event.rabbit.name}_{event.date}",
                    farm=farm,
@@ -43,9 +45,9 @@ def add_event(request):
 
     else:
         form = EventForm()
+        form.fields["rabbit"].queryset = farm.rabbits.all()
 
-    farm = request.user.farms.first()
-
+    
     return render(request, "events/add_event.html", {
         "form": form,
         "farm": farm

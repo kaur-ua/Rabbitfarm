@@ -21,12 +21,16 @@
 
 <div class="ms-auto">
 
-<a class="text-white me-3" href="/home/">Інформаційна панель</a>
-<a class="text-white me-3" href="/rabbits/">Кролики</a>
-<a class="text-white me-3" href="/rabbits/groups/">Групи</a>
-<a class="text-white me-3" href="/events/add/">Додати подію</a>
-<a class="text-white" href="/logout/">Вийти</a>
-
+<a class="text-white me-3" href="{% url 'home' %}">HOME</a>
+<a class="text-white me-3" href="{% url 'rabbit_list' %}">Journal</a>
+<a class="text-white me-3" href="{% url 'group_list' %}">Groups</a>
+<a class="text-white me-3" href="{% url 'add_event' %}">Events</a>
+<form action="{% url 'logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-link text-white p-0 text-decoration-none">
+        Logout
+    </button>
+</form>
 </div>
 
 </nav>
