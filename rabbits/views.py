@@ -76,6 +76,18 @@ def rabbit_list(request):
             rabbit=rabbit
         ).order_by("-date").first()
 
+        if rabbit.last_event and rabbit.last_event.next_action_date:
+            days_left = (rabbit.last_event.next_action_date - date.today()).days
+
+            if days_left < 0:
+                rabbit.status = "критичний"
+            elif days_left <= 7:
+                rabbit.status = "увага"
+            else:
+                rabbit.status = ""
+        else:
+            rabbit.status = ""
+
         days = (date.today() - rabbit.birth_date).days
 
         if days < 60:
@@ -139,11 +151,11 @@ def home(request):
 
     yellow_light = events.filter(
         next_action_date__gte=today,
-        next_action_date__lte=today + timedelta(days=3)
+        next_action_date__lte=today + timedelta(days=7)
     ).exists()
 
     green_light = events.filter(
-        next_action_date__gt=today + timedelta(days=3)
+        next_action_date__gt=today + timedelta(days=7)
     ).exists()
 
     upcoming_event = events.filter(

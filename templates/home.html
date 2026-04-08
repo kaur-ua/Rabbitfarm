@@ -11,11 +11,14 @@
 
     <div class="traffic-light">
 
-        <div class="lamp {% if green_light %}active-green{% endif %}"></div>
+        
+<div class="lamp
+    {% if red_light %}active-red
+    {% elif yellow_light %}active-yellow
+    {% else %}active-green
+    {% endif %}">
+</div>
 
-<div class="lamp {% if yellow_light %}active-yellow{% endif %}"></div>
-
-<div class="lamp {% if red_light %}active-red{% endif %}"></div>
     </div>
 
 </div>

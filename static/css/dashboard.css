@@ -2,15 +2,16 @@
     display: flex;
     gap: 25px;
     align-items: center;
+    justify-content: flex-start;
+    margin-right: 120px;
     margin-bottom: 25px;
 }
 
 .lamp {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid #5b7ea6;
-    background: white;
+  width: 60px;
+height: 60px;
+border-radius: 10px;
+box-shadow: 0 0 12px rgba(0,0,0,0.15);
 }
 
 .active-green {
@@ -18,7 +19,8 @@
 }
 
 .active-yellow {
-    background: #f1c40f;
+    background-color: #ffc107;
+box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
 }
 
 .active-red {
