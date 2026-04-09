@@ -142,25 +142,32 @@ def home(request):
 
     today = date.today()
 
-    events = Event.objects.filter(
-        rabbit__farm=farm,
-        next_action_date__isnull=False
-    )
+    red_light = False
+    yellow_light = False
+    green_light = False
 
-    red_light = events.filter(next_action_date__lt=today).exists()
+    upcoming_events = []
 
-    yellow_light = events.filter(
-        next_action_date__gte=today,
-        next_action_date__lte=today + timedelta(days=7)
-    ).exists()
+    for rabbit in rabbits:
+        latest_event = Event.objects.filter(
+            rabbit=rabbit,
+            next_action_date__isnull=False
+        ).order_by("-date").first()
 
-    green_light = events.filter(
-        next_action_date__gt=today + timedelta(days=7)
-    ).exists()
+        if latest_event:
+            upcoming_events.append(latest_event)
 
-    upcoming_event = events.filter(
-        next_action_date__gte=today
-    ).order_by("next_action_date").first()
+            if latest_event.next_action_date < today:
+                red_light = True
+            elif latest_event.next_action_date <= today + timedelta(days=7):
+                yellow_light = True
+            else:
+                green_light = True
+
+    upcoming_event = sorted(
+        upcoming_events,
+        key=lambda x: x.next_action_date
+    )[0] if upcoming_events else None
 
     if red_light:
         yellow_light = False
