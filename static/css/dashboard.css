@@ -3,15 +3,16 @@
     gap: 25px;
     align-items: center;
     justify-content: flex-start;
-    margin-right: 120px;
+    margin-right: 40px;
     margin-bottom: 25px;
 }
 
 .lamp {
-  width: 60px;
-height: 60px;
-border-radius: 10px;
-box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    display: inline-block;
+    width: 120px;
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
 }
 
 .active-green {

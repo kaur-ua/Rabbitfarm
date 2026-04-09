@@ -6,16 +6,16 @@
 
     <h2 class="mb-4">{{ farm.name }}</h2>
 
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row align-items-center">
+        <div class="col-md-5">
             {% if farm.image %}
-             <img src="{{ farm.image.url }}" class="img-fluid rounded" alt="{{ farm.name }}">
+             <img src="{{ farm.image.url }}" class="rounded" alt="{{ farm.name }}" style="width:350px; height:auto;">
             {% else %}
              <div class="text-muted">No image available</div>
             {% endif %}
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-7">
             <p><strong>Location:</strong> {{ farm.location }}</p>
             <p><strong>Phone:</strong> {{ farm.phone }}</p>
             <p><strong>Description:</strong> {{ farm.description }}</p>
