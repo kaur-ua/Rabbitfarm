@@ -5,15 +5,27 @@
 <h2>Картка кролика</h2>
 
 <div class="card mb-4">
-    <div class="card-body">
-        <p><strong>Інвентарний номер:</strong> {{ rabbit.inventory_number }}</p>
-        <p><strong>Ім'я:</strong> {{ rabbit.name }}</p>
-        <p><strong>Стать:</strong> {{ rabbit.get_sex_display }}</p>
-        <p><strong>Статус:</strong> {{ rabbit.status }}</p>
-        <p><strong>Дата народження:</strong> {{ rabbit.birth_date }}</p>
-        <p><strong>Порода:</strong> {{ rabbit.breed }}</p>
-        <p><strong>Клітка:</strong> {{ rabbit.cage }}</p>
+   <div class="card-body">
+    <div class="row">
+
+        <div class="col-md-4 text-center">
+            <img src="https://placehold.co/180x180?text=Rabbit"
+                 class="img-fluid rounded"
+                 alt="Фото кролика">
+        </div>
+
+        <div class="col-md-8" style="line-height: 2;">
+            <p><strong>Інвентарний номер:</strong> {{ rabbit.inventory_number }}</p>
+            <p><strong>Ім'я:</strong> {{ rabbit.name }}</p>
+            <p><strong>Стать:</strong> {{ rabbit.get_sex_display }}</p>
+            <p><strong>Статус:</strong> {{ rabbit.status }}</p>
+            <p><strong>Дата народження:</strong> {{ rabbit.birth_date }}</p>
+            <p><strong>Порода:</strong> {{ rabbit.breed }}</p>
+            <p><strong>Клітка:</strong> {{ rabbit.cage }}</p>
+        </div>
+
     </div>
+</div>
 </div>
 
 <a href="/" class="btn btn-secondary">Назад до списку</a>
