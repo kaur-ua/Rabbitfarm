@@ -84,9 +84,9 @@ def rabbit_list(request):
             elif days_left <= 7:
                 rabbit.status = "увага"
             else:
-                rabbit.status = ""
+                rabbit.status = "норма"
         else:
-            rabbit.status = ""
+            rabbit.status = "—"
 
         days = (date.today() - rabbit.birth_date).days
 

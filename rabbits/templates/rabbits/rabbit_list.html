@@ -77,17 +77,17 @@
             </td>
 
             <td>
-               
-                 {% if rabbit.status == "критичний" %}
-                    🔴 критичний
-                 {% elif rabbit.status == "увага" %}
-                    🟡 увага
-                 {% else %}
-                     —
-                 {% endif %}
-                
+               {% if rabbit.status == "критичний" %}
+                   🔴 критичний
+               {% elif rabbit.status == "увага" %}
+                   🟡 увага
+               {% elif rabbit.status == "норма" %}
+                   🟢 норма
+               {% else %}
+                    —
+               {% endif %}
             </td>
-        </tr>
+        </tr>   
         {% endfor %}
     </tbody>
 </table>
