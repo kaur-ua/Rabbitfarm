@@ -17,6 +17,7 @@ class RabbitForm(forms.ModelForm):
             "weight",
             "mother",
             "father",
+            "photo",
         ]
 
 

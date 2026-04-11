@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 <h2>Картка кролика</h2>
@@ -9,9 +11,12 @@
     <div class="row">
 
         <div class="col-md-4 text-center">
-            <img src="https://placehold.co/180x180?text=Rabbit"
-                 class="img-fluid rounded"
-                 alt="Фото кролика">
+            {% if rabbit.photo %}
+                <img src="{{ rabbit.photo.url }}" class="img-fluid rounded" alt="Фото кролика">
+            {% else %}
+                <img src="{% static 'images/rabbit_default.png' %}" class="img-fluid rounded" alt="Фото кролика">
+            {% endif %}
+                 
         </div>
 
         <div class="col-md-8" style="line-height: 2;">

@@ -11,6 +11,8 @@ class Group(models.Model):
 
     cage_number = models.CharField(max_length=50, blank=True)
 
+    photo = models.ImageField(upload_to='rabbit_photos/', blank=True, null=True)
+
     farm = models.ForeignKey(
         Farm,
         on_delete=models.CASCADE,
@@ -106,6 +108,7 @@ class Rabbit(models.Model):
         verbose_name="Вага"
     )
 
+    photo = models.ImageField(upload_to='rabbit_photos/', blank=True, null=True) 
 
     created_at = models.DateTimeField(auto_now_add=True)
 

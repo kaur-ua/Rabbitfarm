@@ -109,7 +109,7 @@ def rabbit_create(request):
     farm = request.user.farms.first()
 
     if request.method == "POST":
-        form = RabbitForm(request.POST)
+        form = RabbitForm(request.POST, request.FILES)
         if form.is_valid():
             rabbit = form.save(commit=False)
             rabbit.farm = farm
