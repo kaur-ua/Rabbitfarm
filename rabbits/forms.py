@@ -6,7 +6,7 @@ class RabbitForm(forms.ModelForm):
     class Meta:
         model = Rabbit
         fields = [
-            "farm",
+            
             "group",
             "name",
             "sex",

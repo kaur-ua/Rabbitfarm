@@ -116,6 +116,10 @@ def rabbit_create(request):
             rabbit.save()
             messages.success(request, "Кролика додано успішно")
             return redirect("rabbit_list")
+        else:
+            print(form.errors)
+
+           
     else:
         form = RabbitForm()
 
