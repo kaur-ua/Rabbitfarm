@@ -209,4 +209,12 @@ def rabbit_edit(request, pk):
         "form": form
     })
     
-    
+@login_required
+def rabbit_delete(request, pk):
+    farm = request.user.farms.first()
+    rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
+
+    rabbit.delete()
+    messages.success(request, "Кролика видалено")
+
+    return redirect("rabbit_list")   

@@ -89,9 +89,23 @@
                {% endif %}
             </td>
             <td>
-    <a href="{% url 'rabbit_edit' rabbit.pk %}" class="btn btn-sm btn-outline-primary">
-        Редагувати
+    <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Дії
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{% url 'rabbit_edit' rabbit.pk %}">Редагувати</a>
+        </li>
+        <li>
+    <a class="dropdown-item text-danger"
+       href="{% url 'rabbit_delete' rabbit.pk %}"
+       onclick="return confirm('Видалити кролика?')">
+       Видалити
     </a>
+</li>
+    </ul>
+</div>
 </td>
         </tr>   
         {% endfor %}
