@@ -188,6 +188,25 @@ def home(request):
         "green_light": green_light,
         "upcoming_event": upcoming_event,
     }
-
+    
     return render(request, "home.html", context)
 
+@login_required
+def rabbit_edit(request, pk):
+    farm = request.user.farms.first()
+    rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
+
+    if request.method == "POST":
+        form = RabbitForm(request.POST, request.FILES, instance=rabbit)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Дані кролика оновлено")
+            return redirect("rabbit_list")
+    else:
+        form = RabbitForm(instance=rabbit)
+
+    return render(request, "rabbits/rabbit_form.html", {
+        "form": form
+    })
+    
+    

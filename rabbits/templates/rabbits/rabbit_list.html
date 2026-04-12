@@ -25,6 +25,7 @@
             <th>Наступна дія</th>
             <th>Дата наступної дії</th>
             <th>Статус</th>
+            <th>Дії</th>
         </tr>
     </thead>
     <tbody>
@@ -87,6 +88,11 @@
                     —
                {% endif %}
             </td>
+            <td>
+    <a href="{% url 'rabbit_edit' rabbit.pk %}" class="btn btn-sm btn-outline-primary">
+        Редагувати
+    </a>
+</td>
         </tr>   
         {% endfor %}
     </tbody>
