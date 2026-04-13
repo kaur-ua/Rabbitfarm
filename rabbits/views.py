@@ -51,6 +51,16 @@ def edit_group(request, pk):
     return render(request, "rabbits/edit_group.html", {"form": form})
 
 @login_required
+def delete_group(request, pk):
+    farm = request.user.farms.first()
+    group = get_object_or_404(Group, pk=pk, farm=farm)
+
+    group.delete()
+    messages.success(request, "Групу видалено")
+
+    return redirect("group_list")
+
+@login_required
 def rabbit_detail(request, pk):
     farm = request.user.farms.first()
     rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)

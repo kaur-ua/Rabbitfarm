@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Groups</h1>
-    <a href="{% url 'create_group' %}" class="btn btn-outline-success">+ Create Group</a>
+    <a href="{% url 'create_group' %}" class="btn btn-outline-success">+ Створити групу</a>
 </div>
 
     
@@ -12,10 +12,10 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Cage</th>
-                <th>Rabbits count</th>
-                <th>Description</th>
+                <th>Імʼя</th>
+                <th>№ клітки</th>
+                <th>Кількість</th>
+                <th>Опис</th>
                 <th>Дія</th>
             </tr>
         </thead>
@@ -27,9 +27,23 @@
                 <td>{{ group.rabbits_count }}</td>
                 <td>{{ group.description }}</td>
                 <td>
-                    <a href="{% url 'edit_group' group.pk %}" class="btn btn-outline-secondary btn-sm">
-                      Edit
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Дії
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="{% url 'edit_group' group.pk %}">Редагувати</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger"
+                        href="{% url 'delete_group' group.pk %}"
+                        onclick="return confirm('Видалити групу?')">
+                   Видалити
                     </a>
+                    </li>
+                    </ul>
+                </div>
                 </td>
             </tr>
             {% empty %}
