@@ -120,6 +120,7 @@ def rabbit_create(request):
 
     if request.method == "POST":
         form = RabbitForm(request.POST, request.FILES)
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
         if form.is_valid():
             rabbit = form.save(commit=False)
             rabbit.farm = farm
@@ -132,6 +133,7 @@ def rabbit_create(request):
            
     else:
         form = RabbitForm()
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {
         "form": form
@@ -208,12 +210,14 @@ def rabbit_edit(request, pk):
 
     if request.method == "POST":
         form = RabbitForm(request.POST, request.FILES, instance=rabbit)
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
         if form.is_valid():
             form.save()
             messages.success(request, "Дані кролика оновлено")
             return redirect("rabbit_list")
     else:
         form = RabbitForm(instance=rabbit)
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {
         "form": form
