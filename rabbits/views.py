@@ -19,21 +19,25 @@ def create_group(request):
             group = form.save(commit=False)
             group.farm = farm
             group.save()
+            count = form.cleaned_data["count"]
+
+            for i in range(1, count + 1):
+                Rabbit.objects.create(
+                    farm=farm,
+                    group=group,
+                    name=f"{group.name}-{i:02}",
+                    sex="M",
+                    breed="Невідомо",
+                    birth_date=date.today(),
+                    cage=group.cage_number,
+                    status="ACTIVE"
+                )
+
             return redirect("group_list")
     else:
         form = GroupForm()
 
     return render(request, "rabbits/create_group.html", {"form": form})
-
-@login_required
-def group_list(request):
-    farm = Farm.objects.filter(owner=request.user).first()
-    groups = Group.objects.filter(farm=farm)
-
-    return render(request, 'rabbits/group_list.html', {
-        'groups': groups,
-        'farm': farm
-    })
 
 @login_required
 def edit_group(request, pk):
@@ -49,6 +53,16 @@ def edit_group(request, pk):
         form = GroupForm(instance=group)
 
     return render(request, "rabbits/edit_group.html", {"form": form})
+
+@login_required
+def group_list(request):
+    farm = Farm.objects.filter(owner=request.user).first()
+    groups = Group.objects.filter(farm=farm)
+
+    return render(request, "rabbits/group_list.html", {
+        "groups": groups,
+        "farm": farm
+    })
 
 @login_required
 def delete_group(request, pk):
@@ -89,7 +103,7 @@ def rabbit_list(request):
         if rabbit.last_event and rabbit.last_event.next_action_date:
             days_left = (rabbit.last_event.next_action_date - date.today()).days
 
-            if days_left < 0:
+            if days_left <= 0:
                 rabbit.status = "критичний"
             elif days_left <= 7:
                 rabbit.status = "увага"
@@ -173,7 +187,7 @@ def home(request):
         if latest_event:
             upcoming_events.append(latest_event)
 
-            if latest_event.next_action_date < today:
+            if latest_event.next_action_date <= today:
                 red_light = True
             elif latest_event.next_action_date <= today + timedelta(days=7):
                 yellow_light = True

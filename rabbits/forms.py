@@ -22,6 +22,7 @@ class RabbitForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
+    count = forms.IntegerField(min_value=1, label="Кількість")
     class Meta:
         model = Group
         fields = ['name', 'cage_number', 'description']

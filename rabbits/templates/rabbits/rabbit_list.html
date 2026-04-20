@@ -16,6 +16,7 @@
         <tr>
             <th>№</th>
             <th>Кличка</th>
+            <th>Клітка</th>
             <th>Стать</th>
             <th>Вік</th>
             <th>Вага</th>
@@ -36,6 +37,7 @@
                     {{ rabbit.name }}
                  </a>
             </td>
+            <td>{{ rabbit.cage }}</td>
             <td>{{ rabbit.get_sex_display }}</td>
             <td>{{ rabbit.age_display }}</td>
             <td>{% if rabbit.weight %}
@@ -97,6 +99,7 @@
         <li>
             <a class="dropdown-item" href="{% url 'rabbit_edit' rabbit.pk %}">Редагувати</a>
         </li>
+        <li><a class="dropdown-item" href="{% url 'edit_event' rabbit.id %}">Редагувати подію</a></li>
         <li>
     <a class="dropdown-item text-danger"
        href="{% url 'rabbit_delete' rabbit.pk %}"

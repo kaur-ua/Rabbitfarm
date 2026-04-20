@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import add_event
+from . import views
 
 urlpatterns = [
-    path('add/', add_event, name='add_event'),
+     path("edit/<int:rabbit_id>/", views.edit_event, name="edit_event"),
+    path("add/", views.add_event, name="add_event"),
 ]

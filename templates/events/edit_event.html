@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Редагування події</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">
+        Зберегти
+    </button>
+
+    <a href="{% url 'rabbit_list' %}" class="btn btn-secondary">
+        Скасувати
+    </a>
+</form>
+
+{% endblock %}

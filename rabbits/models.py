@@ -46,6 +46,7 @@ class Rabbit(models.Model):
     SEX_CHOICES = [
          ("F", "Самка"),
          ("M", "Самець"),
+         ("U", "Невідомо"),
     ]
 
     STATUS_CHOICES = [
