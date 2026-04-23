@@ -19,7 +19,17 @@ class RabbitForm(forms.ModelForm):
             "father",
             "photo",
         ]
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        self.fields["mother"].label_from_instance = (
+            lambda obj: f"{obj.inventory_number} | {obj.name}"
+        )
+
+        self.fields["father"].label_from_instance = (
+            lambda obj: f"{obj.inventory_number} | {obj.name}"
+        )
 
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")

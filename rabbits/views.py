@@ -13,6 +13,14 @@ from .models import Group
 def create_group(request):
     farm = request.user.farms.first()
 
+    numbers = farm.rabbits.values_list("inventory_number", flat=True)
+
+    numeric_numbers = [
+        int(num) for num in numbers if num and num.isdigit()
+    ]
+
+    next_number = max(numeric_numbers, default=0) + 1
+
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
@@ -26,6 +34,7 @@ def create_group(request):
                     farm=farm,
                     group=group,
                     name=f"{group.name}-{i:02}",
+                    inventory_number=f"{next_number + i - 1:04}",
                     sex="M",
                     breed="Невідомо",
                     birth_date=date.today(),

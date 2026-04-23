@@ -33,7 +33,8 @@ def add_event(request):
                 event.next_action = "Розділення за статтю"
                 event.next_action_date = event.date + timedelta(days=30)
 
-            
+            event.save()
+           
                            
             if event.event_type == "kindling":
                 numbers = farm.rabbits.values_list("inventory_number", flat=True)
@@ -43,11 +44,14 @@ def add_event(request):
                 ]
 
                 next_number = max(numeric_numbers, default=0) + 1
-                for i in range(1, 13):
+                
+                born_alive = event.born_alive or 0
+                
+                for i in range(1, born_alive + 1):
                     Rabbit.objects.create(
                     farm=farm,
                     mother=event.rabbit,
-                    name=f"{event.rabbit.name}-{i:02}",
+                    name=f"G{event.rabbit.inventory_number}-{i:02}",
                     inventory_number=f"{next_number + i - 1:04}",
                     sex="U",
                     breed=event.rabbit.breed,
