@@ -9,7 +9,7 @@ class EventForm(forms.ModelForm):
     )
     class Meta:
         model = Event
-        fields = ['rabbit', 'event_type', 'date', 'born_alive', 'born_dead', 'note']
+        fields = ['rabbit', 'event_type', 'date', 'born_alive', 'born_dead', 'note', 'cage']
         widgets = {
         'date': forms.DateInput(
         attrs={

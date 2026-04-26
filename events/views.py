@@ -46,12 +46,14 @@ def add_event(request):
                 next_number = max(numeric_numbers, default=0) + 1
                 
                 born_alive = event.born_alive or 0
+
+                mother_short_name = event.rabbit.name.split()[-1]
                 
                 for i in range(1, born_alive + 1):
                     Rabbit.objects.create(
                     farm=farm,
                     mother=event.rabbit,
-                    name=f"G{event.rabbit.inventory_number}-{i:02}",
+                    name=f"G{mother_short_name}-{i:02}",
                     inventory_number=f"{next_number + i - 1:04}",
                     sex="U",
                     breed=event.rabbit.breed,
