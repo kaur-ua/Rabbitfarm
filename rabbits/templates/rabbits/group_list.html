@@ -16,6 +16,9 @@
                 <th>№ клітки</th>
                 <th>Кількість</th>
                 <th>Опис</th>
+                <th>Остання подія</th>
+                <th>Наступна дія</th>
+                <th>Дата наступної дії</th>
                 <th>Дія</th>
             </tr>
         </thead>
@@ -27,19 +30,48 @@
                 <td>{{ group.rabbits_count }}</td>
                 <td>{{ group.description }}</td>
                 <td>
+            {% if group.last_event %}
+                {{ group.last_event.get_event_type_display }}
+            {% else %}
+                —
+            {% endif %}
+            </td>
+
+            <td>
+            {% if group.last_event %}
+                {{ group.last_event.next_action }}
+            {% else %}
+                —
+            {% endif %}
+            </td>
+
+            <td>
+            {% if group.last_event and group.last_event.next_action_date %}
+                {{ group.last_event.next_action_date|date:"d.m.Y" }}
+            {% else %}
+                —
+            {% endif %}
+            </td>
+                <td>
                 <div class="dropdown">
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                         Дії
                     </button>
                     <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="{% url 'edit_group' group.pk %}">Редагувати</a>
+                        <a class="dropdown-item" href="{% url 'edit_group' group.pk %}">
+                            Редагувати</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'create_group_event' group.pk %}">
+                            Створити подію
+                        </a>
                     </li>
                     <li>
                         <a class="dropdown-item text-danger"
                         href="{% url 'delete_group' group.pk %}"
                         onclick="return confirm('Видалити групу?')">
-                   Видалити
+                            Видалити
                     </a>
                     </li>
                     </ul>

@@ -11,10 +11,21 @@ class Event(models.Model):
     ]
  
     rabbit = models.ForeignKey(
-        "rabbits.Rabbit",
-        on_delete=models.CASCADE,
-        related_name="events"
+    "rabbits.Rabbit",
+    on_delete=models.CASCADE,
+    related_name="events",
+    null=True,
+    blank=True
     )
+    
+
+    group = models.ForeignKey(
+    "rabbits.Group",
+    on_delete=models.CASCADE,
+    related_name="events",
+    null=True,
+    blank=True
+)
 
     event_type = models.CharField(
         max_length=20,

@@ -99,7 +99,13 @@
         <li>
             <a class="dropdown-item" href="{% url 'rabbit_edit' rabbit.pk %}">Редагувати</a>
         </li>
-        <li><a class="dropdown-item" href="{% url 'edit_event' rabbit.id %}">Редагувати подію</a></li>
+        {% if rabbit.last_event %}
+<li>
+    <a class="dropdown-item" href="{% url 'rabbit_edit_event' rabbit.last_event.id %}">
+        Редагувати подію
+    </a>
+</li>
+{% endif %}
         <li>
     <a class="dropdown-item text-danger"
        href="{% url 'rabbit_delete' rabbit.pk %}"

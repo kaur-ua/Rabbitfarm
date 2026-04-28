@@ -4,6 +4,7 @@ from farms.models import Farm
 from rabbits.models import Group, Rabbit
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django import forms
 
 
 
@@ -185,6 +186,39 @@ def edit_event(request, rabbit_id):
         "form": form,
         "rabbit": rabbit,
         "event": event,
+        "farm": farm
+    })
+@login_required
+def create_group_event(request, group_id):
+    farm = request.user.farms.first()
+    group = get_object_or_404(Group, pk=group_id, farm=farm)
+
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        form.instance.group = group
+        form.fields["rabbit"].widget = forms.HiddenInput()
+        form.fields["group"].widget = forms.HiddenInput()
+
+        if form.is_valid():
+            event = form.save(commit=False)
+            event.group = group
+            event.rabbit = None
+
+            if event.event_type == "weaning":
+                event.next_action = "Розділення за статтю"
+                event.next_action_date = event.date + timedelta(days=30)
+
+            event.save()
+            return redirect("group_list")
+
+    else:
+        form = EventForm()
+        form.fields["rabbit"].widget = forms.HiddenInput()
+        form.fields["group"].widget = forms.HiddenInput()
+        
+
+    return render(request, "events/add_event.html", {
+        "form": form,
         "farm": farm
     })
 

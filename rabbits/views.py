@@ -8,6 +8,8 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from .forms import RabbitForm, GroupForm
 from .models import Group
+from events.forms import EventForm
+from django import forms
 
 @login_required
 def create_group(request):
@@ -67,7 +69,12 @@ def edit_group(request, pk):
 def group_list(request):
     farm = Farm.objects.filter(owner=request.user).first()
     groups = Group.objects.filter(farm=farm)
-
+    
+    for group in groups:
+        group.last_event = Event.objects.filter(
+        group=group
+    ).order_by("-date").first()
+    
     return render(request, "rabbits/group_list.html", {
         "groups": groups,
         "farm": farm
@@ -254,4 +261,32 @@ def rabbit_delete(request, pk):
     rabbit.delete()
     messages.success(request, "Кролика видалено")
 
-    return redirect("rabbit_list")   
+    return redirect("rabbit_list")  
+
+@login_required
+def edit_event(request, pk):
+    farm = request.user.farms.first()
+    event = get_object_or_404(Event, pk=pk, rabbit__farm=farm)
+
+    if event.rabbit:
+        event.group = None
+
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=event)
+        form.fields["rabbit"].widget = forms.HiddenInput()
+        form.fields["group"].widget = forms.HiddenInput()
+        form.fields["cage"].widget = forms.HiddenInput()
+    
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Подію оновлено")
+            return redirect("rabbit_list")
+    else:
+        form = EventForm(instance=event)
+        form.fields["rabbit"].widget = forms.HiddenInput()
+        form.fields["group"].widget = forms.HiddenInput()
+        form.fields["cage"].widget = forms.HiddenInput()
+
+    return render(request, "events/edit_event.html", {
+        "form": form
+    })
