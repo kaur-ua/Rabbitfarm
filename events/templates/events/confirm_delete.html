@@ -1,0 +1,12 @@
+<h3>Видалити подію?</h3>
+
+<p>
+    {{ event.get_event_type_display }} — {{ event.date }}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Так, видалити</button>
+</form>
+
+<a href="{% url 'group_list' %}">Скасувати</a>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Rabbit
+from .models import Rabbit, Group
 
 @admin.register(Rabbit)
 class RabbitAdmin(admin.ModelAdmin):
@@ -10,5 +10,13 @@ class RabbitAdmin(admin.ModelAdmin):
         "weight",
         "breed",
         "status",
+    )
+
+@admin.register(Group)
+class GroupAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "cage_number",
+        "description",
     )
 

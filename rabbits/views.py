@@ -10,6 +10,7 @@ from .forms import RabbitForm, GroupForm
 from .models import Group
 from events.forms import EventForm
 from django import forms
+from events.models import Event
 
 @login_required
 def create_group(request):
@@ -29,6 +30,20 @@ def create_group(request):
             group = form.save(commit=False)
             group.farm = farm
             group.save()
+            last_weaning = Event.objects.filter(
+            event_type="weaning"
+        ).order_by("-date").first()
+
+            print("LAST WEANING:", last_weaning)
+            print("GROUP:", group)
+
+            if last_weaning:
+                last_weaning.group_id = group.id
+                last_weaning.save(update_fields=["group"])
+
+                          
+                
+        
             count = form.cleaned_data["count"]
 
             for i in range(1, count + 1):
@@ -71,10 +86,13 @@ def group_list(request):
     groups = Group.objects.filter(farm=farm)
     
     for group in groups:
-        group.last_event = Event.objects.filter(
-        group=group
-    ).order_by("-date").first()
-    
+        last_event = Event.objects.filter(
+                group=group
+        ).order_by("-date").first()
+
+        group.last_event = last_event
+
+          
     return render(request, "rabbits/group_list.html", {
         "groups": groups,
         "farm": farm
@@ -267,9 +285,6 @@ def rabbit_delete(request, pk):
 def edit_event(request, pk):
     farm = request.user.farms.first()
     event = get_object_or_404(Event, pk=pk, rabbit__farm=farm)
-
-    if event.rabbit:
-        event.group = None
 
     if request.method == "POST":
         form = EventForm(request.POST, instance=event)
