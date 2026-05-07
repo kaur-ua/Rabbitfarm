@@ -54,6 +54,12 @@
 
 <h5>🚦 Що потрібно зробити</h5>
 
+{% for group in sex_check_groups %}
+<div class="alert alert-warning mt-3">
+    ⚠ Потрібно визначити стать у групі {{ group.name }}
+</div>
+{% endfor %}
+
 {% if red_light %}
     🔴 Є прострочені події
 {% elif yellow_light %}

@@ -206,6 +206,14 @@ def home(request):
 
     today = date.today()
 
+    tomorrow = today + timedelta(days=1)
+
+    sex_check_groups = Group.objects.filter(
+        events__next_action="Розділення за статтю",
+        events__next_action_date=tomorrow,
+        rabbits__sex="U"
+    ).distinct()
+
     red_light = False
     yellow_light = False
     green_light = False
@@ -247,6 +255,7 @@ def home(request):
         "yellow_light": yellow_light,
         "green_light": green_light,
         "upcoming_event": upcoming_event,
+        "sex_check_groups": sex_check_groups,
     }
     
     return render(request, "home.html", context)
