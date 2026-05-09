@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>
+        Розділення групи {{ group.name }} за статтю
+    </h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit"
+                class="btn btn-warning">
+            Розділити
+        </button>
+
+        <a href="{% url 'group_list' %}"
+           class="btn btn-secondary">
+           Скасувати
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -6,11 +6,11 @@ from farms.models import Farm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .forms import RabbitForm, GroupForm
 from .models import Group
 from events.forms import EventForm
 from django import forms
 from events.models import Event
+from .forms import RabbitForm, GroupForm, SexSeparationForm
 
 @login_required
 def create_group(request):
@@ -97,6 +97,81 @@ def group_list(request):
         "groups": groups,
         "farm": farm
     })
+
+@login_required
+def separate_by_sex(request, group_id):
+    farm = request.user.farms.first()
+
+    group = get_object_or_404(
+        Group,
+        id=group_id,
+        farm=farm
+    )
+
+    rabbits = group.rabbits.all()
+
+    unknown_sex = rabbits.filter(sex="U").exists()
+
+    if unknown_sex:
+        messages.error(
+            request,
+            "Спочатку визначте стать усіх кроликів"
+        )
+        return redirect("group_list")
+
+    if request.method == "POST":
+        form = SexSeparationForm(request.POST)
+
+        if form.is_valid():
+
+            cage_male = form.cleaned_data["cage_male"]
+            cage_female = form.cleaned_data["cage_female"]
+
+            male_group = Group.objects.create(
+                farm=farm,
+                name=f"{group.name}_M",
+                cage_number=cage_male,
+                description=f"Самці з групи {group.name}"
+            )
+
+            female_group = Group.objects.create(
+                farm=farm,
+                name=f"{group.name}_F",
+                cage_number=cage_female,
+                description=f"Самки з групи {group.name}"
+            )
+
+            males = rabbits.filter(sex="M")
+            females = rabbits.filter(sex="F")
+
+            for rabbit in males:
+                rabbit.group = male_group
+                rabbit.cage = cage_male
+                rabbit.save()
+
+            for rabbit in females:
+                rabbit.group = female_group
+                rabbit.cage = cage_female
+                rabbit.save()
+
+            messages.success(
+                request,
+                "Групу успішно розділено"
+            )
+
+            return redirect("group_list")
+
+    else:
+        form = SexSeparationForm()
+
+    return render(
+        request,
+        "rabbits/separate_by_sex.html",
+        {
+            "form": form,
+            "group": group,
+        }
+    )
 
 @login_required
 def delete_group(request, pk):

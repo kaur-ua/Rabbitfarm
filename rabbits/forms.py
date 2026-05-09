@@ -36,3 +36,14 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name', 'cage_number', 'description']
+
+class SexSeparationForm(forms.Form):
+    cage_male = forms.CharField(
+        label="Клітка для самців",
+        max_length=20
+    )
+
+    cage_female = forms.CharField(
+        label="Клітка для самок",
+        max_length=20
+    )
