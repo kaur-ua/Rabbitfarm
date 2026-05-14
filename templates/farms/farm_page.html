@@ -25,7 +25,24 @@
             </a>
         </div>
     </div>
+</div>
+{% if not farm.rabbits.exists %}
+
+<div class="card p-4 mt-4 text-center">
+
+    <h4 class="mb-3">У вас ще немає кролів 🐰</h4>
+
+    <p class="text-muted">
+        Почніть заповнення журналу обліку, додавши першого кролика.
+    </p>
+
+    <a href="{% url 'rabbit_list' %}" class="btn btn-success mt-2">
+        Заповнити журнал обліку
+    </a>
 
 </div>
+
+{% endif %}
+
 
 {% endblock %}

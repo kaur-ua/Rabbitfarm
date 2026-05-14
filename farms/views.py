@@ -15,7 +15,7 @@ def create_farm(request):
             farm = form.save(commit=False)
             farm.owner = request.user
             farm.save()
-            return redirect("home")
+            return redirect("farm_page")
     else:
         form = FarmForm()
 

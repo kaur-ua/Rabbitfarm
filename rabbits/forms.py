@@ -16,9 +16,17 @@ class RabbitForm(forms.ModelForm):
             "birth_date",
             "weight",
             "mother",
+            "mother_manual",
             "father",
+            "father_manual",
             "photo",
         ]
+
+        widgets = {
+    "birth_date": forms.DateInput(
+        attrs={"type": "date"}
+    )
+    }
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -31,12 +39,16 @@ class RabbitForm(forms.ModelForm):
             lambda obj: f"{obj.inventory_number} | {obj.name}"
         )
 
+        self.fields["mother_manual"].label = "Мати (вручну)"
+        self.fields["father_manual"].label = "Батько (вручну)"
+
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")
     class Meta:
         model = Group
         fields = ['name', 'cage_number', 'description']
-
+        
+        
 class SexSeparationForm(forms.Form):
     cage_male = forms.CharField(
         label="Клітка для самців",

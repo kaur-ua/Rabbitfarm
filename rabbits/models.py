@@ -88,12 +88,21 @@ class Rabbit(models.Model):
         related_name="children_from_mother"
     )
 
+    mother_manual = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
     father = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="children_from_father"
+    )
+    father_manual = models.CharField(
+        max_length=100,
+        blank=True
     )
 
     birth_date = models.DateField(
