@@ -221,17 +221,19 @@ def rabbit_list(request):
         else:
             rabbit.status = "—"
 
-        days = (date.today() - rabbit.birth_date).days
+        if rabbit.birth_date:
+            days = (date.today() - rabbit.birth_date).days
 
-        if days < 60:
-            rabbit.age_display = f"{days // 7} тиж."
-        elif days < 365:
-            rabbit.age_display = f"{days // 30} міс."
+            if days < 60:
+                rabbit.age_display = f"{days // 7} тиж."
+            elif days < 365:
+                rabbit.age_display = f"{days // 30} міс."
+            else:
+                years = days // 365
+                months = (days % 365) // 30
+                rabbit.age_display = f"{years} р. {months} міс."
         else:
-            years = days // 365
-            months = (days % 365) // 30
-            rabbit.age_display = f"{years} р. {months} міс."
-
+            rabbit.age_display = "—"
     return render(request, "rabbits/rabbit_list.html", {
         "rabbits": rabbits,
         "farm": farm
@@ -261,6 +263,9 @@ def rabbit_create(request):
     return render(request, "rabbits/rabbit_form.html", {
         "form": form
     })
+
+def start(request):
+    return render(request, "start.html")
 
 def landing(request):
     return render(request, "landing.html")

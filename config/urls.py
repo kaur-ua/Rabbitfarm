@@ -16,13 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rabbits.views import home, landing
+from rabbits.views import home, landing, start
 from accounts.views import signup
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', landing, name='landing'),
+    path("", start, name="start"),
+    path('landing/', landing, name='landing'),
     path('home/', home, name='home'),
     path('accounts/signup/', signup, name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
