@@ -1,98 +1,287 @@
 <!DOCTYPE html>
 <html lang="uk">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RabbitFarm Start</title>
+    <link rel="stylesheet" href="{% static 'css/start.css' %}">
 </head>
 
-<body style="
-    font-family: Arial;
-    background-color: rgba(40, 167, 69, 0.10);
-    margin: 0;
-">
+<body>
 
-<div style="
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 40px;
-    border: 1px solid #ddd;
-">
+<header class="navbar">
+    <div class="container nav-container">
 
-    <h1 style="text-align:center;">🐇 RabbitFarm</h1>
+        <div class="logo">
+            🐇 RabbitFarm
+        </div>
 
-    <h2 style="text-align:center;">
-        Система обліку для кролеферм
+        <nav class="nav-links">
+            <a href="/accounts/login/">Login</a>
+            <a href="/accounts/signup/" class="signup-btn">Signup</a>
+        </nav>
+
+    </div>
+</header>
+
+<section class="hero">
+    
+    <div class="container hero-container">
+
+        <div class="hero-text">
+
+            <h1>
+                Система обліку для кролеферм
+            </h1>
+
+            <p>
+                Контролюйте критично важливі події,
+                ведіть журнал кролів та керуйте
+                фермою в одному місці.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/accounts/signup/" class="main-btn">
+                    Почати
+                </a>
+
+                <a href="/accounts/login/" class="secondary-btn">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <!-- screenshot -->
+        <img src="{% static 'images/home_dashboard.png' %}" alt="RabbitFarm Dashboard">
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features">
+    <div class="container">
+
+    <h2 class="section-title">
+        Можливості RabbitFarm
     </h2>
 
-    <p style="margin-top:30px;">
-        RabbitFarm допомагає вести облік кролів,
-        контролювати події, працювати з групами
-        та організовувати щоденний workflow ферми.
-    </p>
+    <div class="features-grid">
 
-    <hr>
+        <div class="feature-card">
+            <div class="feature-icon">🐇</div>
+            <h3>Журнал кролів</h3>
+            <p>
+                Ведіть облік поголів’я,
+                переглядайте картки кролів
+                та історію подій.
+            </p>
+        </div>
 
-    <h3>Що вже працює:</h3>
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Контроль подій</h3>
+            <p>
+                Злучка, окрол, відсадка
+                та інші критично важливі події
+                під контролем.
+            </p>
+        </div>
 
-    <ul>
-        <li>🐇 Журнал кролів</li>
-        <li>📅 Події (злучка, окрол, відлучення та ін.)</li>
-        <li>📋 Групи молодняка</li>
-        <li>📷 Фото кролів</li>
-        <li>🧬 Батьківські лінії</li>
-        <li>🚦 Контроль термінів подій</li>
-    </ul>
+        <div class="feature-card">
+            <div class="feature-icon">🚦</div>
+            <h3>Стан ферми</h3>
+            <p>
+                Dashboard допомагає швидко
+                оцінити поточний стан ферми
+                та важливі задачі.
+            </p>
+        </div>
 
-    <hr>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Групи молодняка</h3>
+            <p>
+                Організовуйте групи після
+                відсадки та контролюйте
+                молодняк.
+            </p>
+        </div>
 
-    <h3>Як почати:</h3>
-
-    <ol>
-        <li>Зареєструйтесь</li>
-        <li>Створіть ферму</li>
-        <li>Додайте кролів</li>
-        <li>Ведіть журнал подій</li>
-    </ol>
-
-    <p style="
-        margin-top:20px;
-        padding:15px;
-        background-color: rgba(40, 167, 69, 0.08);
-    ">
-        Реєстрація потрібна для створення окремого
-        простору вашої ферми та збереження даних обліку.
-    </p>
-
-    <div style="text-align:center; margin-top:40px;">
-
-    <a href="/accounts/login/" style="
-        display:inline-block;
-        padding:12px 24px;
-        background-color:#28a745;
-        color:white;
-        text-decoration:none;
-        margin-right:10px;
-        font-weight:bold;
-    ">
-        Login
-    </a>
-
-    <a href="/accounts/signup/" style="
-        display:inline-block;
-        padding:12px 24px;
-        border:2px solid #28a745;
-        color:#28a745;
-        text-decoration:none;
-        font-weight:bold;
-    ">
-        Signup
-    </a>
+    </div>
 
 </div>
+</section>
+<section class="workflow-section">
+
+    <div class="workflow-header">
+        <h2>Як працює RabbitFarm</h2>
+        <p>
+            Уся робота ферми — у простому та зрозумілому процесі.
+        </p>
+    </div>
+
+    <div class="workflow-grid">
+
+        <div class="workflow-step">
+            <div class="step-number">1</div>
+            <h3>Додайте кролів</h3>
+            <p>
+                Створюйте картки кролів, групи молодняка та ведіть облік поголів’я.
+            </p>
+        </div>
+
+        <div class="workflow-step">
+            <div class="step-number">2</div>
+            <h3>Записуйте події</h3>
+            <p>
+                Фіксуйте злучки, окроли, відсадки та інші важливі події.
+            </p>
+        </div>
+
+        <div class="workflow-step">
+            <div class="step-number">3</div>
+            <h3>Контролюйте ферму</h3>
+            <p>
+                Dashboard покаже критично важливі події та поточний стан ферми.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="screenshots">
+    <div class="container">
+
+    <div class="screenshots-header">
+        <h2>RabbitFarm у роботі</h2>
+        <p>
+            Усі важливі дані ферми — у простому та зрозумілому інтерфейсі.
+        </p>
+    </div>
+
+    <div class="showcase-block">
+
+        <div class="showcase-text">
+            <h3>Журнал кролів</h3>
+
+            <p>
+                Переглядайте всіх кролів ферми,
+                контролюйте події, статуси та
+                майбутні дії в одному журналі.
+            </p>
+        </div>
+
+        <div class="showcase-image">
+            <img src="{% static 'images/journal.png' %}" alt="RabbitFarm Journal">
+        </div>
+
+    </div>
+
+    <div class="showcase-block reverse">
+
+        <div class="showcase-text">
+            <h3>Картка кролика</h3>
+
+            <p>
+                Кожен кролик має власну картку
+                з фото, історією подій та
+                важливою інформацією.
+            </p>
+        </div>
+
+        <div class="showcase-image">
+            <img src="{% static 'images/rabbit_card.png' %}" alt="Rabbit Card">
+        </div>
+
+    </div>
+
+    <div class="showcase-block">
+
+        <div class="showcase-text">
+            <h3>Події ферми</h3>
+
+            <p>
+                Злучки, окроли, відсадки та інші
+                події легко додаються та
+                контролюються системою.
+            </p>
+        </div>
+
+        <div class="showcase-image">
+            <img src="{% static 'images/events.png' %}" alt="RabbitFarm Events">
+        </div>
+
+    </div>
+
+    <div class="showcase-block reverse">
+
+        <div class="showcase-text">
+            <h3>Групи молодняка</h3>
+
+            <p>
+                Організовуйте групи після
+                відсадки та контролюйте
+                молодняк окремо.
+            </p>
+        </div>
+
+        <div class="showcase-image">
+            <img src="{% static 'images/groups.png' %}" alt="RabbitFarm Groups">
+        </div>
+
+    </div>
 
 </div>
+</section>
+
+<section class="cta">
+    <section class="cta">
+    <div class="container">
+
+        <div class="cta-box">
+            <h2>Почніть вести кролеферму вже сьогодні</h2>
+
+            <p>
+                RabbitFarm допомагає контролювати події,
+                облік поголів’я та роботу ферми в одному місці.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="{% url 'signup' %}" class="btn-primary">
+                    Створити акаунт
+                </a>
+
+                <a href="{% url 'login' %}" class="btn-secondary">
+                    Login
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+</section>
+
+<footer>
+    <footer class="site-footer">
+    <div class="container footer-content">
+        <p>© 2026 RabbitFarm. Усі права захищені.</p>
+
+        <div class="footer-links">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Signup</a>
+        </div>
+    </div>
+</footer>
+</footer>
 
 </body>
-</html>
