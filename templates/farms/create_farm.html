@@ -1,7 +1,30 @@
-<h2>Створіть свою ферму</h2>
+{% extends "base.html" %}
+{% load static %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Створити ферму</button>
-</form>
+{% block content %}
+
+<div class="farm-form-page">
+
+    <div class="farm-form-card">
+
+        <h1>Create Your Farm</h1>
+
+        <p class="farm-subtitle">
+            Start managing your rabbits, events and farm activity in one place.
+        </p>
+
+        <form method="post" class="farm-form">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="farm-btn">
+                Create Farm
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/farm.css' %}">
     <title>Login - RabbitFarm</title>
 </head>
 
-<body style="font-family: Arial; background-color: rgba(40, 167, 69, 0.10); margin: 0;">
+<body class="auth-page">
+    <div class="auth-card">
 
-    <div style="
-        width: 420px;
-        margin: 80px auto;
-        padding: 30px;
-        background-color: white;
-        border: 1px solid #e5e5e5;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        text-align: center;
-    ">
+    
 
         <div style="font-size: 50px;">🐇</div>
 
@@ -28,11 +23,16 @@
     Вхід до системи управління фермою
 </p>
 
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
+        <form method="post" class="auth-form">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="auth-btn">
+        Login
+    </button>
+
+</form>
         <p style="margin-top: 15px; color: gray; font-size: 14px;">
     Відновлення пароля буде доступне пізніше
 </p>

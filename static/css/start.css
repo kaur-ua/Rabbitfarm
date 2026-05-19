@@ -3,33 +3,32 @@ body {
     font-family: Arial, sans-serif;
 }
 .navbar {
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .nav-container {
     max-width: 1200px;
+
     margin: 0 auto;
+    padding: 16px 20px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    padding: 0 20px;
 }
-
 .logo {
     font-size: 28px;
     font-weight: bold;
     color: #28a745;
 }
 
+.nav-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
 .nav-links a {
-    text-decoration: none;
-    margin-left: 20px;
-    color: #333;
-    font-weight: bold;
+    white-space: nowrap;
 }
 
 .signup-btn {
@@ -369,4 +368,71 @@ body {
 
 .footer-links a:hover {
     color: #16a34a;
+}
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 16px 0;
+    }
+
+    .nav-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 12px;
+        margin-top: 0;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+    }
+
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workflow-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .showcase-block,
+    .showcase-block.reverse {
+        flex-direction: column;
+    }
+
+    .showcase-text h3 {
+        font-size: 36px;
+    }
+
 }
