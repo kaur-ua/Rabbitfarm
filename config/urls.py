@@ -24,7 +24,8 @@ from .views import maintenance
 
 
 urlpatterns = [
-    path("", maintenance, name="maintenance"),
+    path("", start, name="start"),
+    path("start/", start, name="start"),
     path('landing/', landing, name='landing'),
     path('home/', home, name='home'),
     path('accounts/signup/', signup, name='signup'),
