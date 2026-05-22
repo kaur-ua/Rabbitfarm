@@ -182,3 +182,37 @@
     }
 
 }
+/* MOBILE FORM IMPROVEMENTS */
+
+@media (max-width: 768px) {
+
+    .farm-form input,
+    .farm-form textarea,
+    .farm-form select,
+    .auth-form input {
+
+        min-height: 52px;
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .farm-btn,
+    .auth-btn {
+
+        min-height: 52px;
+        font-size: 18px;
+    }
+
+    .farm-form p,
+    .auth-form p {
+
+        margin-bottom: 24px;
+    }
+
+    .farm-form-card,
+    .auth-card {
+
+        border-radius: 20px;
+    }
+
+}

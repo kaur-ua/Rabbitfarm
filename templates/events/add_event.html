@@ -2,11 +2,13 @@
 
 {% block content %}
 
-<div class="card p-4 shadow-sm" style="max-width: 800px;">
+<div class="farm-form-page">
+
+<div class="farm-form-card">
 
     <h2>Add Event</h2>
 
-    <form method="post">
+    <form method="post" class="farm-form">
     {% csrf_token %}
 
     <p>{{ form.rabbit.label_tag }} {{ form.rabbit }}</p>
@@ -25,7 +27,7 @@
     {{ form.cage }}
     </p>
     {{ form.errors }}
-    <button type="submit" class="btn btn-success">
+    <button type="submit" class="farm-btn">
         Save
     </button>
 </form>
@@ -51,5 +53,6 @@ window.onload = function() {
     });
 };
 </script>
-
+</div>
+</div>
 {% endblock %}

@@ -15,7 +15,7 @@
 
 
 
-<nav class="navbar navbar-dark bg-success px-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success px-3">
 
 {% if farm %}
 <a href="{% url 'farm_page' %}" class="navbar-brand">
@@ -23,18 +23,52 @@
 </a>
 {% endif %}
 
-<div class="ms-auto">
+<button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
 
-<a class="text-white me-3" href="{% url 'home' %}">HOME</a>
-<a class="text-white me-3" href="{% url 'rabbit_list' %}">Journal</a>
-<a class="text-white me-3" href="{% url 'group_list' %}">Groups</a>
-<a class="text-white me-3" href="{% url 'add_event' %}">Events</a>
-<form action="{% url 'logout' %}" method="post" style="display:inline;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-link text-white p-0 text-decoration-none">
-        Logout
-    </button>
-</form>
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="mainNavbar">
+
+    <div class="navbar-nav ms-auto">
+
+        <a class="nav-link text-white" href="{% url 'home' %}">
+            HOME
+        </a>
+
+        <a class="nav-link text-white" href="{% url 'rabbit_list' %}">
+            Rabbit Records
+        </a>
+
+        <a class="nav-link text-white" href="{% url 'group_list' %}">
+            Groups
+        </a>
+
+        <a class="nav-link text-white" href="{% url 'add_event' %}">
+            Events
+        </a>
+
+        <form action="{% url 'logout' %}"
+              method="post"
+              class="d-flex align-items-center">
+
+            {% csrf_token %}
+
+            <button type="submit"
+                    class="btn btn-link nav-link text-white text-decoration-none">
+
+                Logout
+            </button>
+
+        </form>
+
+    </div>
+
 </div>
 
 </nav>
