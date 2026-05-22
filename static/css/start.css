@@ -380,11 +380,18 @@ body {
 }
 /* MOBILE */
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
 
-    .navbar {
-        padding: 16px 0;
+    .navbar-nav {
+        padding-top: 10px;
     }
+
+    .navbar-nav .nav-link {
+        font-size: 1.1rem;
+        padding: 12px 0;
+    }
+
+}
 
     .nav-container {
         flex-direction: row;
@@ -394,12 +401,6 @@ body {
 
     .logo {
         font-size: 24px;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 12px;
-        margin-top: 0;
     }
 
     .hero {
