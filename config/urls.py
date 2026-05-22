@@ -34,6 +34,6 @@ urlpatterns = [
     path('farms/', include('farms.urls')),
     path("rabbits/", include("rabbits.urls")),
     path('events/', include('events.urls')),
-    
+       
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

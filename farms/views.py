@@ -40,3 +40,7 @@ def edit_farm(request):
 
     return render(request, "farms/edit_farm.html", {"form": form})
 
+@login_required
+def feedback(request):
+    return render(request, "farms/feedback.html")
+
