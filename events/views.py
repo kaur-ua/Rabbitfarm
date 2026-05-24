@@ -14,6 +14,9 @@ from django.db import transaction
 def add_event(request):
     farm = request.user.farms.first()
 
+    if not farm:
+        return redirect("create_farm")
+
     if request.method == "POST":
         form = EventForm(request.POST)
         form.fields["rabbit"].queryset = farm.rabbits.all()
