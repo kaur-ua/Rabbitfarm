@@ -15,39 +15,45 @@
 
         <h1>RabbitFarm</h1>
 
-        <h2>Signup</h2>
+        <h2>Create Account</h2>
 
         <p style="margin-bottom: 20px;">
-            Створіть обліковий запис і зареєструйте свою ферму в RabbitFarm
+            Create an account and register your rabbit farm
         </p>
 
-        <form method="post">
+        <form method="post" class="auth-form">
             {% csrf_token %}
 
-            {% if form.errors %}
-                <div style="
-                    color: red;
-                    border: 1px solid red;
-                    padding: 10px;
-                    margin-bottom: 10px;
-                ">
-                    <strong>Будь ласка, виправте помилки:</strong>
-                    {{ form.errors }}
-                </div>
-            {% endif %}
+        {% if form.errors %}
+        <div style="
+        color: red;
+        border: 1px solid red;
+        padding: 10px;
+        margin-bottom: 10px;
+    ">
+        <strong>Please fix the errors below:</strong>
+        {{ form.errors }}
+        </div>
+        {% endif %}
 
             {{ form.as_p }}
             <div>
     <button type="submit" class="auth-btn">
-        Signup
+    Create Account
     </button>
             </div>
+        <p style="margin-top:15px; text-align:center;">
+    Already have an account?
+    <a href="{% url 'login' %}">
+        Login
+    </a>
+        </p>
             
         </form>
 
     </div>
 
-    <<footer class="auth-footer">
+    <footer class="auth-footer">
         © 2026 RabbitFarm Systems | Ukraine | e-mail: uyriyy2007@gmail.com | phone: +380660891181
     </footer>
 

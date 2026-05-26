@@ -190,10 +190,11 @@
     .farm-form textarea,
     .farm-form select,
     .auth-form input {
-
+        width: 100%;
         min-height: 52px;
         font-size: 16px;
         padding: 16px;
+        box-sizing: border-box;
     }
 
     .farm-btn,
