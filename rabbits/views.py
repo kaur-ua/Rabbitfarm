@@ -15,6 +15,7 @@ from .forms import RabbitForm, GroupForm, SexSeparationForm
 @login_required
 def create_group(request):
     farm = request.user.farms.first()
+    
 
     numbers = farm.rabbits.values_list("inventory_number", flat=True)
 
@@ -242,6 +243,8 @@ def rabbit_list(request):
 @login_required
 def rabbit_create(request):
     farm = request.user.farms.first()
+    if not farm:
+        return redirect("create_farm")
 
     if request.method == "POST":
         form = RabbitForm(request.POST, request.FILES)
