@@ -11,7 +11,7 @@
 {% endif %}
 <h2>Журнал обліку кроликів</h2>
 <div class="card shadow-sm p-3 mt-3">
-
+<div class="d-none d-md-block">
 <table class="table">
     <thead>
         <tr>
@@ -121,6 +121,71 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+<!-- Mobile cards -->
+<div class="d-md-none">
+
+{% for rabbit in rabbits %}
+<div class="card shadow-sm mb-3">
+
+    <div class="card-body">
+
+        <h5 class="card-title">
+            <a href="{% url 'rabbit_detail' rabbit.pk %}">
+                {{ rabbit.name }}
+            </a>
+        </h5>
+
+        <p class="mb-1">
+            🐰 {{ rabbit.get_sex_display }}
+            • {{ rabbit.age_display }}
+        </p>
+
+        <p class="mb-1">
+            📍 Клітка: {{ rabbit.cage }}
+        </p>
+
+        <p class="mb-1">
+            ⚖️
+            {% if rabbit.weight %}
+                {{ rabbit.weight }} кг
+            {% else %}
+                Вага не вказана
+            {% endif %}
+        </p>
+
+        <p class="mb-1">
+            🧬 {{ rabbit.breed }}
+        </p>
+
+        <p class="mb-1">
+            📅 Остання подія:
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.get_event_type_display }}
+            {% else %}
+                —
+            {% endif %}
+        </p>
+
+        <p class="mb-2">
+            ⏭️ Наступна дія:
+            {% if rabbit.last_event %}
+                {{ rabbit.last_event.next_action }}
+            {% else %}
+                —
+            {% endif %}
+        </p>
+
+        <a href="{% url 'rabbit_detail' rabbit.pk %}"
+           class="btn btn-outline-primary btn-sm">
+            Відкрити картку
+        </a>
+
+    </div>
+</div>
+{% endfor %}
+
+</div>
 
 {% if rabbits %}
 <div class="small mt-3 mb-3 text-secondary">
