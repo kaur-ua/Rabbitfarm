@@ -273,6 +273,9 @@ def start(request):
 def landing(request):
     return render(request, "landing.html")
 
+def about(request):
+    return render(request, "about.html")
+
 @login_required
 def home(request):
     farm = Farm.objects.filter(owner=request.user).first()

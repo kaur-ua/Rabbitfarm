@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rabbits.views import home, landing, start
+from rabbits.views import home, landing, start, about
 from accounts.views import signup
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,6 +26,7 @@ from .views import maintenance
 urlpatterns = [
     path("", start, name="start"),
     path("start/", start, name="start"),
+    path("about/", about, name="about"),
     path('landing/', landing, name='landing'),
     path('home/', home, name='home'),
     path('accounts/signup/', signup, name='signup'),
