@@ -175,11 +175,29 @@
                 —
             {% endif %}
         </p>
+        <p class="mb-2">
+
+{% if rabbit.status %}
+    {% if rabbit.status == "критичний" %}
+        🔴 Критичний
+    {% elif rabbit.status == "увага" %}
+        🟡 Увага
+    {% elif rabbit.status == "норма" %}
+        🟢 Норма
+    {% else %}
+        ⚪ {{ rabbit.status }}
+    {% endif %}
+{% else %}
+    ⚪ Немає подій
+{% endif %}
+
+</p>
 
         <a href="{% url 'rabbit_detail' rabbit.pk %}"
            class="btn btn-outline-primary btn-sm">
             Відкрити картку
         </a>
+              
 
     </div>
 </div>
