@@ -176,6 +176,14 @@
             {% endif %}
         </p>
         <p class="mb-2">
+    📆 Дата наступної дії:
+    {% if rabbit.last_event and rabbit.last_event.next_action_date %}
+        {{ rabbit.last_event.next_action_date|date:"d.m.Y" }}
+    {% else %}
+        —
+    {% endif %}
+        </p>
+        <p class="mb-2">
 
 {% if rabbit.status %}
     {% if rabbit.status == "критичний" %}

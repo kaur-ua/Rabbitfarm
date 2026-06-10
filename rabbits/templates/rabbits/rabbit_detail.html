@@ -46,6 +46,7 @@
             <th>Дата</th>
             <th>Тип</th>
             <th>Наступна дія</th>
+            <th>Дата наступної дії</th>
             <th>Статус</th>
             <th>Примітка</th>
             <th>Живих</th>
@@ -58,7 +59,16 @@
             <td>{{ event.date }}</td>
             <td>{{ event.get_event_type_display }}</td>
             <td>{{ event.next_action }}</td>
-            <td>{{ event.status }}</td>
+
+            <td>
+                {% if event.next_action_date %}
+                    {{ event.next_action_date|date:"d.m.Y" }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+
+            <td>{{ event.status|default:"—" }}</td>
             <td>{{ event.note }}</td>
             <td>{{ event.born_alive|default:"—" }}</td>
             <td>{{ event.born_dead|default:"—" }}</td>
