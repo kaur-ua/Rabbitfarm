@@ -9,7 +9,7 @@
 
     
 
-    <table class="table table-bordered">
+    <div class="d-none d-md-block"> <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Імʼя</th>
@@ -111,9 +111,56 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
     <p style="margin-top: 24px; color: gray; font-size: 15px;">
     Група створюється після відсадки, коли молодняк переходить до окремого обліку.
     До цього часу кроленята перебувають із самкою.
 </p>
+</div>
+<div class="d-md-none">
+    {% for group in groups %}
+        <div class="card mb-3">
+            <div class="card-body">
+
+                <h5>{{ group.name }}</h5>
+
+                <p>📍 Клітка: {{ group.cage_number }}</p>
+
+                <p>👥 Кількість: {{ group.rabbits_count }}</p>
+
+                <p>📝 {{ group.description }}</p>
+
+                <p>
+                📋 Остання подія:
+                {% if group.last_event %}
+                    {{ group.last_event.get_event_type_display }}
+                {% else %}
+                    —
+                {% endif %}
+                </p>
+
+                <p>
+                ⏭️ Наступна дія:
+                {% if group.last_event and group.last_event.next_action %}
+                    {{ group.last_event.next_action }}
+                {% else %}
+                    —
+                {% endif %}
+                </p>
+
+                <p>
+                📅
+                {% if group.last_event and group.last_event.next_action_date %}
+                    {{ group.last_event.next_action_date }}
+                {% else %}
+                    —
+                {% endif %}
+                </p>
+
+                <!-- меню дій -->
+
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}
