@@ -5,10 +5,10 @@
 
 <div class="d-flex justify-content-between align-items-center">
 
-    <h1>Ферма: {{ farm.name }}</h1>
+    <h1>Farm: {{ farm.name }}</h1>
 
     <div class="text-center">
-        <small style="display:block; width:120px; text-align:center; margin-bottom:4px; font-weight:600;">Стан ферми</small>
+        <small style="display:block; width:120px; text-align:center; margin-bottom:4px; font-weight:600;">Farm Status</small>
         <div class="traffic-light">
             <div class="lamp
                 {% if red_light %}active-red
@@ -26,7 +26,7 @@
   <div class="col-md-4">
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title">Кролі</h5>
+        <h5 class="card-title">Rabbits</h5>
         <h2>{{ rabbits_count }}</h2>
       </div>
     </div>
@@ -35,7 +35,7 @@
   <div class="col-md-4">
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title">Самки</h5>
+        <h5 class="card-title">Females</h5>
         <h2>{{ females }}</h2>
       </div>
     </div>
@@ -44,7 +44,7 @@
   <div class="col-md-4">
     <div class="card text-center">
       <div class="card-body">
-        <h5 class="card-title">Самці</h5>
+        <h5 class="card-title">Males</h5>
         <h2>{{ males }}</h2>
       </div>
     </div>
@@ -52,20 +52,20 @@
 
 </div>
 
-<h5>🚦 Що потрібно зробити</h5>
+<h5>🚦 Action Required</h5>
 
 {% for group in sex_check_groups %}
 <div class="alert alert-warning mt-3">
-    ⚠ Потрібно визначити стать у групі {{ group.name }}
+    ⚠ Sex must be determined in group ... {{ group.name }}
 </div>
 {% endfor %}
 
 {% if red_light %}
-    🔴 Є прострочені події
+    🔴 Overdue events detected
 {% elif yellow_light %}
-    🟡 Найближча подія: {{ upcoming_event.next_action }} ({{ upcoming_event.next_action_date }})
+    🟡 Upcoming event: {{ upcoming_event.next_action }} ({{ upcoming_event.next_action_date }})
 {% else %}
-    ✅ На сьогодні завдань немає
+    ✅ No tasks for today
 {% endif %}
 
 {% endblock %}
