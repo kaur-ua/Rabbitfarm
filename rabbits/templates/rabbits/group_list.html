@@ -158,6 +158,56 @@
                 </p>
 
                 <!-- меню дій -->
+                 <div class="dropdown mt-3">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown">
+        Дії
+    </button>
+
+    <ul class="dropdown-menu">
+
+        <li>
+            <a class="dropdown-item"
+               href="{% url 'create_group_event' group.pk %}">
+                Створити подію
+            </a>
+        </li>
+
+        {% if group.last_event %}
+        <li>
+            <a class="dropdown-item text-danger"
+               href="{% url 'delete_event' group.last_event.id %}">
+                Видалити подію
+            </a>
+        </li>
+        {% endif %}
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+            <a class="dropdown-item"
+               href="{% url 'edit_group' group.pk %}">
+                Редагувати
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item text-danger"
+               href="{% url 'delete_group' group.pk %}">
+                Видалити
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item"
+               href="{% url 'separate_by_sex' group.id %}">
+                Розділити за статтю
+            </a>
+        </li>
+
+    </ul>
+</div>
 
             </div>
         </div>
