@@ -44,15 +44,15 @@ class Rabbit(models.Model):
         related_name="rabbits"
             )
     SEX_CHOICES = [
-         ("F", "Самка"),
-         ("M", "Самець"),
-         ("U", "Невідомо"),
+         ("F", "Female"),
+         ("M", "Male"),
+         ("U", "Unknown"),
     ]
 
     STATUS_CHOICES = [
-        ("ACTIVE", "Активний"),
-        ("SOLD", "Проданий"),
-        ("CULLED", "Вибракований"),
+        ("ACTIVE", "Active"),
+        ("SOLD", "Sold"),
+        ("CULLED", "Culled"),
     ]
 
     
@@ -63,7 +63,7 @@ class Rabbit(models.Model):
         unique=True,
         null=True,
         blank=True,
-        verbose_name="Інвентарний номер"
+        verbose_name="Inventory Number"
     ) 
     sex = models.CharField(
         max_length=1,
@@ -115,7 +115,7 @@ class Rabbit(models.Model):
         decimal_places=2,
         null=True,
         blank=True,
-        verbose_name="Вага"
+        verbose_name="Weight"
     )
 
     photo = models.ImageField(upload_to='rabbit_photos/', blank=True, null=True) 

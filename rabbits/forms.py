@@ -39,8 +39,8 @@ class RabbitForm(forms.ModelForm):
             lambda obj: f"{obj.inventory_number} | {obj.name}"
         )
 
-        self.fields["mother_manual"].label = "Мати (вручну)"
-        self.fields["father_manual"].label = "Батько (вручну)"
+        self.fields["mother_manual"].label = "Mother (manual)"
+        self.fields["father_manual"].label = "Father (manual)"
 
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")
