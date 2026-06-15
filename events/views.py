@@ -28,7 +28,7 @@ def add_event(request):
             if event.event_type == "weaning":
                 new_cage = form.cleaned_data.get("cage")
                 if not new_cage:
-                    form.add_error("cage", "Для відсадки потрібно вказати клітку")
+                    form.add_error("cage", "Cage is required for weaning")
                     return render(request, "events/add_event.html", {
                         "form": form,
                         "farm": farm
@@ -74,7 +74,7 @@ def add_event(request):
                         name=f"{mother.name}_{event.date}",
                         farm=farm,
                         defaults={
-                            "description": f"Створено після відсадки від {mother.name}",
+                            "description": f"Created after weaning from {mother.name}",
                             "cage_number": new_cage,
                         }
                     )
@@ -132,19 +132,19 @@ def edit_event(request, rabbit_id):
             edited_event = form.save(commit=False)
 
             if edited_event.event_type == "mating":
-                edited_event.next_action = "Очікуваний окрол"
+                edited_event.next_action = "Expected Kindling"
                 edited_event.next_action_date = edited_event.date + timedelta(days=28)
 
             elif edited_event.event_type == "kindling":
-                edited_event.next_action = "Відсадка"
+                edited_event.next_action = "Weaning"
                 edited_event.next_action_date = edited_event.date + timedelta(days=60)
 
             elif edited_event.event_type == "vaccination":
-                edited_event.next_action = "Наступна вакцинація"
+                edited_event.next_action = "Next Vaccination"
                 edited_event.next_action_date = edited_event.date + timedelta(days=180)
 
             elif edited_event.event_type == "weaning":
-                edited_event.next_action = "Розділення за статтю"
+                edited_event.next_action = "Separate by Sex"
                 edited_event.next_action_date = edited_event.date + timedelta(days=30)
 
                 new_cage = form.cleaned_data["cage"]
@@ -206,7 +206,7 @@ def create_group_event(request, group_id):
             event.rabbit = None
 
             if event.event_type == "weaning":
-                event.next_action = "Розділення за статтю"
+                event.next_action = "Separate by Sex"
                 event.next_action_date = event.date + timedelta(days=30)
 
             event.save()

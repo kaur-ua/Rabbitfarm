@@ -5,7 +5,7 @@ from .models import Event
 class EventForm(forms.ModelForm):
     cage = forms.CharField(
         required=False,
-        label="Клітка"
+        label="Cage"
     )
 
     class Meta:
@@ -15,7 +15,7 @@ class EventForm(forms.ModelForm):
             'date': forms.DateInput(
                 attrs={
                     'type': 'date',
-                    'placeholder': 'ДД.ММ.РРРР'
+                    'placeholder': 'YYYY-MM-DD'
                 }
             )
         }
@@ -26,9 +26,9 @@ class EventForm(forms.ModelForm):
         group = cleaned_data.get("group") or self.instance.group
 
         if not rabbit and not group:
-            raise forms.ValidationError("Оберіть кролика або групу")
+            raise forms.ValidationError("Select a rabbit or a group")
 
         if rabbit and group:
-            raise forms.ValidationError("Оберіть або кролика, або групу")
+            raise forms.ValidationError("Select either a rabbit or a group")
 
         return cleaned_data

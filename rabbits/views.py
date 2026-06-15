@@ -116,7 +116,7 @@ def separate_by_sex(request, group_id):
     if unknown_sex:
         messages.error(
             request,
-            "Спочатку визначте стать усіх кроликів"
+            "Please determine the sex of all rabbits first"
         )
         return redirect("group_list")
 
@@ -132,14 +132,14 @@ def separate_by_sex(request, group_id):
                 farm=farm,
                 name=f"{group.name}_M",
                 cage_number=cage_male,
-                description=f"Самці з групи {group.name}"
+                description=f"Males from group {group.name}"
             )
 
             female_group = Group.objects.create(
                 farm=farm,
                 name=f"{group.name}_F",
                 cage_number=cage_female,
-                description=f"Самки з групи {group.name}"
+                description=f"Females from group {group.name}"
             )
 
             males = rabbits.filter(sex="M")
@@ -157,7 +157,7 @@ def separate_by_sex(request, group_id):
 
             messages.success(
                 request,
-                "Групу успішно розділено"
+                "Group successfully separated"
             )
 
             return redirect("group_list")
@@ -180,7 +180,7 @@ def delete_group(request, pk):
     group = get_object_or_404(Group, pk=pk, farm=farm)
 
     group.delete()
-    messages.success(request, "Групу видалено")
+    messages.success(request, "Group deleted")
 
     return redirect("group_list")
 
@@ -214,11 +214,11 @@ def rabbit_list(request):
             days_left = (rabbit.last_event.next_action_date - date.today()).days
 
             if days_left <= 0:
-                rabbit.status = "критичний"
+                rabbit.status = "Critical"
             elif days_left <= 7:
-                rabbit.status = "увага"
+                rabbit.status = "Attention"
             else:
-                rabbit.status = "норма"
+                rabbit.status = "Normal"
         else:
             rabbit.status = "—"
 
@@ -226,13 +226,13 @@ def rabbit_list(request):
             days = (date.today() - rabbit.birth_date).days
 
             if days < 60:
-                rabbit.age_display = f"{days // 7} тиж."
+                rabbit.age_display = f"{days // 7}  wk."
             elif days < 365:
-                rabbit.age_display = f"{days // 30} міс."
+                rabbit.age_display = f"{days // 30} mo."
             else:
                 years = days // 365
                 months = (days % 365) // 30
-                rabbit.age_display = f"{years} р. {months} міс."
+                rabbit.age_display = f"{years}  yr. {months} mo."
         else:
             rabbit.age_display = "—"
     return render(request, "rabbits/rabbit_list.html", {
@@ -253,7 +253,7 @@ def rabbit_create(request):
             rabbit = form.save(commit=False)
             rabbit.farm = farm
             rabbit.save()
-            messages.success(request, "Кролика додано успішно")
+            messages.success(request, "Rabbit added successfully")
             return redirect("rabbit_list")
         else:
             print(form.errors)
@@ -295,7 +295,7 @@ def home(request):
     tomorrow = today + timedelta(days=1)
 
     sex_check_groups = Group.objects.filter(
-        events__next_action="Розділення за статтю",
+        events__next_action="Separate by Sex",
         events__next_action_date=tomorrow,
         rabbits__sex="U"
     ).distinct()
@@ -356,7 +356,7 @@ def rabbit_edit(request, pk):
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
         if form.is_valid():
             form.save()
-            messages.success(request, "Дані кролика оновлено")
+            messages.success(request, "Rabbit updated successfully")
             return redirect("rabbit_list")
     else:
         form = RabbitForm(instance=rabbit)
@@ -372,7 +372,7 @@ def rabbit_delete(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
 
     rabbit.delete()
-    messages.success(request, "Кролика видалено")
+    messages.success(request, "Rabbit deleted")
 
     return redirect("rabbit_list")  
 
@@ -389,7 +389,7 @@ def edit_event(request, pk):
     
         if form.is_valid():
             form.save()
-            messages.success(request, "Подію оновлено")
+            messages.success(request, "Event updated")
             return redirect("rabbit_list")
     else:
         form = EventForm(instance=event)

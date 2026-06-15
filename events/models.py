@@ -4,11 +4,11 @@ from datetime import timedelta
 class Event(models.Model):
 
     EVENT_TYPES = [
-    ("mating", "Злучка"),
-    ("kindling", "Окрол"),
-    ("vaccination", "Вакцинація"),
-    ("weaning", "Відсадка"),
-    ("split", "Розділення за статтю"),
+    ("mating", "Mating"),
+    ("kindling", "Kindling"),
+    ("vaccination", "Vaccination"),
+    ("weaning", "Weaning"),
+    ("split", "Separate by Sex"),
 ]
  
     rabbit = models.ForeignKey(
@@ -66,15 +66,15 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         if self.event_type == "mating":
             self.next_action_date = self.date + timedelta(days=28)
-            self.next_action = "Окрол"
+            self.next_action = "Kindling"
 
         elif self.event_type == "kindling":
             self.next_action_date = self.date + timedelta(days=60)
-            self.next_action = "Відсадка"
+            self.next_action = "Weaning"
 
         elif self.event_type == "weaning":
             self.next_action_date = self.date + timedelta(days=30)
-            self.next_action = "Розділення за статтю"
+            self.next_action = "Separate by Sex"
 
         else:
             # щоб не залишалося старих значень
