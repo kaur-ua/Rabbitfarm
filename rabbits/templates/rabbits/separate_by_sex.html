@@ -5,7 +5,7 @@
 <div class="container mt-4">
 
     <h2>
-        Розділення групи {{ group.name }} за статтю
+        Separate Group {{ group.name }} by Sex
     </h2>
 
     <form method="post">
@@ -15,12 +15,12 @@
 
         <button type="submit"
                 class="btn btn-warning">
-            Розділити
+            Separate
         </button>
 
         <a href="{% url 'group_list' %}"
            class="btn btn-secondary">
-           Скасувати
+           Cancel
         </a>
 
     </form>

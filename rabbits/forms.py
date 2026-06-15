@@ -51,11 +51,11 @@ class GroupForm(forms.ModelForm):
         
 class SexSeparationForm(forms.Form):
     cage_male = forms.CharField(
-        label="Клітка для самців",
+        label="Male Cage",
         max_length=20
     )
 
     cage_female = forms.CharField(
-        label="Клітка для самок",
+        label="Female Cage",
         max_length=20
     )
