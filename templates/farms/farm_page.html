@@ -11,7 +11,7 @@
             {% if farm.image %}
              <img src="{{ farm.image.url }}" class="rounded" alt="{{ farm.name }}" style="width:350px; height:auto;">
             {% else %}
-             <div class="text-muted">No image available</div>
+             <div class="text-muted">No farm photo available</div>
             {% endif %}
         </div>
 
@@ -30,14 +30,14 @@
 
 <div class="card p-4 mt-4 text-center">
 
-    <h4 class="mb-3">У вас ще немає кролів 🐰</h4>
+    <h4 class="mb-3">You don't have any rabbits yet 🐰</h4>
 
     <p class="text-muted">
-        Почніть заповнення журналу обліку, додавши першого кролика.
+        Start your records by adding your first rabbit.
     </p>
 
     <a href="{% url 'rabbit_list' %}" class="btn btn-success mt-2">
-        Заповнити журнал обліку
+        Open Rabbit Records
     </a>
 
 </div>

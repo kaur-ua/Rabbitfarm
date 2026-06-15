@@ -12,42 +12,42 @@
         {% csrf_token %}
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Назва групи</label>
+            <label class="col-sm-3 col-form-label">Group Name</label>
             <div class="col-sm-5">
                 {{ form.name }}
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">№ клітки</label>
+            <label class="col-sm-3 col-form-label">Cage Number</label>
             <div class="col-sm-5">
                 {{ form.cage_number }}
                 <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Клітку можна змінити пізніше.
+                Cage can be changed later.
                 </small>
             </div>
         </div>
         <div class="row mb-3">
-    <label class="col-sm-3 col-form-label">Кількість</label>
+    <label class="col-sm-3 col-form-label">Count</label>
     <div class="col-sm-3">
         {{ form.count }}
     </div>
 </div>
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Опис</label>
+            <label class="col-sm-3 col-form-label">Description</label>
             <div class="col-sm-7">
             {{ form.description }}
             <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Походження групи, стать або призначення.
+                Group origin, sex, or purpose.
             </small>
             </div>
         </div>
 
         <div class="row">
             <div class="offset-sm-3 col-sm-5">
-                <button type="submit" class="btn btn-success">Зберегти</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </div>
         </div>
     </form>

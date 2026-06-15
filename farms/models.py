@@ -6,7 +6,7 @@ class Farm(models.Model):
 
     name = models.CharField(
     max_length=200,
-    verbose_name="Назва ферми"
+    verbose_name="Farm Name"
 )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -17,25 +17,25 @@ class Farm(models.Model):
     location = models.CharField(
         max_length=200,
         blank=True,
-        verbose_name="Місцезнаходження"
+        verbose_name="Location"
     )
 
     description = models.TextField(
         blank=True,
-        verbose_name="Опис"
+        verbose_name="Description"
     )
 
     image = models.ImageField(
         upload_to="farm_images/",
         blank=True,
         null=True,
-        verbose_name="Фото ферми"
+        verbose_name="Farm Photo"
     )
 
     phone = models.CharField(
         max_length=20,
         blank=True,
-        verbose_name="Телефон"
+        verbose_name="Phone"
     )
 
     created_at = models.DateTimeField(
