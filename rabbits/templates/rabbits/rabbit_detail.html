@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h2>Картка кролика</h2>
+<h2>Rabbit Details</h2>
 
 <div class="card mb-4">
    <div class="card-body">
@@ -12,45 +12,45 @@
 
         <div class="col-md-4 text-center">
             {% if rabbit.photo %}
-                <img src="{{ rabbit.photo.url }}" class="img-fluid rounded" alt="Фото кролика">
+                <img src="{{ rabbit.photo.url }}" class="img-fluid rounded" alt="Rabbit Photo">
             {% else %}
-                <img src="{% static 'images/rabbit_default.png' %}" class="img-fluid rounded" alt="Фото кролика">
+                <img src="{% static 'images/rabbit_default.png' %}" class="img-fluid rounded" alt="Rabbit Photo">
             {% endif %}
                  
         </div>
 
         <div class="col-md-8" style="line-height: 2;">
-            <p><strong>Інвентарний номер:</strong> {{ rabbit.inventory_number }}</p>
-            <p><strong>Ім'я:</strong> {{ rabbit.name }}</p>
-            <p><strong>Стать:</strong> {{ rabbit.get_sex_display }}</p>
-            <p><strong>Статус:</strong> {{ rabbit.get_status_display }}</p>
-            <p><strong>Дата народження:</strong> {{ rabbit.birth_date }}</p>
-            <p><strong>Порода:</strong> {{ rabbit.breed }}</p>
-            <p><strong>Клітка:</strong> {{ rabbit.cage }}</p>
+            <p><strong>Inventory Number:</strong> {{ rabbit.inventory_number }}</p>
+            <p><strong>Name:</strong> {{ rabbit.name }}</p>
+            <p><strong>Sex:</strong> {{ rabbit.get_sex_display }}</p>
+            <p><strong>Status:</strong> {{ rabbit.get_status_display }}</p>
+            <p><strong>Birth Date:</strong> {{ rabbit.birth_date }}</p>
+            <p><strong>Breed:</strong> {{ rabbit.breed }}</p>
+            <p><strong>Cage:</strong> {{ rabbit.cage }}</p>
         </div>
 
     </div>
 </div>
 </div>
 
-<a href="{% url 'rabbit_list' %}" class="btn btn-secondary">Назад до списку</a>
+<a href="{% url 'rabbit_list' %}" class="btn btn-secondary">Back to List</a>
 
 <hr>
 
-<h4>Журнал подій</h4>
+<h4>Event History</h4>
 
 {% if events %}
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Дата</th>
-            <th>Тип</th>
-            <th>Наступна дія</th>
-            <th>Дата наступної дії</th>
-            <th>Статус</th>
-            <th>Примітка</th>
-            <th>Живих</th>
-            <th>Мертвих</th>
+            <th>Date</th>
+            <th>Event Type</th>
+            <th>Next Action</th>
+            <th>Next Action Date</th>
+            <th>Status</th>
+            <th>Note</th>
+            <th>Born Alive</th>
+            <th>Born Dead</th>
         </tr>
     </thead>
     <tbody>
@@ -77,7 +77,7 @@
     </tbody>
 </table>
 {% else %}
-<p>Подій ще немає.</p>
+<p>o events yet.</p>
 {% endif %}
 
 {% endblock %}
