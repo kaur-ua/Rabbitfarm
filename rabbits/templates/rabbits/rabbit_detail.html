@@ -40,7 +40,8 @@
 <h4>Event History</h4>
 
 {% if events %}
-<table class="table table-striped">
+<div class="table-responsive">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th>Date</th>
@@ -75,7 +76,7 @@
         </tr>
         {% endfor %}
     </tbody>
-</table>
+    </table>
 {% else %}
 <p>o events yet.</p>
 {% endif %}
