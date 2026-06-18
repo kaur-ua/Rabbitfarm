@@ -32,11 +32,10 @@ def create_group(request):
             group.farm = farm
             group.save()
             last_weaning = Event.objects.filter(
-            event_type="weaning"
+                event_type="weaning"
         ).order_by("-date").first()
 
-            print("LAST WEANING:", last_weaning)
-            print("GROUP:", group)
+            
 
             if last_weaning:
                 last_weaning.group_id = group.id
@@ -53,7 +52,7 @@ def create_group(request):
                     group=group,
                     name=f"{group.name}-{i:02}",
                     inventory_number=f"{next_number + i - 1:04}",
-                    sex="M",
+                    sex="U",
                     breed="Невідомо",
                     birth_date=date.today(),
                     cage=group.cage_number,

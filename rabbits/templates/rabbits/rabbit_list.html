@@ -81,11 +81,11 @@
             </td>
 
             <td>
-               {% if rabbit.status == "критичний" %}
+               {% if rabbit.status == "Critical" %}
                    🔴 Critical
-               {% elif rabbit.status == "увага" %}
+               {% elif rabbit.status == "Attention" %}
                    🟡 Attention
-               {% elif rabbit.status == "норма" %}
+               {% elif rabbit.status == "Normal" %}
                    🟢 Normal
                {% else %}
                     —
@@ -186,11 +186,11 @@
         <p class="mb-2">
 
 {% if rabbit.status %}
-    {% if rabbit.status == "критичний" %}
+    {% if rabbit.status == "Critical" %}
         🔴 Critical
-    {% elif rabbit.status == "увага" %}
+    {% elif rabbit.status == "Attention" %}
         🟡 Attention
-    {% elif rabbit.status == "норма" %}
+    {% elif rabbit.status == "Normal" %}
         🟢 Normal
     {% else %}
         ⚪ {{ rabbit.status }}
