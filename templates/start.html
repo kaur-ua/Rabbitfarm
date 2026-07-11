@@ -19,16 +19,16 @@
 
         <nav class="nav-links">
 
-    <a href="{% url 'about' %}" class="nav-btn secondary-btn">
-        About
+    <a href="/about/" class="nav-btn secondary-btn about-btn">
+    About
     </a>
 
-    <a href="/accounts/login/" class="nav-btn secondary-btn">
-        Login
+    <a href="/accounts/login/" class="nav-btn secondary-btn login-btn">
+    Login
     </a>
 
-    <a href="/accounts/signup/" class="nav-btn main-btn">
-        Signup
+    <a href="/accounts/signup/" class="nav-btn main-btn nav-signup-btn">
+    Sign Up
     </a>
 
 </nav>
@@ -43,18 +43,20 @@
         <div class="hero-text">
 
             <h1>
-                Rabbit Farm Management System
+                Know exactly what needs to be done on your rabbit farm today.
             </h1>
 
             <p>
-                Track important events, manage rabbit records
-                and control your farm in one place.
+                <strong>RabbitFarm remembers — you take care of your rabbits.</strong><br><br>
+
+                Track mating, kindling, weaning and vaccinations in one place.
+                Never miss an important task again.
             </p>
 
             <div class="hero-buttons">
 
                 <a href="/accounts/signup/" class="main-btn">
-                    Get Started
+                    Create Free Account
                 </a>
 
                 <a href="/accounts/login/" class="secondary-btn">
@@ -67,8 +69,8 @@
 
         <div class="hero-image">
 
-            <!-- screenshot -->
-        <img src="{% static 'images/home_dashboard.png' %}" alt="RabbitFarm Dashboard">
+            <img src="{% static 'images/home_dashboard.png' %}"
+                 alt="RabbitFarm Dashboard">
 
         </div>
 
@@ -80,14 +82,14 @@
     <div class="container">
 
     <h2 class="section-title">
-        RabbitFarm Features
+        Why RabbitFarm?
     </h2>
 
     <div class="features-grid">
 
         <div class="feature-card">
             <div class="feature-icon">🐇</div>
-            <h3>Rabbit Records</h3>
+            <h3>Never lose rabbit history</h3>
             <p>
                 Manage your rabbits,
                 view rabbit profiles
@@ -97,7 +99,7 @@
 
         <div class="feature-card">
             <div class="feature-icon">📅</div>
-            <h3>Event Tracking</h3>
+            <h3>Never miss an important event</h3>
             <p>
                 Track breeding, kindling, 
                 weaning and other important 
@@ -107,7 +109,7 @@
 
         <div class="feature-card">
             <div class="feature-icon">🚦</div>
-            <h3>Farm Dashboard</h3>
+            <h3>See today's priorities instantly</h3>
             <p>
                 Quickly view farm status, 
                 upcoming tasks and 
@@ -117,7 +119,7 @@
 
         <div class="feature-card">
             <div class="feature-icon">📋</div>
-            <h3>Young Rabbit Groups</h3>
+            <h3>Organize young rabbits easily</h3>
             <p>
                 Organize weaned rabbits into groups and track their development.
             </p>
@@ -170,21 +172,21 @@
     <div class="container">
 
     <div class="screenshots-header">
-        <h2>RabbitFarm in Action</h2>
-        <p>
-            All important farm information in one simple and easy-to-use interface.
-        </p>
-    </div>
+    <h2>Everything you need — on one screen</h2>
+    <p>
+        RabbitFarm keeps your farm organized, so you always know what happened,
+        what needs attention today and what comes next.
+    </p>
+</div>
 
     <div class="showcase-block">
 
         <div class="showcase-text">
-            <h3>Rabbit Records</h3>
+            <h3>Never lose track of any rabbit</h3>
 
             <p>
-                View all rabbits, track events,
-                monitor statuses and manage
-                upcoming actions in one place.
+                Every rabbit has its own profile, complete history and upcoming tasks.
+                Everything stays organized in one place.
             </p>
         </div>
 
@@ -197,12 +199,11 @@
     <div class="showcase-block reverse">
 
         <div class="showcase-text">
-            <h3>Rabbit Profile</h3>
+            <h3>Every rabbit has its own complete history</h3>
 
             <p>
-                Each rabbit has its own profile
-                with photos, event history and
-                important information.
+                Photos, pedigree, events and important information are always available
+                whenever you need them.
             </p>
         </div>
 
@@ -215,12 +216,11 @@
     <div class="showcase-block">
 
         <div class="showcase-text">
-            <h3>Farm Events</h3>
+            <h3>Never forget the next important event</h3>
 
             <p>
-                Breeding, kindling, weaning and
-                other important events are easy
-                to record and manage.
+                RabbitFarm reminds you about mating, kindling, weaning and vaccinations
+                before they become a problem.
             </p>
         </div>
 
@@ -233,12 +233,11 @@
     <div class="showcase-block reverse">
 
         <div class="showcase-text">
-            <h3>Young Rabbit Groups</h3>
+            <h3>Manage young rabbits with confidence</h3>
 
             <p>
-                Organize weaned rabbits into
-                groups and track their
-                development separately.
+                Organize young rabbits into groups and follow their development
+                without confusion.
             </p>
         </div>
 
@@ -252,21 +251,18 @@
 </section>
 
 <section class="cta">
-    <section class="cta">
     <div class="container">
 
         <div class="cta-box">
-            <h2>Start Managing Your Rabbit Farm Today</h2>
+            <h2>Start your free RabbitFarm account today.</h2>
 
             <p>
-                RabbitFarm helps you manage events,
-                rabbit records and farm operations
-                all in one place.
+            Join RabbitFarm and keep your rabbit farm organized from the very first day.
             </p>
 
             <div class="cta-buttons">
                 <a href="{% url 'signup' %}" class="btn-primary">
-                    Create Account
+                    Create Free Account
                 </a>
 
                 <a href="{% url 'login' %}" class="btn-secondary">
@@ -277,20 +273,19 @@
         </div>
 
     </div>
-</section>
+
 </section>
 
-<footer>
-    <footer class="site-footer">
+<footer class="site-footer">
     <div class="container footer-content">
         <p>© 2026 RabbitFarm. All rights reserved.</p>
 
         <div class="footer-links">
             <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'signup' %}">Signup</a>
+            <a href="{% url 'signup' %}">Create Account</a>
         </div>
     </div>
 </footer>
-</footer>
+
 
 </body>
