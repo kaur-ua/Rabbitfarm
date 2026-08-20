@@ -493,6 +493,42 @@ body {
         text-align: center;
     }
 
+
+}
+
+/* ===== MANIFEST ===== */
+
+.manifest-section {
+    padding: 70px 0;
+}
+
+.manifest-box {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 50px;
+    background: #f4faf6;
+    border-radius: 20px;
+}
+
+
+.manifest-box h2 {
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 24px 0;
+}
+
+.manifest-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.manifest-box p:last-child {
+    margin-bottom: 0;
+}
+
+.manifest-box strong {
+    font-weight: 700;
 }
 
 
