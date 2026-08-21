@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html>
 
@@ -63,7 +63,28 @@
         <a class="nav-link text-white" href="{% url 'about' %}">
             About
         </a>
+        <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center me-2">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
+    {% get_current_language as CURRENT_LANGUAGE %}
+
+    <button type="submit"
+            name="language"
+            value="en"
+            class="btn btn-link nav-link text-white text-decoration-none px-1
+                   {% if CURRENT_LANGUAGE == 'en' %}fw-bold{% endif %}">
+        🇬🇧 EN
+    </button>
+
+    <button type="submit"
+            name="language"
+            value="uk"
+            class="btn btn-link nav-link text-white text-decoration-none px-1
+                   {% if CURRENT_LANGUAGE == 'uk' %}fw-bold{% endif %}">
+        🇺🇦 UA
+    </button>
+        </form>
         <form action="{% url 'logout' %}"
               method="post"
               class="d-flex align-items-center">

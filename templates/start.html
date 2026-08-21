@@ -1,6 +1,6 @@
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="uk">
-    {% load static %}
+<html lang="{{ LANGUAGE_CODE|slice:':2' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,19 +16,38 @@
         <div class="logo">
             🐇 RabbitFarm
         </div>
+        <form action="{% url 'set_language' %}" method="post" class="language-switcher">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
+    {% get_current_language as CURRENT_LANGUAGE %}
+
+    <button type="submit"
+            name="language"
+            value="en"
+            class="{% if CURRENT_LANGUAGE == 'en' %}active{% endif %}">
+        🇬🇧 EN
+    </button>
+
+    <button type="submit"
+            name="language"
+            value="uk"
+            class="{% if CURRENT_LANGUAGE == 'uk' %}active{% endif %}">
+        🇺🇦 UA
+    </button>
+        </form>
         <nav class="nav-links">
 
     <a href="/about/" class="nav-btn secondary-btn about-btn">
-    About
+    {% translate "About" %}
     </a>
 
     <a href="/accounts/login/" class="nav-btn secondary-btn login-btn">
-    Login
+    {% translate "Login" %}
     </a>
 
     <a href="/accounts/signup/" class="nav-btn main-btn nav-signup-btn">
-    Sign Up
+    {% translate "Sign Up" %}
     </a>
 
 </nav>
@@ -42,24 +61,28 @@
 
         <div class="hero-text">
 
+            
             <h1>
-                Manage your rabbit farm without notebooks and scattered records.
+    {% translate "Manage your rabbit farm without notebooks and scattered records." %}
             </h1>
+            
 
                 <p>
-                <strong>RabbitFarm keeps your rabbits, breeding records and farm events in one simple place.</strong><br><br>
+                <strong>{% translate "RabbitFarm keeps your rabbits, breeding records and farm events in one simple place." %}</strong><br><br>
 
+                {% blocktranslate %}
                 Track mating, kindling, weaning and other important events.
                 Know what happened, what needs attention and what comes next.
+                {% endblocktranslate %}
                 </p>
             <div class="hero-buttons">
 
                 <a href="/accounts/signup/" class="main-btn">
-                    Create Free Account
+                {% translate "Create Free Account" %}
                 </a>
 
                 <a href="/accounts/login/" class="secondary-btn">
-                    Login
+                    {% translate "Login" %}
                 </a>
 
             </div>
@@ -81,40 +104,40 @@
     <div class="container">
 
     <h2 class="section-title">
-        Everything about your farm in one place
+    {% translate "Everything about your farm in one place" %}
     </h2>
 
     <div class="features-grid">
 
         <div class="feature-card">
             <div class="feature-icon">🐇</div>
-            <h3>Your rabbits</h3>
+            <h3>{% translate "Your rabbits" %}</h3>
             <p>
-                Keep rabbit profiles, history, photos and important information together.
+    {% translate "Keep rabbit profiles, history, photos and important information together." %}
             </p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">📅</div>
-            <h3>Your breeding records</h3>
+            <h3>{% translate "Your breeding records" %}</h3>
             <p>
-                Record breeding, kindling, weaning and other important events in one place.
+    {% translate "Record breeding, kindling, weaning and other important events in one place." %}
             </p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">🚦</div>
-            <h3>What needs attention</h3>
+            <h3>{% translate "What needs attention" %}</h3>
             <p>
-                See upcoming events, alerts and farm priorities without checking different notebooks.
+    {% translate "See upcoming events, alerts and farm priorities without checking different notebooks." %}
             </p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">📋</div>
-            <h3>Your young rabbits</h3>
+            <h3>{% translate "Your young rabbits" %}</h3>
             <p>
-                Organize weaned rabbits into groups and keep track of their development.
+    {% translate "Organize weaned rabbits into groups and keep track of their development." %}
             </p>
         </div>
 
@@ -125,9 +148,9 @@
 <section class="workflow-section">
 
     <div class="workflow-header">
-        <h2>Get started in three simple steps</h2>
+        <h2>{% translate "Get started in three simple steps" %}</h2>
         <p>
-            Set up your farm and start keeping your records in one simple place.
+    {% translate "Set up your farm and start keeping your records in one simple place." %}
         </p>
     </div>
 
@@ -135,25 +158,25 @@
 
         <div class="workflow-step">
             <div class="step-number">1</div>
-            <h3>Create your farm</h3>
+            <h3>{% translate "Create your farm" %}</h3>
             <p>
-                Set up your farm and add the basic information you need.
+                {% translate "Set up your farm and add the basic information you need." %}
             </p>
         </div>
 
         <div class="workflow-step">
             <div class="step-number">2</div>
-            <h3>Add your rabbits</h3>
+            <h3>{% translate "Add your rabbits" %}</h3>
             <p>
-                Create rabbit profiles and keep their information and history together.
+                {% translate "Create rabbit profiles and keep their information and history together." %}
             </p>
         </div>
 
         <div class="workflow-step">
             <div class="step-number">3</div>
-            <h3>Record and manage</h3>
+            <h3>{% translate "Record and manage" %}</h3>
             <p>
-                Record breeding and other events, then use your dashboard to see what needs attention.
+                {% translate "Record breeding and other events, then use your dashboard to see what needs attention." %}
             </p>
         </div>
 
@@ -164,27 +187,23 @@
     <div class="container">
 
         <div class="manifest-box">
-            <h2>RabbitFarm is being built with rabbit breeders.</h2>
+            <h2>{% translate "RabbitFarm is being built with rabbit breeders." %}</h2>
 
             <p>
-                We believe rabbit breeding is about more than keeping records.
-                Every rabbit has a history. Every breeding decision has a reason.
-                Every rabbitry has its own experience and way of working.
+                {% translate "Rabbit breeding is about more than keeping records. It is about understanding your animals, making better decisions and building a healthy, productive rabbitry." %}
             </p>
 
             <p>
-                We don't know everything, and we don't want to build RabbitFarm
-                in isolation.
+                {% translate "We don't know everything, and we don't want to build RabbitFarm in isolation." %}
             </p>
 
             <p>
-                We want to learn from breeders who actually do this work.
-                Tell us what we're missing. Tell us what could be better.
+                {% translate "We want to learn from breeders, understand different rabbit farming scenarios, and build features that solve real problems." %}
             </p>
 
             <p>
                 <strong>
-                    Try RabbitFarm. Share your experience. Help us build it together.
+                    {% translate "Try RabbitFarm. Share your experience. Help us build it together." %}
                 </strong>
             </p>
 
@@ -196,20 +215,18 @@
     <div class="container">
 
     <div class="screenshots-header">
-    <h2>Your farm, your rabbits, your records — all in one place</h2>
+    <h2>{% translate "Your farm, your rabbits, your records — all in one place" %}</h2>
     <p>
-        RabbitFarm keeps your farm organized, so you always know what happened,
-        what needs attention today and what comes next.
+        {% translate "RabbitFarm keeps your farm organized, so you always know what happened, what needs attention today and what comes next." %}
     </p>
 </div>
 
     <div class="showcase-block">
 
         <div class="showcase-text">
-            <h3>Keep every rabbit's information in one place</h3>
+            <h3>{% translate "Keep every rabbit's information in one place" %}</h3>
             <p>
-                Every rabbit has its own profile, history and important information.
-                Everything stays organized in one place.
+                {% translate "Every rabbit has its own profile, history and important information. Everything stays organized in one place." %}
             </p>
         </div>
 
@@ -222,11 +239,10 @@
     <div class="showcase-block reverse">
 
         <div class="showcase-text">
-            <h3>Everything important about a rabbit, in one place</h3>
+            <h3>{% translate "Everything important about a rabbit, in one place" %}</h3>
 
             <p>
-                Keep photos, pedigree, events and important information together
-                instead of searching through different records.
+                {% translate "Keep photos, pedigree, events and important information together instead of searching through different records." %}
             </p>
         </div>
 
@@ -239,10 +255,10 @@
     <div class="showcase-block">
 
         <div class="showcase-text">
-            <h3>Know what comes next</h3>
+            <h3>{% translate "Know what comes next" %}</h3>
 
             <p>
-                Record breeding and other events, and keep track of what needs attention next.
+                {% translate "Record breeding and other events, and keep track of what needs attention next." %}
             </p>
         </div>
 
@@ -255,11 +271,10 @@
     <div class="showcase-block reverse">
 
         <div class="showcase-text">
-            <h3>Keep young rabbits organized</h3>
+            <h3>{% translate "Keep young rabbits organized" %}</h3>
 
             <p>
-                Organize young rabbits into groups and keep their records together
-                as they grow.
+                {% translate "Organize young rabbits into groups and keep their records together as they grow." %}
             </p>
         </div>
 
@@ -276,19 +291,19 @@
     <div class="container">
 
         <div class="cta-box">
-            <h2>Start your free RabbitFarm account today.</h2>
+            <h2>{% translate "Start your free RabbitFarm account today." %}</h2>
 
             <p>
-            Join RabbitFarm and keep your rabbit farm organized from the very first day.
+                {% translate "Join RabbitFarm and keep your rabbit farm organized from the very first day." %}
             </p>
 
             <div class="cta-buttons">
                 <a href="{% url 'signup' %}" class="btn-primary">
-                    Create Free Account
+                   {% translate "Create Free Account" %}
                 </a>
 
                 <a href="{% url 'login' %}" class="btn-secondary">
-                    Login
+                     {% translate "Login" %}
                 </a>
             </div>
 
@@ -300,11 +315,11 @@
 
 <footer class="site-footer">
     <div class="container footer-content">
-        <p>© 2026 RabbitFarm. All rights reserved.</p>
+        <p>{% translate "© 2026 RabbitFarm. All rights reserved." %}</p>
 
         <div class="footer-links">
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'signup' %}">Create Account</a>
+            <a href="{% url 'login' %}">{% translate "Login" %}</a>
+            <a href="{% url 'signup' %}">{% translate "Create Account" %}</a>
         </div>
     </div>
 </footer>

@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.i18n import set_language
 from rabbits.views import home, landing, start, about
 from accounts.views import signup
 from django.conf import settings
@@ -31,6 +32,7 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('accounts/signup/', signup, name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('i18n/setlang/', set_language, name='set_language'),
     path('admin/', admin.site.urls),
     path('farms/', include('farms.urls')),
     path("rabbits/", include("rabbits.urls")),
