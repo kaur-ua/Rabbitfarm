@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 07:56+0000\n"
+"POT-Creation-Date: 2026-08-23 13:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,106 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+#: rabbits/templates/rabbits/rabbit_list.html:13 templates/base.html:50
+msgid "Rabbit Records"
+msgstr "Облік кроликів"
+
+#: rabbits/templates/rabbits/rabbit_list.html:20
+msgid "Name"
+msgstr "Ім'я"
+
+#: rabbits/templates/rabbits/rabbit_list.html:21
+msgid "Cage"
+msgstr "Клітка"
+
+#: rabbits/templates/rabbits/rabbit_list.html:22
+msgid "Sex"
+msgstr "Стать"
+
+#: rabbits/templates/rabbits/rabbit_list.html:23
+msgid "Age"
+msgstr "Вік"
+
+#: rabbits/templates/rabbits/rabbit_list.html:24
+msgid "Weight"
+msgstr "Вага"
+
+#: rabbits/templates/rabbits/rabbit_list.html:25
+msgid "Breed"
+msgstr "Порода"
+
+#: rabbits/templates/rabbits/rabbit_list.html:26
+
+msgid "Last Event"
+msgstr "Остання подія"
+
+#: rabbits/templates/rabbits/rabbit_list.html:27
+msgid "Date"
+msgstr "Дата"
+
+#: rabbits/templates/rabbits/rabbit_list.html:28
+msgid "Next Action"
+msgstr "Наступна дія"
+
+#: rabbits/templates/rabbits/rabbit_list.html:29
+msgid "Next Action Date"
+msgstr "Дата наступної дії"
+
+#: rabbits/templates/rabbits/rabbit_list.html:30
+msgid "Status"
+msgstr "Статус"
+
+#: rabbits/templates/rabbits/rabbit_list.html:31
+#: rabbits/templates/rabbits/rabbit_list.html:98
+msgid "Actions"
+msgstr "Дії"
+
+#: rabbits/templates/rabbits/rabbit_list.html:103
+#: rabbits/templates/rabbits/rabbit_list.html:213
+msgid "Edit"
+msgstr "Редагувати"
+
+#: rabbits/templates/rabbits/rabbit_list.html:109
+msgid "Edit Event"
+msgstr "Редагувати подію"
+
+#: rabbits/templates/rabbits/rabbit_list.html:116
+msgid "Delete rabbit?"
+msgstr "Видалити кролика?"
+
+#: rabbits/templates/rabbits/rabbit_list.html:117
+#: venv/lib/python3.14/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr "Видалити"
+
+#: rabbits/templates/rabbits/rabbit_list.html:148
+msgid "Cage:"
+msgstr "Клітка:"
+
+#: rabbits/templates/rabbits/rabbit_list.html:156
+msgid "Weight not specified"
+msgstr "Вага не вказана"
+
+#: rabbits/templates/rabbits/rabbit_list.html:165
+msgid "Last Event:"
+msgstr "Остання подія:"
+
+#: rabbits/templates/rabbits/rabbit_list.html:174
+msgid "Next Action:"
+msgstr "Наступна дія:"
+
+#: rabbits/templates/rabbits/rabbit_list.html:182
+msgid "Next Action Date:"
+msgstr "Дата наступної дії:"
+
+#: rabbits/templates/rabbits/rabbit_list.html:202
+msgid "No Events"
+msgstr "Немає подій"
+
+#: rabbits/templates/rabbits/rabbit_list.html:209
+msgid "View Details"
+msgstr "Переглянути"
+
 #: templates/about.html:9
 msgid "About RabbitFarm"
 msgstr "Про RabbitFarm"
@@ -29,7 +129,9 @@ msgstr "Про RabbitFarm"
 msgid ""
 "RabbitFarm is a rabbit farm management system created by a rabbit breeder "
 "for rabbit breeders."
-msgstr "RabbitFarm — це система управління кролячою фермою, створена кролівником для кролівників."
+msgstr ""
+"RabbitFarm — це система управління кролячою фермою, створена кролівником для "
+"кролівників."
 
 #: templates/about.html:15
 msgid "Our Story"
@@ -40,8 +142,10 @@ msgid ""
 "RabbitFarm started from a real rabbit farm and a simple problem: keeping "
 "track of breeding, kindling, vaccinations and important dates using "
 "notebooks and paper records."
-msgstr "RabbitFarm почався з реальної кролячої ферми та простої проблеми: необхідності вести облік парувань, окролів, вакцинацій і важливих дат у записниках та на папері."
-
+msgstr ""
+"RabbitFarm почався з реальної кролячої ферми та простої проблеми: "
+"необхідності вести облік парувань, окролів, вакцинацій і важливих дат у "
+"записниках та на папері."
 
 #: templates/about.html:22
 msgid ""
@@ -49,7 +153,11 @@ msgid ""
 "and mistakes became easier to make. RabbitFarm was created to provide a "
 "simple and practical way to organize farm information and keep important "
 "events under control."
-msgstr "Коли кількість кроликів зросла, вести облік стало складніше, а помилок ставало легше припускатися. RabbitFarm був створений, щоб дати простий і практичний спосіб упорядкувати інформацію про ферму та тримати важливі події під контролем."
+msgstr ""
+"Коли кількість кроликів зросла, вести облік стало складніше, а помилок "
+"ставало легше припускатися. RabbitFarm був створений, щоб дати простий і "
+"практичний спосіб упорядкувати інформацію про ферму та тримати важливі події "
+"під контролем."
 
 #: templates/about.html:25
 msgid "Current Features"
@@ -91,21 +199,21 @@ msgstr "Розвиток"
 msgid ""
 "RabbitFarm is actively developing. New features and improvements are added "
 "based on practical farm experience and breeder feedback."
-msgstr "RabbitFarm активно розвивається. Нові функції та вдосконалення додаються на основі практичного досвіду роботи на фермі та відгуків кролівників."
+msgstr ""
+"RabbitFarm активно розвивається. Нові функції та вдосконалення додаються на "
+"основі практичного досвіду роботи на фермі та відгуків кролівників."
 
 #: templates/about.html:44
 msgid ""
 "The goal of RabbitFarm is to help rabbit breeders spend less time on "
 "paperwork and more time managing their farms."
-msgstr "Мета RabbitFarm — допомогти кролівникам витрачати менше часу на паперову роботу та більше часу на управління своїми фермами."
+msgstr ""
+"Мета RabbitFarm — допомогти кролівникам витрачати менше часу на паперову "
+"роботу та більше часу на управління своїми фермами."
 
 #: templates/base.html:46
 msgid "HOME"
 msgstr "Головна"
-
-#: templates/base.html:50
-msgid "Rabbit Records"
-msgstr "Кролі"
 
 #: templates/base.html:54
 msgid "Groups"
@@ -125,6 +233,48 @@ msgstr "Про нас"
 
 #: templates/base.html:97
 msgid "Logout"
+msgstr ""
+
+#: templates/home.html:9
+msgid "Farm:"
+msgstr ""
+
+#: templates/home.html:13
+msgid "Farm Status"
+msgstr ""
+
+#: templates/home.html:32
+#, fuzzy
+#| msgid "Rabbit records"
+msgid "Rabbits"
+msgstr "Облік кроликів"
+
+#: templates/home.html:41
+msgid "Females"
+msgstr ""
+
+#: templates/home.html:50
+msgid "Males"
+msgstr ""
+
+#: templates/home.html:58
+msgid "Action Required"
+msgstr ""
+
+#: templates/home.html:62
+msgid "Sex must be determined in group ..."
+msgstr ""
+
+#: templates/home.html:67
+msgid "Overdue events detected"
+msgstr ""
+
+#: templates/home.html:69
+msgid "Upcoming event:"
+msgstr ""
+
+#: templates/home.html:71
+msgid "No tasks for today"
 msgstr ""
 
 #: templates/start.html:46 templates/start.html:85 templates/start.html:306
@@ -945,10 +1095,6 @@ msgstr[1] ""
 #: venv/lib/python3.14/site-packages/django/forms/formsets.py:484
 #: venv/lib/python3.14/site-packages/django/forms/formsets.py:491
 msgid "Order"
-msgstr ""
-
-#: venv/lib/python3.14/site-packages/django/forms/formsets.py:499
-msgid "Delete"
 msgstr ""
 
 #: venv/lib/python3.14/site-packages/django/forms/models.py:925
