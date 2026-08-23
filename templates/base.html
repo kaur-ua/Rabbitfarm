@@ -43,25 +43,25 @@
     <div class="navbar-nav ms-auto">
 
         <a class="nav-link text-white" href="{% url 'home' %}">
-            HOME
+            {% trans "HOME" %}
         </a>
 
         <a class="nav-link text-white" href="{% url 'rabbit_list' %}">
-            Rabbit Records
+           {% trans "Rabbit Records" %}
         </a>
 
         <a class="nav-link text-white" href="{% url 'group_list' %}">
-            Groups
+            {% trans "Groups" %}
         </a>
 
         <a class="nav-link text-white" href="{% url 'add_event' %}">
-            Events
+            {% trans "Events" %}
         </a>
         <a class="nav-link text-white" href="{% url 'feedback' %}">
-            Feedback
+            {% trans "Feedback" %}
         </a>
         <a class="nav-link text-white" href="{% url 'about' %}">
-            About
+            {% trans "About" %}
         </a>
         <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center me-2">
     {% csrf_token %}
@@ -94,7 +94,7 @@
             <button type="submit"
                     class="btn btn-link nav-link text-white text-decoration-none">
 
-                Logout
+                {% trans "Logout" %}
             </button>
 
         </form>

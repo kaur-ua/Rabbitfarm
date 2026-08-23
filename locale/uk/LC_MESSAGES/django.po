@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-21 14:26+0000\n"
+"POT-Creation-Date: 2026-08-23 07:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,111 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: templates/start.html:42
+#: templates/about.html:9
+msgid "About RabbitFarm"
+msgstr "Про RabbitFarm"
+
+#: templates/about.html:12
+msgid ""
+"RabbitFarm is a rabbit farm management system created by a rabbit breeder "
+"for rabbit breeders."
+msgstr "RabbitFarm — це система управління кролячою фермою, створена кролівником для кролівників."
+
+#: templates/about.html:15
+msgid "Our Story"
+msgstr "Наша історія"
+
+#: templates/about.html:18
+msgid ""
+"RabbitFarm started from a real rabbit farm and a simple problem: keeping "
+"track of breeding, kindling, vaccinations and important dates using "
+"notebooks and paper records."
+msgstr "RabbitFarm почався з реальної кролячої ферми та простої проблеми: необхідності вести облік парувань, окролів, вакцинацій і важливих дат у записниках та на папері."
+
+
+#: templates/about.html:22
+msgid ""
+"As the number of rabbits increased, keeping records became more difficult "
+"and mistakes became easier to make. RabbitFarm was created to provide a "
+"simple and practical way to organize farm information and keep important "
+"events under control."
+msgstr "Коли кількість кроликів зросла, вести облік стало складніше, а помилок ставало легше припускатися. RabbitFarm був створений, щоб дати простий і практичний спосіб упорядкувати інформацію про ферму та тримати важливі події під контролем."
+
+#: templates/about.html:25
+msgid "Current Features"
+msgstr "Поточні можливості"
+
+#: templates/about.html:28
+msgid "Rabbit records"
+msgstr "Облік кроликів"
+
+#: templates/about.html:29
+msgid "Group management"
+msgstr "Управління групами"
+
+#: templates/about.html:30
+msgid "Event tracking"
+msgstr "Відстеження подій"
+
+#: templates/about.html:31
+msgid "Breeding management"
+msgstr "Племінний облік"
+
+#: templates/about.html:32
+msgid "Kindling planning"
+msgstr "Планування окролів"
+
+#: templates/about.html:33
+msgid "Vaccination scheduling"
+msgstr "Планування вакцинацій"
+
+#: templates/about.html:34
+msgid "Farm dashboard"
+msgstr "Панель ферми"
+
+#: templates/about.html:37
+msgid "Development"
+msgstr "Розвиток"
+
+#: templates/about.html:40
+msgid ""
+"RabbitFarm is actively developing. New features and improvements are added "
+"based on practical farm experience and breeder feedback."
+msgstr "RabbitFarm активно розвивається. Нові функції та вдосконалення додаються на основі практичного досвіду роботи на фермі та відгуків кролівників."
+
+#: templates/about.html:44
+msgid ""
+"The goal of RabbitFarm is to help rabbit breeders spend less time on "
+"paperwork and more time managing their farms."
+msgstr "Мета RabbitFarm — допомогти кролівникам витрачати менше часу на паперову роботу та більше часу на управління своїми фермами."
+
+#: templates/base.html:46
+msgid "HOME"
+msgstr "Головна"
+
+#: templates/base.html:50
+msgid "Rabbit Records"
+msgstr "Кролі"
+
+#: templates/base.html:54
+msgid "Groups"
+msgstr "Групи"
+
+#: templates/base.html:58
+msgid "Events"
+msgstr "Події"
+
+#: templates/base.html:61
+msgid "Feedback"
+msgstr "Зворотний зв'язок"
+
+#: templates/base.html:64 templates/start.html:42
 msgid "About"
 msgstr "Про нас"
+
+#: templates/base.html:97
+msgid "Logout"
+msgstr ""
 
 #: templates/start.html:46 templates/start.html:85 templates/start.html:306
 #: templates/start.html:321
@@ -243,7 +345,8 @@ msgstr "Створіть свій безкоштовний акаунт RabbitFa
 msgid ""
 "Join RabbitFarm and keep your rabbit farm organized from the very first day."
 msgstr ""
-"Приєднуйтеся до RabbitFarm та підтримуйте порядок на своїй фермі з першого дня."
+"Приєднуйтеся до RabbitFarm та підтримуйте порядок на своїй фермі з першого "
+"дня."
 
 #: templates/start.html:318
 msgid "© 2026 RabbitFarm. All rights reserved."
