@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-23 13:17+0000\n"
+"POT-Creation-Date: 2026-08-24 11:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,92 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:7
+msgid "Rabbit Details"
+msgstr "Картка кролика"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:15
+#: rabbits/templates/rabbits/rabbit_detail.html:17
+msgid "Rabbit Photo"
+msgstr "Фото кролика"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:23
+msgid "Inventory Number:"
+msgstr "Інвентарний номер:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:24
+msgid "Name:"
+msgstr "Ім'я:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:25
+msgid "Sex:"
+msgstr "Стать:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:26
+msgid "Status:"
+msgstr "Статус:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:27
+msgid "Birth Date:"
+msgstr "Дата народження:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:28
+msgid "Breed:"
+msgstr "Порода:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:29
+#: rabbits/templates/rabbits/rabbit_list.html:148
+msgid "Cage:"
+msgstr "Клітка:"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:37
+msgid "Back to List"
+msgstr "Назад до списку"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:42
+msgid "Event History"
+msgstr "Історія подій"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:49
+#: rabbits/templates/rabbits/rabbit_list.html:27
+msgid "Date"
+msgstr "Дата"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:50
+msgid "Event Type"
+msgstr "Тип події"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:51
+#: rabbits/templates/rabbits/rabbit_list.html:28
+msgid "Next Action"
+msgstr "Наступна дія"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:52
+#: rabbits/templates/rabbits/rabbit_list.html:29
+msgid "Next Action Date"
+msgstr "Дата наступної дії"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:53
+#: rabbits/templates/rabbits/rabbit_list.html:30
+msgid "Status"
+msgstr "Статус"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:54
+msgid "Note"
+msgstr "Примітка"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:55
+msgid "Born Alive"
+msgstr "Народилося живих"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:56
+msgid "Born Dead"
+msgstr "Народилося мертвих"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:83
+msgid "No events yet."
+msgstr "Подій ще немає."
 
 #: rabbits/templates/rabbits/rabbit_list.html:13 templates/base.html:50
 msgid "Rabbit Records"
@@ -50,25 +136,8 @@ msgid "Breed"
 msgstr "Порода"
 
 #: rabbits/templates/rabbits/rabbit_list.html:26
-
 msgid "Last Event"
 msgstr "Остання подія"
-
-#: rabbits/templates/rabbits/rabbit_list.html:27
-msgid "Date"
-msgstr "Дата"
-
-#: rabbits/templates/rabbits/rabbit_list.html:28
-msgid "Next Action"
-msgstr "Наступна дія"
-
-#: rabbits/templates/rabbits/rabbit_list.html:29
-msgid "Next Action Date"
-msgstr "Дата наступної дії"
-
-#: rabbits/templates/rabbits/rabbit_list.html:30
-msgid "Status"
-msgstr "Статус"
 
 #: rabbits/templates/rabbits/rabbit_list.html:31
 #: rabbits/templates/rabbits/rabbit_list.html:98
@@ -92,10 +161,6 @@ msgstr "Видалити кролика?"
 #: venv/lib/python3.14/site-packages/django/forms/formsets.py:499
 msgid "Delete"
 msgstr "Видалити"
-
-#: rabbits/templates/rabbits/rabbit_list.html:148
-msgid "Cage:"
-msgstr "Клітка:"
 
 #: rabbits/templates/rabbits/rabbit_list.html:156
 msgid "Weight not specified"

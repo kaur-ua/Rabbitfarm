@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 
-<h2>Rabbit Details</h2>
+<h2>{% trans "Rabbit Details" %}</h2>
 
 <div class="card mb-4">
    <div class="card-body">
@@ -12,46 +12,48 @@
 
         <div class="col-md-4 text-center">
             {% if rabbit.photo %}
-                <img src="{{ rabbit.photo.url }}" class="img-fluid rounded" alt="Rabbit Photo">
+                <img src="{{ rabbit.photo.url }}" class="img-fluid rounded" alt="{% trans 'Rabbit Photo' %}">
             {% else %}
-                <img src="{% static 'images/rabbit_default.png' %}" class="img-fluid rounded" alt="Rabbit Photo">
+                <img src="{% static 'images/rabbit_default.png' %}" class="img-fluid rounded" alt="{% trans 'Rabbit Photo' %}">
             {% endif %}
                  
         </div>
 
         <div class="col-md-8" style="line-height: 2;">
-            <p><strong>Inventory Number:</strong> {{ rabbit.inventory_number }}</p>
-            <p><strong>Name:</strong> {{ rabbit.name }}</p>
-            <p><strong>Sex:</strong> {{ rabbit.get_sex_display }}</p>
-            <p><strong>Status:</strong> {{ rabbit.get_status_display }}</p>
-            <p><strong>Birth Date:</strong> {{ rabbit.birth_date }}</p>
-            <p><strong>Breed:</strong> {{ rabbit.breed }}</p>
-            <p><strong>Cage:</strong> {{ rabbit.cage }}</p>
+            <p><strong>{% trans "Inventory Number:" %}</strong> {{ rabbit.inventory_number }}</p>
+            <p><strong>{% trans "Name:" %}</strong> {{ rabbit.name }}</p>
+            <p><strong>{% trans "Sex:" %}</strong> {{ rabbit.get_sex_display }}</p>
+            <p><strong>{% trans "Status:" %}</strong> {{ rabbit.get_status_display }}</p>
+            <p><strong>{% trans "Birth Date:" %}</strong> {{ rabbit.birth_date }}</p>
+            <p><strong>{% trans "Breed:" %}</strong> {{ rabbit.breed }}</p>
+            <p><strong>{% trans "Cage:" %}</strong> {{ rabbit.cage }}</p>
         </div>
 
     </div>
 </div>
 </div>
 
-<a href="{% url 'rabbit_list' %}" class="btn btn-secondary">Back to List</a>
+<a href="{% url 'rabbit_list' %}" class="btn btn-secondary">
+    {% trans "Back to List" %}
+</a>
 
 <hr>
 
-<h4>Event History</h4>
+<h4>{% trans "Event History" %}</h4>
 
 {% if events %}
 <div class="table-responsive">
     <table class="table table-striped">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Event Type</th>
-            <th>Next Action</th>
-            <th>Next Action Date</th>
-            <th>Status</th>
-            <th>Note</th>
-            <th>Born Alive</th>
-            <th>Born Dead</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Event Type" %}</th>
+            <th>{% trans "Next Action" %}</th>
+            <th>{% trans "Next Action Date" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Note" %}</th>
+            <th>{% trans "Born Alive" %}</th>
+            <th>{% trans "Born Dead" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -78,7 +80,7 @@
     </tbody>
     </table>
 {% else %}
-<p>o events yet.</p>
+<p>{% trans "No events yet." %}</p>
 {% endif %}
 
 {% endblock %}
