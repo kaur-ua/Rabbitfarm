@@ -1,25 +1,28 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Groups</h1>
-    <a href="{% url 'create_group' %}" class="btn btn-outline-success">+ Create Group</a>
+    <h1>{% trans "Groups" %}</h1>
+<a href="{% url 'create_group' %}" class="btn btn-outline-success">
+    + {% trans "Create Group" %}
+</a>
 </div>
 
-    
+
 
     <div class="d-none d-md-block"> <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>№ Cage</th>
-                <th>Count</th>
-                <th>Description</th>
-                <th>Last Event</th>
-                <th>Next Action</th>
-                <th>Next Action Date</th>
-                <th>Actions</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "№ Cage" %}</th>
+                <th>{% trans "Count" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "Last Event" %}</th>
+                <th>{% trans "Next Action" %}</th>
+                <th>{% trans "Next Action Date" %}</th>
+                <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +42,7 @@
 
             <td>
             {% if group.last_event and group.last_event.next_action %}
-                {{ group.last_event.next_action }}
+                {{ group.last_event.get_next_action_display }}
             {% else %}
                 —
             {% endif %}
@@ -47,7 +50,7 @@
 
             <td>
             {% if group.last_event and group.last_event.next_action_date %}
-                {{ group.last_event.next_action_date }}
+                {{ group.last_event.next_action_date|date:"d.m.Y" }}
             {% else %}
                 —
             {% endif %}
@@ -57,7 +60,7 @@
                         <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                 type="button"
                                 data-bs-toggle="dropdown">
-                            Actions
+                            {% trans "Actions" %}
                             </button>
 
                     <ul class="dropdown-menu">
@@ -65,7 +68,7 @@
                         <li>
                             <a class="dropdown-item"
                             href="{% url 'create_group_event' group.pk %}">
-                                Create Event
+                                {% trans "Create Event" %}
                             </a>
                         </li>
 
@@ -73,7 +76,7 @@
                             <li>
                                 <a class="dropdown-item text-danger"
                                 href="{% url 'delete_event' group.last_event.id %}">
-                                    Delete Event
+                                    {% trans "Delete Event" %}
                                 </a>
                             </li>
                             {% endif %}
@@ -83,20 +86,20 @@
                             <li>
                                 <a class="dropdown-item"
                                 href="{% url 'edit_group' group.pk %}">
-                                    Edit
+                                    {% trans "Edit" %}
                                 </a>
                             </li>
 
                         <li>
                             <a class="dropdown-item text-danger"
                             href="{% url 'delete_group' group.pk %}">
-                                Delete
+                                {% trans "Delete" %}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item"
                             href="{% url 'separate_by_sex' group.id %}">
-                            Separate by Sex
+                            {% trans "Separate by Sex" %}
                             </a>
                         </li>
 
@@ -106,15 +109,14 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No groups yet</td>
+                <td colspan="4">{% trans "No groups yet" %}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     </div>
     <p style="margin-top: 24px; color: gray; font-size: 15px;">
-    Groups are created after weaning, when young rabbits move to separate records.
-Until then, kits remain with the doe.
+    {% blocktrans %}Groups are created after weaning, when young rabbits move to separate records. Until then, kits remain with the doe.{% endblocktrans %}
 </p>
 </div>
 <div class="d-md-none">
@@ -124,14 +126,14 @@ Until then, kits remain with the doe.
 
                 <h5>{{ group.name }}</h5>
 
-                <p>📍 Cage: {{ group.cage_number }}</p>
+                <p>📍 {% trans "Cage:" %} {{ group.cage_number }}</p>
 
-                <p>👥 Count: {{ group.rabbits_count }}</p>
+                <p>👥 {% trans "Count:" %} {{ group.rabbits_count }}</p>
 
                 <p>📝 {{ group.description }}</p>
 
-                <p>
-                📋 Last Event:
+                <p>📋 {% trans "Last Event:" %}
+
                 {% if group.last_event %}
                     {{ group.last_event.get_event_type_display }}
                 {% else %}
@@ -140,9 +142,9 @@ Until then, kits remain with the doe.
                 </p>
 
                 <p>
-                ⏭️ Next Action:
+                ⏭️ {% trans "Next Action:" %}
                 {% if group.last_event and group.last_event.next_action %}
-                    {{ group.last_event.next_action }}
+                    {{ group.last_event.get_next_action_display }}
                 {% else %}
                     —
                 {% endif %}
@@ -151,7 +153,7 @@ Until then, kits remain with the doe.
                 <p>
                 📅
                 {% if group.last_event and group.last_event.next_action_date %}
-                    {{ group.last_event.next_action_date }}
+                    {{ group.last_event.next_action_date|date:"d.m.Y" }}
                 {% else %}
                     —
                 {% endif %}
@@ -162,7 +164,7 @@ Until then, kits remain with the doe.
     <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
             type="button"
             data-bs-toggle="dropdown">
-        Actions
+        {% trans "Actions" %}
     </button>
 
     <ul class="dropdown-menu">
@@ -170,7 +172,7 @@ Until then, kits remain with the doe.
         <li>
             <a class="dropdown-item"
                href="{% url 'create_group_event' group.pk %}">
-                Create Event
+                {% trans "Create Event" %}
             </a>
         </li>
 
@@ -178,7 +180,7 @@ Until then, kits remain with the doe.
         <li>
             <a class="dropdown-item text-danger"
                href="{% url 'delete_event' group.last_event.id %}">
-                Delete Event
+                {% trans "Delete Event" %}
             </a>
         </li>
         {% endif %}
@@ -188,21 +190,21 @@ Until then, kits remain with the doe.
         <li>
             <a class="dropdown-item"
                href="{% url 'edit_group' group.pk %}">
-                Edit
+                {% trans "Edit" %}
             </a>
         </li>
 
         <li>
             <a class="dropdown-item text-danger"
                href="{% url 'delete_group' group.pk %}">
-                Delete
+                {% trans "Delete" %}
             </a>
         </li>
 
         <li>
             <a class="dropdown-item"
                href="{% url 'separate_by_sex' group.id %}">
-                Separate by Sex
+                {% trans "Separate by Sex" %}
             </a>
         </li>
 

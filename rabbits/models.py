@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from farms.models import Farm
 from datetime import date
+from django.utils.translation import gettext_lazy as _
 
 
 class Group(models.Model):
@@ -44,15 +45,15 @@ class Rabbit(models.Model):
         related_name="rabbits"
             )
     SEX_CHOICES = [
-         ("F", "Female"),
-         ("M", "Male"),
-         ("U", "Unknown"),
+        ("F", _("Female")),
+        ("M", _("Male")),
+        ("U", _("Unknown")),
     ]
 
     STATUS_CHOICES = [
-        ("ACTIVE", "Active"),
-        ("SOLD", "Sold"),
-        ("CULLED", "Culled"),
+        ("ACTIVE", _("Active")),
+        ("SOLD", _("Sold")),
+        ("CULLED", _("Culled")),
     ]
 
     

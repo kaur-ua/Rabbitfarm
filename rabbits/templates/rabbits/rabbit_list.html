@@ -68,7 +68,7 @@
 
             <td>
                 {% if rabbit.last_event %}
-                    {{ rabbit.last_event.next_action }}
+                    {{ rabbit.last_event.get_next_action_display }}
                 {% else %}
                     —
                 {% endif %}
@@ -83,11 +83,11 @@
 
             <td>
                {% if rabbit.status == "Critical" %}
-                   🔴 Critical
+                   🔴  {% trans "Critical" %}
                {% elif rabbit.status == "Attention" %}
-                   🟡 Attention
+                   🟡 {% trans "Attention" %}
                {% elif rabbit.status == "Normal" %}
-                   🟢 Normal
+                   🟢 {% trans "Normal" %}
                {% else %}
                     —
                {% endif %}
@@ -173,7 +173,7 @@
         <p class="mb-2">
             ⏭️ {% trans "Next Action:" %}
             {% if rabbit.last_event %}
-                {{ rabbit.last_event.next_action }}
+                {{ rabbit.last_event.get_next_action_display }}
             {% else %}
                 —
             {% endif %}
@@ -190,11 +190,11 @@
 
 {% if rabbit.status %}
     {% if rabbit.status == "Critical" %}
-        🔴 Critical
+        🔴 {% trans "Critical" %}
     {% elif rabbit.status == "Attention" %}
-        🟡 Attention
+        🟡 {% trans "Attention" %}
     {% elif rabbit.status == "Normal" %}
-        🟢 Normal
+        🟢 {% trans "Normal" %}
     {% else %}
         ⚪ {{ rabbit.status }}
     {% endif %}
@@ -222,19 +222,18 @@
 
 {% if rabbits %}
 <div class="small mt-3 mb-3 text-secondary">
-    💡  To create events such as breeding, kindling and weaning, go to the "Events" tab.
-</div>
+    💡  {% blocktrans %}To create events such as breeding, kindling and weaning, go to the "Events" tab.{% endblocktrans %}
 {% endif %}
 <nav>
   <ul class="pagination">
 
     {% if rabbits.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ rabbits.previous_page_number }}">Previous</a>
+        <a class="page-link" href="?page={{ rabbits.previous_page_number }}">{% trans "Previous" %}</a>
       </li>
     {% else %}
       <li class="page-item disabled">
-        <span class="page-link">Previous</span>
+        <span class="page-link">{% trans "Previous" %}</span>
       </li>
     {% endif %}
 
@@ -252,11 +251,11 @@
 
     {% if rabbits.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ rabbits.next_page_number }}">Next</a>
+        <a class="page-link" href="?page={{ rabbits.next_page_number }}">{% trans "Next" %}</a>
       </li>
     {% else %}
       <li class="page-item disabled">
-        <span class="page-link">Next</span>
+        <span class="page-link">{% trans "Next" %}</span>
       </li>
 
       
@@ -267,7 +266,7 @@
 </div>
 <div class="mt-3">
     <a href="{% url 'rabbit_create' %}" class="btn btn-outline-success px-4">
-        + Add Rabbit
+        + {% trans "Add Rabbit" %}
     </a>
 </div>
 

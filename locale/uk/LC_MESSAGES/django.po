@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 11:50+0000\n"
+"POT-Creation-Date: 2026-08-24 18:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,161 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: events/models.py:8
+msgid "Mating"
+msgstr "Парування"
+
+#: events/models.py:9 events/models.py:89
+msgid "Kindling"
+msgstr "Окрол"
+
+#: events/models.py:10
+msgid "Vaccination"
+msgstr "Вакцинація"
+
+#: events/models.py:11 events/models.py:90
+msgid "Weaning"
+msgstr "Відлучення"
+
+#: events/models.py:12 events/models.py:91
+#: rabbits/templates/rabbits/group_list.html:102
+#: rabbits/templates/rabbits/group_list.html:207
+msgid "Separate by Sex"
+msgstr "Розділення за статтю"
+
+#: rabbits/models.py:48
+msgid "Female"
+msgstr "Самка"
+
+#: rabbits/models.py:49
+msgid "Male"
+msgstr "Самець"
+
+#: rabbits/models.py:50
+#: venv/lib/python3.14/site-packages/django/forms/widgets.py:869
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: rabbits/models.py:54
+msgid "Active"
+msgstr "Активний"
+
+#: rabbits/models.py:55
+msgid "Sold"
+msgstr "Проданий"
+
+#: rabbits/models.py:56
+msgid "Culled"
+msgstr "Вибракуваний"
+
+#: rabbits/templates/rabbits/group_list.html:7 templates/base.html:54
+msgid "Groups"
+msgstr "Групи"
+
+#: rabbits/templates/rabbits/group_list.html:9
+msgid "Create Group"
+msgstr "Створити групу"
+
+#: rabbits/templates/rabbits/group_list.html:18
+#: rabbits/templates/rabbits/rabbit_list.html:20
+msgid "Name"
+msgstr "Ім'я"
+
+#: rabbits/templates/rabbits/group_list.html:19
+#, fuzzy
+#| msgid "Cage"
+msgid "№ Cage"
+msgstr "Клітка"
+
+#: rabbits/templates/rabbits/group_list.html:20
+msgid "Count"
+msgstr "Кількість"
+
+#: rabbits/templates/rabbits/group_list.html:21
+msgid "Description"
+msgstr "Опис"
+
+#: rabbits/templates/rabbits/group_list.html:22
+#: rabbits/templates/rabbits/rabbit_list.html:26
+msgid "Last Event"
+msgstr "Остання подія"
+
+#: rabbits/templates/rabbits/group_list.html:23
+#: rabbits/templates/rabbits/rabbit_detail.html:51
+#: rabbits/templates/rabbits/rabbit_list.html:28
+msgid "Next Action"
+msgstr "Наступна дія"
+
+#: rabbits/templates/rabbits/group_list.html:24
+#: rabbits/templates/rabbits/rabbit_detail.html:52
+#: rabbits/templates/rabbits/rabbit_list.html:29
+msgid "Next Action Date"
+msgstr "Дата наступної дії"
+
+#: rabbits/templates/rabbits/group_list.html:25
+#: rabbits/templates/rabbits/group_list.html:63
+#: rabbits/templates/rabbits/group_list.html:167
+#: rabbits/templates/rabbits/rabbit_list.html:31
+#: rabbits/templates/rabbits/rabbit_list.html:98
+msgid "Actions"
+msgstr "Дії"
+
+#: rabbits/templates/rabbits/group_list.html:71
+#: rabbits/templates/rabbits/group_list.html:175
+msgid "Create Event"
+msgstr "Створити подію"
+
+#: rabbits/templates/rabbits/group_list.html:79
+#: rabbits/templates/rabbits/group_list.html:183
+msgid "Delete Event"
+msgstr "Видалити подію"
+
+#: rabbits/templates/rabbits/group_list.html:89
+#: rabbits/templates/rabbits/group_list.html:193
+#: rabbits/templates/rabbits/rabbit_list.html:103
+#: rabbits/templates/rabbits/rabbit_list.html:213
+msgid "Edit"
+msgstr "Редагувати"
+
+#: rabbits/templates/rabbits/group_list.html:96
+#: rabbits/templates/rabbits/group_list.html:200
+#: rabbits/templates/rabbits/rabbit_list.html:117
+#: venv/lib/python3.14/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr "Видалити"
+
+#: rabbits/templates/rabbits/group_list.html:112
+msgid "No groups yet"
+msgstr "Груп ще немає"
+
+#: rabbits/templates/rabbits/group_list.html:119
+msgid ""
+"Groups are created after weaning, when young rabbits move to separate "
+"records. Until then, kits remain with the doe."
+msgstr ""
+"Групи створюються після відлучення, коли молоді кролі переходять до окремих "
+"записів. До цього часу молодняк залишається з самкою."
+
+#: rabbits/templates/rabbits/group_list.html:129
+#: rabbits/templates/rabbits/rabbit_detail.html:29
+#: rabbits/templates/rabbits/rabbit_list.html:148
+msgid "Cage:"
+msgstr "Клітка:"
+
+#: rabbits/templates/rabbits/group_list.html:131
+msgid "Count:"
+msgstr "Кількість"
+
+#: rabbits/templates/rabbits/group_list.html:135
+#: rabbits/templates/rabbits/rabbit_list.html:165
+msgid "Last Event:"
+msgstr "Остання подія:"
+
+#: rabbits/templates/rabbits/group_list.html:145
+#: rabbits/templates/rabbits/rabbit_list.html:174
+msgid "Next Action:"
+msgstr "Наступна дія:"
 
 #: rabbits/templates/rabbits/rabbit_detail.html:7
 msgid "Rabbit Details"
@@ -54,11 +209,6 @@ msgstr "Дата народження:"
 msgid "Breed:"
 msgstr "Порода:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:29
-#: rabbits/templates/rabbits/rabbit_list.html:148
-msgid "Cage:"
-msgstr "Клітка:"
-
 #: rabbits/templates/rabbits/rabbit_detail.html:37
 msgid "Back to List"
 msgstr "Назад до списку"
@@ -75,16 +225,6 @@ msgstr "Дата"
 #: rabbits/templates/rabbits/rabbit_detail.html:50
 msgid "Event Type"
 msgstr "Тип події"
-
-#: rabbits/templates/rabbits/rabbit_detail.html:51
-#: rabbits/templates/rabbits/rabbit_list.html:28
-msgid "Next Action"
-msgstr "Наступна дія"
-
-#: rabbits/templates/rabbits/rabbit_detail.html:52
-#: rabbits/templates/rabbits/rabbit_list.html:29
-msgid "Next Action Date"
-msgstr "Дата наступної дії"
 
 #: rabbits/templates/rabbits/rabbit_detail.html:53
 #: rabbits/templates/rabbits/rabbit_list.html:30
@@ -111,10 +251,6 @@ msgstr "Подій ще немає."
 msgid "Rabbit Records"
 msgstr "Облік кроликів"
 
-#: rabbits/templates/rabbits/rabbit_list.html:20
-msgid "Name"
-msgstr "Ім'я"
-
 #: rabbits/templates/rabbits/rabbit_list.html:21
 msgid "Cage"
 msgstr "Клітка"
@@ -135,19 +271,20 @@ msgstr "Вага"
 msgid "Breed"
 msgstr "Порода"
 
-#: rabbits/templates/rabbits/rabbit_list.html:26
-msgid "Last Event"
-msgstr "Остання подія"
+#: rabbits/templates/rabbits/rabbit_list.html:86
+#: rabbits/templates/rabbits/rabbit_list.html:193
+msgid "Critical"
+msgstr "Критично"
 
-#: rabbits/templates/rabbits/rabbit_list.html:31
-#: rabbits/templates/rabbits/rabbit_list.html:98
-msgid "Actions"
-msgstr "Дії"
+#: rabbits/templates/rabbits/rabbit_list.html:88
+#: rabbits/templates/rabbits/rabbit_list.html:195
+msgid "Attention"
+msgstr "Увага"
 
-#: rabbits/templates/rabbits/rabbit_list.html:103
-#: rabbits/templates/rabbits/rabbit_list.html:213
-msgid "Edit"
-msgstr "Редагувати"
+#: rabbits/templates/rabbits/rabbit_list.html:90
+#: rabbits/templates/rabbits/rabbit_list.html:197
+msgid "Normal"
+msgstr "Норма"
 
 #: rabbits/templates/rabbits/rabbit_list.html:109
 msgid "Edit Event"
@@ -157,22 +294,9 @@ msgstr "Редагувати подію"
 msgid "Delete rabbit?"
 msgstr "Видалити кролика?"
 
-#: rabbits/templates/rabbits/rabbit_list.html:117
-#: venv/lib/python3.14/site-packages/django/forms/formsets.py:499
-msgid "Delete"
-msgstr "Видалити"
-
 #: rabbits/templates/rabbits/rabbit_list.html:156
 msgid "Weight not specified"
 msgstr "Вага не вказана"
-
-#: rabbits/templates/rabbits/rabbit_list.html:165
-msgid "Last Event:"
-msgstr "Остання подія:"
-
-#: rabbits/templates/rabbits/rabbit_list.html:174
-msgid "Next Action:"
-msgstr "Наступна дія:"
 
 #: rabbits/templates/rabbits/rabbit_list.html:182
 msgid "Next Action Date:"
@@ -185,6 +309,28 @@ msgstr "Немає подій"
 #: rabbits/templates/rabbits/rabbit_list.html:209
 msgid "View Details"
 msgstr "Переглянути"
+
+#: rabbits/templates/rabbits/rabbit_list.html:225
+msgid ""
+"To create events such as breeding, kindling and weaning, go to the "
+"\"Events\" tab."
+msgstr ""
+"Для створення подій, таких як парування, окрол та відлучення, перейдіть до "
+"вкладки \"Події\"."
+
+#: rabbits/templates/rabbits/rabbit_list.html:232
+#: rabbits/templates/rabbits/rabbit_list.html:236
+msgid "Previous"
+msgstr "Попередня"
+
+#: rabbits/templates/rabbits/rabbit_list.html:254
+#: rabbits/templates/rabbits/rabbit_list.html:258
+msgid "Next"
+msgstr "Наступна"
+
+#: rabbits/templates/rabbits/rabbit_list.html:269
+msgid "Add Rabbit"
+msgstr "Додати кролика"
 
 #: templates/about.html:9
 msgid "About RabbitFarm"
@@ -280,10 +426,6 @@ msgstr ""
 msgid "HOME"
 msgstr "Головна"
 
-#: templates/base.html:54
-msgid "Groups"
-msgstr "Групи"
-
 #: templates/base.html:58
 msgid "Events"
 msgstr "Події"
@@ -298,49 +440,47 @@ msgstr "Про нас"
 
 #: templates/base.html:97
 msgid "Logout"
-msgstr ""
+msgstr "Вийти"
 
 #: templates/home.html:9
 msgid "Farm:"
-msgstr ""
+msgstr "Ферма"
 
 #: templates/home.html:13
 msgid "Farm Status"
-msgstr ""
+msgstr "Стан ферми"
 
 #: templates/home.html:32
-#, fuzzy
-#| msgid "Rabbit records"
 msgid "Rabbits"
-msgstr "Облік кроликів"
+msgstr "Кролики"
 
 #: templates/home.html:41
 msgid "Females"
-msgstr ""
+msgstr "Самка"
 
 #: templates/home.html:50
 msgid "Males"
-msgstr ""
+msgstr "Самець"
 
 #: templates/home.html:58
 msgid "Action Required"
-msgstr ""
+msgstr "Потрібна дія"
 
 #: templates/home.html:62
 msgid "Sex must be determined in group ..."
-msgstr ""
+msgstr "Стать потрібно визначити в групі ..."
 
 #: templates/home.html:67
 msgid "Overdue events detected"
-msgstr ""
+msgstr "Виявлено прострочені події"
 
 #: templates/home.html:69
 msgid "Upcoming event:"
-msgstr ""
+msgstr "Найближча подія:"
 
 #: templates/home.html:71
 msgid "No tasks for today"
-msgstr ""
+msgstr "На сьогодні завдань немає"
 
 #: templates/start.html:46 templates/start.html:85 templates/start.html:306
 #: templates/start.html:321
@@ -371,6 +511,7 @@ msgid ""
 "next.\n"
 "                "
 msgstr ""
+"\n"
 "Відстежуйте парування, окроли, відлучення та інші важливі події. Знайте, що "
 "сталося, що потребує уваги та що буде далі."
 
@@ -1213,10 +1354,6 @@ msgstr ""
 
 #: venv/lib/python3.14/site-packages/django/forms/widgets.py:530
 msgid "Change"
-msgstr ""
-
-#: venv/lib/python3.14/site-packages/django/forms/widgets.py:869
-msgid "Unknown"
 msgstr ""
 
 #: venv/lib/python3.14/site-packages/django/forms/widgets.py:870

@@ -1,16 +1,17 @@
 from django.db import models
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
 
 class Event(models.Model):
 
     EVENT_TYPES = [
-    ("mating", "Mating"),
-    ("kindling", "Kindling"),
-    ("vaccination", "Vaccination"),
-    ("weaning", "Weaning"),
-    ("split", "Separate by Sex"),
+    ("mating", _("Mating")),
+    ("kindling", _("Kindling")),
+    ("vaccination", _("Vaccination")),
+    ("weaning", _("Weaning")),
+    ("split", _("Separate by Sex")),
 ]
- 
+
     rabbit = models.ForeignKey(
     "rabbits.Rabbit",
     on_delete=models.CASCADE,
@@ -18,7 +19,7 @@ class Event(models.Model):
     null=True,
     blank=True
     )
-    
+
 
     group = models.ForeignKey(
     "rabbits.Group",
@@ -82,3 +83,11 @@ class Event(models.Model):
             self.next_action_date = None
 
         super().save(*args, **kwargs)
+
+    def get_next_action_display(self):
+        translations = {
+            "Kindling": _("Kindling"),
+            "Weaning": _("Weaning"),
+            "Separate by Sex": _("Separate by Sex"),
+        }
+        return translations.get(self.next_action, self.next_action)
