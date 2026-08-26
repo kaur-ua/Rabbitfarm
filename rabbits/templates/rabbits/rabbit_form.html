@@ -1,19 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
-<h2>{% if form.instance.pk %}
-        <h2>Edit Rabbit</h2>
+<h2>
+    {% if form.instance.pk %}
+        {% trans "Edit Rabbit" %}
     {% else %}
-        <h2>Add Rabbit</h2>
-    {% endif %}</h2>
+        {% trans "Add Rabbit" %}
+    {% endif %}
+</h2>
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
     <button type="submit" class="btn btn-outline-secondary px-4">
-        Save
+    {% trans "Save" %}
     </button>
 </form>
 

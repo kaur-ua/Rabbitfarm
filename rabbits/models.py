@@ -24,11 +24,11 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @property
     def rabbits_count(self):
         return self.rabbits.count()
-    
+
 
 class Rabbit(models.Model):
     farm = models.ForeignKey(
@@ -42,7 +42,8 @@ class Rabbit(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="rabbits"
+        related_name="rabbits",
+        verbose_name=_("Group")
             )
     SEX_CHOICES = [
         ("F", _("Female")),
@@ -56,29 +57,39 @@ class Rabbit(models.Model):
         ("CULLED", _("Culled")),
     ]
 
-    
 
-    name = models.CharField(max_length=100)
+
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     inventory_number = models.CharField(
         max_length=20,
         unique=True,
         null=True,
         blank=True,
-        verbose_name="Inventory Number"
-    ) 
+        verbose_name=_("Inventory Number")
+    )
     sex = models.CharField(
         max_length=1,
-        choices=SEX_CHOICES
+        choices=SEX_CHOICES,
+        verbose_name=_("Sex")
     )
 
-    breed = models.CharField(max_length=100, blank=True)
+    breed = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_("Breed")
+    )
 
-    cage = models.CharField(max_length=50, blank=True)
+    cage = models.CharField(
+        max_length=50,
+        blank=True,
+        verbose_name=_("Cage")
+    )
 
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
-        default="ACTIVE"
+        default="ACTIVE",
+        verbose_name=_("Status")
     )
 
     mother = models.ForeignKey(
@@ -86,12 +97,14 @@ class Rabbit(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="children_from_mother"
+        related_name="children_from_mother",
+        verbose_name=_("Mother")
     )
 
     mother_manual = models.CharField(
         max_length=100,
-        blank=True
+        blank=True,
+        verbose_name=_("Mother (manual)")
     )
 
     father = models.ForeignKey(
@@ -99,16 +112,19 @@ class Rabbit(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="children_from_father"
+        related_name="children_from_father",
+        verbose_name=_("Father")
     )
     father_manual = models.CharField(
         max_length=100,
-        blank=True
+        blank=True,
+        verbose_name=_("Father (manual)")
     )
 
     birth_date = models.DateField(
         null=True,
-        blank=True
+        blank=True,
+        verbose_name=_("Birth date")
     )
 
     weight = models.DecimalField(
@@ -116,14 +132,19 @@ class Rabbit(models.Model):
         decimal_places=2,
         null=True,
         blank=True,
-        verbose_name="Weight"
+        verbose_name=_("Weight")
     )
 
-    photo = models.ImageField(upload_to='rabbit_photos/', blank=True, null=True) 
+    photo = models.ImageField(
+        upload_to='rabbit_photos/',
+        blank=True,
+        null=True,
+        verbose_name=_("Photo")
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-   
+
     @property
     def event_status(self):
         last_event = self.events.order_by('-date').first()
@@ -139,7 +160,7 @@ class Rabbit(models.Model):
                 return 'normal'
 
         return 'none'
-    
+
     def save(self, *args, **kwargs):
         if not self.inventory_number:
             last_rabbit = Rabbit.objects.order_by("-id").first()

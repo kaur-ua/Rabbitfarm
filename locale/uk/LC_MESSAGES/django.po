@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-24 18:35+0000\n"
+"POT-Creation-Date: 2026-08-26 12:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,30 +43,89 @@ msgstr "Відлучення"
 msgid "Separate by Sex"
 msgstr "Розділення за статтю"
 
-#: rabbits/models.py:48
+#: rabbits/models.py:46
+msgid "Group"
+msgstr "Група"
+
+#: rabbits/models.py:49
 msgid "Female"
 msgstr "Самка"
 
-#: rabbits/models.py:49
+#: rabbits/models.py:50
 msgid "Male"
 msgstr "Самець"
 
-#: rabbits/models.py:50
+#: rabbits/models.py:51
 #: venv/lib/python3.14/site-packages/django/forms/widgets.py:869
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: rabbits/models.py:54
+#: rabbits/models.py:55
 msgid "Active"
 msgstr "Активний"
 
-#: rabbits/models.py:55
+#: rabbits/models.py:56
 msgid "Sold"
 msgstr "Проданий"
 
-#: rabbits/models.py:56
+#: rabbits/models.py:57
 msgid "Culled"
 msgstr "Вибракуваний"
+
+#: rabbits/models.py:62 rabbits/templates/rabbits/group_list.html:18
+#: rabbits/templates/rabbits/rabbit_list.html:20
+msgid "Name"
+msgstr "Ім'я"
+
+#: rabbits/models.py:68
+msgid "Inventory Number"
+msgstr "Інвентарний номер"
+
+#: rabbits/models.py:73 rabbits/templates/rabbits/rabbit_list.html:22
+msgid "Sex"
+msgstr "Стать"
+
+#: rabbits/models.py:79 rabbits/templates/rabbits/rabbit_list.html:25
+msgid "Breed"
+msgstr "Порода"
+
+#: rabbits/models.py:85 rabbits/templates/rabbits/group_list.html:19
+#: rabbits/templates/rabbits/rabbit_list.html:21
+msgid "Cage"
+msgstr "Клітка"
+
+#: rabbits/models.py:92 rabbits/templates/rabbits/rabbit_detail.html:53
+#: rabbits/templates/rabbits/rabbit_list.html:30
+msgid "Status"
+msgstr "Статус"
+
+#: rabbits/models.py:101
+msgid "Mother"
+msgstr "Мати"
+
+#: rabbits/models.py:107
+msgid "Mother (manual)"
+msgstr "Мати (вручну)"
+
+#: rabbits/models.py:116
+msgid "Father"
+msgstr "Батько"
+
+#: rabbits/models.py:121
+msgid "Father (manual)"
+msgstr "Батько (вручну)"
+
+#: rabbits/models.py:127
+msgid "Birth date"
+msgstr "Дата народження"
+
+#: rabbits/models.py:135 rabbits/templates/rabbits/rabbit_list.html:24
+msgid "Weight"
+msgstr "Вага"
+
+#: rabbits/models.py:142
+msgid "Photo"
+msgstr "Фото"
 
 #: rabbits/templates/rabbits/group_list.html:7 templates/base.html:54
 msgid "Groups"
@@ -75,17 +134,6 @@ msgstr "Групи"
 #: rabbits/templates/rabbits/group_list.html:9
 msgid "Create Group"
 msgstr "Створити групу"
-
-#: rabbits/templates/rabbits/group_list.html:18
-#: rabbits/templates/rabbits/rabbit_list.html:20
-msgid "Name"
-msgstr "Ім'я"
-
-#: rabbits/templates/rabbits/group_list.html:19
-#, fuzzy
-#| msgid "Cage"
-msgid "№ Cage"
-msgstr "Клітка"
 
 #: rabbits/templates/rabbits/group_list.html:20
 msgid "Count"
@@ -226,11 +274,6 @@ msgstr "Дата"
 msgid "Event Type"
 msgstr "Тип події"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:53
-#: rabbits/templates/rabbits/rabbit_list.html:30
-msgid "Status"
-msgstr "Статус"
-
 #: rabbits/templates/rabbits/rabbit_detail.html:54
 msgid "Note"
 msgstr "Примітка"
@@ -247,29 +290,26 @@ msgstr "Народилося мертвих"
 msgid "No events yet."
 msgstr "Подій ще немає."
 
+#: rabbits/templates/rabbits/rabbit_form.html:8
+msgid "Edit Rabbit"
+msgstr "Редагувати кролика"
+
+#: rabbits/templates/rabbits/rabbit_form.html:10
+#: rabbits/templates/rabbits/rabbit_list.html:269
+msgid "Add Rabbit"
+msgstr "Додати кролика"
+
+#: rabbits/templates/rabbits/rabbit_form.html:19
+msgid "Save"
+msgstr "Зберегти"
+
 #: rabbits/templates/rabbits/rabbit_list.html:13 templates/base.html:50
 msgid "Rabbit Records"
 msgstr "Облік кроликів"
 
-#: rabbits/templates/rabbits/rabbit_list.html:21
-msgid "Cage"
-msgstr "Клітка"
-
-#: rabbits/templates/rabbits/rabbit_list.html:22
-msgid "Sex"
-msgstr "Стать"
-
 #: rabbits/templates/rabbits/rabbit_list.html:23
 msgid "Age"
 msgstr "Вік"
-
-#: rabbits/templates/rabbits/rabbit_list.html:24
-msgid "Weight"
-msgstr "Вага"
-
-#: rabbits/templates/rabbits/rabbit_list.html:25
-msgid "Breed"
-msgstr "Порода"
 
 #: rabbits/templates/rabbits/rabbit_list.html:86
 #: rabbits/templates/rabbits/rabbit_list.html:193
@@ -327,10 +367,6 @@ msgstr "Попередня"
 #: rabbits/templates/rabbits/rabbit_list.html:258
 msgid "Next"
 msgstr "Наступна"
-
-#: rabbits/templates/rabbits/rabbit_list.html:269
-msgid "Add Rabbit"
-msgstr "Додати кролика"
 
 #: templates/about.html:9
 msgid "About RabbitFarm"
@@ -1948,3 +1984,8 @@ msgstr ""
 #: venv/lib/python3.14/site-packages/django/views/templates/default_urlconf.html:236
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Cage"
+#~ msgid "№ Cage"
+#~ msgstr "Клітка"

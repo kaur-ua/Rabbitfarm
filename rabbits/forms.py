@@ -6,7 +6,7 @@ class RabbitForm(forms.ModelForm):
     class Meta:
         model = Rabbit
         fields = [
-            
+
             "group",
             "name",
             "sex",
@@ -27,7 +27,7 @@ class RabbitForm(forms.ModelForm):
         attrs={"type": "date"}
     )
     }
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -39,16 +39,14 @@ class RabbitForm(forms.ModelForm):
             lambda obj: f"{obj.inventory_number} | {obj.name}"
         )
 
-        self.fields["mother_manual"].label = "Mother (manual)"
-        self.fields["father_manual"].label = "Father (manual)"
 
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")
     class Meta:
         model = Group
         fields = ['name', 'cage_number', 'description']
-        
-        
+
+
 class SexSeparationForm(forms.Form):
     cage_male = forms.CharField(
         label="Male Cage",
