@@ -1,53 +1,54 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="card p-4 shadow-sm" style="max-width: 800px;">
 
    
-    <h1>Create Group</h1>
+    <h1>{% trans "Create Group" %}</h1>
     
 
     <form method="post">
         {% csrf_token %}
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Group Name</label>
+            <label class="col-sm-3 col-form-label">{% trans "Group Name" %}</label>
             <div class="col-sm-5">
                 {{ form.name }}
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Cage Number</label>
+            <label class="col-sm-3 col-form-label">{% trans "Cage Number" %}</label>
             <div class="col-sm-5">
                 {{ form.cage_number }}
                 <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Cage can be changed later.
+                {% trans "Cage can be changed later." %}
                 </small>
             </div>
         </div>
         <div class="row mb-3">
-    <label class="col-sm-3 col-form-label">Count</label>
+    <label class="col-sm-3 col-form-label">{% trans "Count" %}</label>
     <div class="col-sm-3">
         {{ form.count }}
     </div>
 </div>
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Description</label>
+            <label class="col-sm-3 col-form-label">{% trans "Description" %}</label>
             <div class="col-sm-7">
             {{ form.description }}
             <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Group origin, sex, or purpose.
+                {% trans "Group origin, sex, or purpose." %}
             </small>
             </div>
         </div>
 
         <div class="row">
             <div class="offset-sm-3 col-sm-5">
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
             </div>
         </div>
     </form>

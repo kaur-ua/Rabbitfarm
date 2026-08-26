@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-26 12:44+0000\n"
+"POT-Creation-Date: 2026-08-26 16:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,21 +127,59 @@ msgstr "Вага"
 msgid "Photo"
 msgstr "Фото"
 
-#: rabbits/templates/rabbits/group_list.html:7 templates/base.html:54
-msgid "Groups"
-msgstr "Групи"
-
+#: rabbits/templates/rabbits/create_group.html:9
 #: rabbits/templates/rabbits/group_list.html:9
 msgid "Create Group"
 msgstr "Створити групу"
 
+#: rabbits/templates/rabbits/create_group.html:16
+#: rabbits/templates/rabbits/edit_group.html:16
+msgid "Group Name"
+msgstr "Назва групи"
+
+#: rabbits/templates/rabbits/create_group.html:23
+#: rabbits/templates/rabbits/edit_group.html:23
+msgid "Cage Number"
+msgstr "Номер клітки"
+
+#: rabbits/templates/rabbits/create_group.html:28
+#: rabbits/templates/rabbits/edit_group.html:28
+msgid "Cage can be changed later."
+msgstr "Номер клітки можна змінити пізніше."
+
+#: rabbits/templates/rabbits/create_group.html:33
 #: rabbits/templates/rabbits/group_list.html:20
 msgid "Count"
 msgstr "Кількість"
 
+#: rabbits/templates/rabbits/create_group.html:39
+#: rabbits/templates/rabbits/edit_group.html:34
 #: rabbits/templates/rabbits/group_list.html:21
 msgid "Description"
 msgstr "Опис"
+
+#: rabbits/templates/rabbits/create_group.html:44
+#: rabbits/templates/rabbits/edit_group.html:39
+msgid "Group origin, sex, or purpose."
+msgstr "Походження, стать або призначення групи."
+
+#: rabbits/templates/rabbits/create_group.html:51
+#: rabbits/templates/rabbits/edit_group.html:45
+#: rabbits/templates/rabbits/rabbit_form.html:19
+msgid "Save"
+msgstr "Зберегти"
+
+#: rabbits/templates/rabbits/edit_group.html:9
+msgid "Edit Group"
+msgstr "Редагувати групу"
+
+#: rabbits/templates/rabbits/edit_group.html:49
+msgid "Back to Groups"
+msgstr "Назад до груп"
+
+#: rabbits/templates/rabbits/group_list.html:7 templates/base.html:54
+msgid "Groups"
+msgstr "Групи"
 
 #: rabbits/templates/rabbits/group_list.html:22
 #: rabbits/templates/rabbits/rabbit_list.html:26
@@ -298,10 +336,6 @@ msgstr "Редагувати кролика"
 #: rabbits/templates/rabbits/rabbit_list.html:269
 msgid "Add Rabbit"
 msgstr "Додати кролика"
-
-#: rabbits/templates/rabbits/rabbit_form.html:19
-msgid "Save"
-msgstr "Зберегти"
 
 #: rabbits/templates/rabbits/rabbit_list.html:13 templates/base.html:50
 msgid "Rabbit Records"

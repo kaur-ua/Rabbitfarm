@@ -1,51 +1,52 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="card p-4 shadow-sm" style="max-width: 800px;">
 
    
-    <h1>Edit Group</h1>
+    <h1>{% trans "Edit Group" %}</h1>
     
 
     <form method="post">
         {% csrf_token %}
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Group Name</label>
+            <label class="col-sm-3 col-form-label">{% trans "Group Name" %}</label>
             <div class="col-sm-5">
                 {{ form.name }}
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Cage Number</label>
+            <label class="col-sm-3 col-form-label">{% trans "Cage Number" %}</label>
             <div class="col-sm-5">
                 {{ form.cage_number }}
                 <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Cage can be changed later.
+                {% trans "Cage can be changed later." %}
                 </small>
             </div>
         </div>
 
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Description</label>
+            <label class="col-sm-3 col-form-label">{% trans "Description" %}</label>
             <div class="col-sm-7">
             {{ form.description }}
             <small style="display:block; margin-top:5px; color: #6c757d;
 font-size: 13px;">
-                Group origin, sex, or purpose.
+                {% trans "Group origin, sex, or purpose." %}
             </small>
             </div>
         </div>
 
     <div style="margin-top: 20px; margin-left: 190px;">
-    <button type="submit">Save</button>
+    <button type="submit">{% trans "Save" %}</button>
 
     <div style="margin-top: 6px;">
         <a href="{% url 'group_list' %}" style="color: #198754; text-decoration: none; font-size: 15px;">
-    Back to Groups
+    {% trans "Back to Groups" %}
 </a>
     </div>
 </div>
