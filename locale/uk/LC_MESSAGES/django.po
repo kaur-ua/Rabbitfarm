@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-26 16:00+0000\n"
+"POT-Creation-Date: 2026-08-27 09:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,29 @@ msgstr "Відлучення"
 #: rabbits/templates/rabbits/group_list.html:207
 msgid "Separate by Sex"
 msgstr "Розділення за статтю"
+
+#: farms/forms.py:13
+msgid "Farm Name"
+msgstr "Назва ферми"
+
+#: farms/forms.py:14 templates/farms/farm_page.html:20
+msgid "Location"
+msgstr "Місцезнаходження"
+
+#: farms/forms.py:15 templates/farms/farm_page.html:21
+msgid "Phone"
+msgstr "Телефон"
+
+#: farms/forms.py:16 rabbits/templates/rabbits/create_group.html:39
+#: rabbits/templates/rabbits/edit_group.html:34
+#: rabbits/templates/rabbits/group_list.html:21
+#: templates/farms/farm_page.html:22
+msgid "Description"
+msgstr "Опис"
+
+#: farms/forms.py:17
+msgid "Farm Photo"
+msgstr "Фото ферми"
 
 #: rabbits/models.py:46
 msgid "Group"
@@ -152,12 +175,6 @@ msgstr "Номер клітки можна змінити пізніше."
 msgid "Count"
 msgstr "Кількість"
 
-#: rabbits/templates/rabbits/create_group.html:39
-#: rabbits/templates/rabbits/edit_group.html:34
-#: rabbits/templates/rabbits/group_list.html:21
-msgid "Description"
-msgstr "Опис"
-
 #: rabbits/templates/rabbits/create_group.html:44
 #: rabbits/templates/rabbits/edit_group.html:39
 msgid "Group origin, sex, or purpose."
@@ -166,6 +183,7 @@ msgstr "Походження, стать або призначення груп�
 #: rabbits/templates/rabbits/create_group.html:51
 #: rabbits/templates/rabbits/edit_group.html:45
 #: rabbits/templates/rabbits/rabbit_form.html:19
+#: templates/farms/edit_farm.html:50
 msgid "Save"
 msgstr "Зберегти"
 
@@ -511,6 +529,40 @@ msgstr "Про нас"
 #: templates/base.html:97
 msgid "Logout"
 msgstr "Вийти"
+
+#: templates/farms/create_farm.html:11
+msgid "Create Your Farm"
+msgstr "Створіть свою ферму"
+
+#: templates/farms/create_farm.html:14
+msgid "Start managing your rabbits, events and farm activity in one place."
+msgstr ""
+"Почніть керувати своїми кроликами, подіями та діяльністю ферми в одному "
+"місці."
+
+#: templates/farms/create_farm.html:23
+msgid "Create Farm"
+msgstr "Створити ферму"
+
+#: templates/farms/edit_farm.html:8 templates/farms/farm_page.html:25
+msgid "Edit Farm"
+msgstr "Редагувати ферму"
+
+#: templates/farms/farm_page.html:15
+msgid "No farm photo available"
+msgstr "Фото ферми відсутнє"
+
+#: templates/farms/farm_page.html:35
+msgid "You don't have any rabbits yet 🐰"
+msgstr "У вас ще немає кроликів 🐰"
+
+#: templates/farms/farm_page.html:38
+msgid "Start your records by adding your first rabbit."
+msgstr "Почніть вести облік, додавши свого першого кролика."
+
+#: templates/farms/farm_page.html:42
+msgid "Open Rabbit Records"
+msgstr "Облік кроликів"
 
 #: templates/home.html:9
 msgid "Farm:"

@@ -1,56 +1,57 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="card p-4 shadow-sm">
 
-    <h2>Edit Farm</h2>
+    <h2>{% trans "Edit Farm" %}</h2>
 
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Farm Name</label>
+        <label class="col-sm-3 col-form-label">{{ form.name.label }}</label>
         <div class="col-sm-5">
             {{ form.name }}
         </div>
     </div>
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Location</label>
+        <label class="col-sm-3 col-form-label">{{ form.location.label }}</label>
         <div class="col-sm-5">
             {{ form.location }}
         </div>
     </div>
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Phone</label>
+        <label class="col-sm-3 col-form-label">{{ form.phone.label }}</label>
         <div class="col-sm-5">
             {{ form.phone }}
         </div>
     </div>
 
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Description</label>
+        <label class="col-sm-3 col-form-label">{{ form.description.label }}</label>
         <div class="col-sm-7">
             {{ form.description }}
         </div>
     </div>
-    <div class="row mb-3">
-    <label class="col-sm-3 col-form-label">Farm Photo</label>
-    <div class="col-sm-7">
-        {{ form.image }}
-    </div>
-</div>
 
-    <div class="row">
-        <div class="offset-sm-3 col-sm-5">
-            <button type="submit" class="btn btn-success">Save</button>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">{{ form.image.label }}</label>
+        <div class="col-sm-7">
+            {{ form.image }}
         </div>
     </div>
 
-</form>
-        
+    <div class="row">
+        <div class="offset-sm-3 col-sm-5">
+            <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
+        </div>
+    </div>
+
+    </form>
 
 </div>
 

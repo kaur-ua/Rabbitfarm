@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
@@ -7,10 +8,10 @@
 
     <div class="farm-form-card">
 
-        <h1>Create Your Farm</h1>
+        <h1>{% trans "Create Your Farm" %}</h1>
 
         <p class="farm-subtitle">
-            Start managing your rabbits, events and farm activity in one place.
+            {% trans "Start managing your rabbits, events and farm activity in one place." %}
         </p>
 
         <form method="post" class="farm-form">
@@ -19,7 +20,7 @@
             {{ form.as_p }}
 
             <button type="submit" class="farm-btn">
-                Create Farm
+                {% trans "Create Farm" %}
             </button>
         </form>
 

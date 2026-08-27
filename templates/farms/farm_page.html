@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -11,38 +12,38 @@
             {% if farm.image %}
              <img src="{{ farm.image.url }}" class="rounded" alt="{{ farm.name }}" style="width:350px; height:auto;">
             {% else %}
-             <div class="text-muted">No farm photo available</div>
+             <div class="text-muted">{% trans "No farm photo available" %}</div>
             {% endif %}
         </div>
 
         <div class="col-md-7">
-            <p><strong>Location:</strong> {{ farm.location }}</p>
-            <p><strong>Phone:</strong> {{ farm.phone }}</p>
-            <p><strong>Description:</strong> {{ farm.description }}</p>
+            <p><strong>{% trans "Location" %}:</strong> {{ farm.location }}</p>
+            <p><strong>{% trans "Phone" %}:</strong> {{ farm.phone }}</p>
+            <p><strong>{% trans "Description" %}:</strong> {{ farm.description }}</p>
 
             <a href="{% url 'edit_farm' %}" class="btn btn-outline-secondary btn-sm mt-3">
-                Edit Farm
+                {% trans "Edit Farm" %}
             </a>
         </div>
     </div>
 </div>
+
 {% if not farm.rabbits.exists %}
 
 <div class="card p-4 mt-4 text-center">
 
-    <h4 class="mb-3">You don't have any rabbits yet 🐰</h4>
+    <h4 class="mb-3">{% trans "You don't have any rabbits yet 🐰" %}</h4>
 
     <p class="text-muted">
-        Start your records by adding your first rabbit.
+        {% trans "Start your records by adding your first rabbit." %}
     </p>
 
     <a href="{% url 'rabbit_list' %}" class="btn btn-success mt-2">
-        Open Rabbit Records
+        {% trans "Open Rabbit Records" %}
     </a>
 
 </div>
 
 {% endif %}
-
 
 {% endblock %}
