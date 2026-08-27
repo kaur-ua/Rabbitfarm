@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,22 +7,22 @@
 
     <div class="farm-form-card">
 
-        <h1>Feedback</h1>
+        <h1>{% translate "Feedback" %}</h1>
 
         <p class="farm-subtitle">
-            Have ideas, feedback or issues?<br>
-            We would love to hear from rabbit farmers around the world 🐰
+            {% translate "Have ideas, feedback or issues?" %}<br>
+            {% translate "We would love to hear from rabbit farmers around the world 🐰" %}
         </p>
 
         <div class="farm-form">
 
             <p>
-                <strong>Email:</strong><br>
+                <strong>{% translate "Email" %}:</strong><br>
                 rabbitfarm@gmail.com
             </p>
 
             <p>
-                <strong>Facebook:</strong><br>
+                <strong>{% translate "Facebook" %}:</strong><br>
                 RabbitFarm
             </p>
 

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="container mt-4">
 
     <h2>
-        Separate Group {{ group.name }} by Sex
+        {% blocktrans with group_name=group.name %}Separate Group {{ group_name }} by Sex{% endblocktrans %}
     </h2>
 
     <form method="post">
@@ -15,12 +16,12 @@
 
         <button type="submit"
                 class="btn btn-warning">
-            Separate
+            {% trans "Separate" %}
         </button>
 
         <a href="{% url 'group_list' %}"
            class="btn btn-secondary">
-           Cancel
+           {% trans "Cancel" %}
         </a>
 
     </form>

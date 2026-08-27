@@ -1,5 +1,6 @@
 from django import forms
 from .models import Rabbit, Group
+from django.utils.translation import gettext_lazy as _
 
 
 class RabbitForm(forms.ModelForm):
@@ -49,11 +50,11 @@ class GroupForm(forms.ModelForm):
 
 class SexSeparationForm(forms.Form):
     cage_male = forms.CharField(
-        label="Male Cage",
+        label=_("Male Cage"),
         max_length=20
     )
 
     cage_female = forms.CharField(
-        label="Female Cage",
+        label=_("Female Cage"),
         max_length=20
     )
