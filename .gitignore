@@ -15,3 +15,6 @@ db.sqlite3
 *.log
 *.sql
 media/
+# Environment variables
+.env
+.env.*
