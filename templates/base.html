@@ -31,8 +31,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success px-3">
 
 {% if farm %}
-<a href="{% url 'farm_page' %}" class="navbar-brand">
-    {{ farm.name }}
+<a href="{% url 'farm_page' %}" class="navbar-brand d-flex align-items-center">
+    <img src="{% static 'images/rabbitfarm-logo-white.png' %}"
+         alt="RabbitFarm"
+         style="height: 42px; width: auto;">
+    <span class="ms-2">{{ farm.name }}</span>
 </a>
 {% endif %}
 

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from rabbits.models import Rabbit
+from rabbits.models import Rabbit, WeightRecord
 from events.models import Event
 from datetime import date, timedelta
 from farms.models import Farm
@@ -10,7 +10,7 @@ from .models import Group
 from events.forms import EventForm
 from django import forms
 from events.models import Event
-from .forms import RabbitForm, GroupForm, SexSeparationForm
+from .forms import RabbitForm, WeightRecordForm, GroupForm, SexSeparationForm
 
 @login_required
 def create_group(request):
@@ -187,11 +187,52 @@ def delete_group(request, pk):
 def rabbit_detail(request, pk):
     farm = request.user.farms.first()
     rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
+
+    if request.method == "POST":
+        form = WeightRecordForm(request.POST)
+
+        if form.is_valid():
+            weighing_date = form.cleaned_data["date"]
+            weight = form.cleaned_data["weight"]
+
+            if weighing_date > date.today():
+                form.add_error(
+                    "date",
+                    "Weighing date cannot be in the future"
+                )
+            else:
+                existing_record = WeightRecord.objects.filter(
+                    rabbit=rabbit,
+                    date=weighing_date,
+                    weight=weight,
+                ).exists()
+
+                if not existing_record:
+                    WeightRecord.objects.create(
+                        rabbit=rabbit,
+                        date=weighing_date,
+                        weight=weight,
+                    )
+
+                rabbit.weight = weight
+                rabbit.save(update_fields=["weight"])
+
+                return redirect("rabbit_detail", pk=rabbit.pk)
+    else:
+        form = WeightRecordForm()
+
     events = rabbit.events.all().order_by("-date")
+    weight_records = rabbit.weight_records.all()
+
     return render(
         request,
         "rabbits/rabbit_detail.html",
-        {"rabbit": rabbit, "events": events}
+        {
+            "rabbit": rabbit,
+            "events": events,
+            "weight_records": weight_records,
+            "weight_form": form,
+        }
     )
 
 
@@ -353,10 +394,29 @@ def rabbit_edit(request, pk):
     if request.method == "POST":
         form = RabbitForm(request.POST, request.FILES, instance=rabbit)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
+
         if form.is_valid():
-            form.save()
+            rabbit = form.save()
+
+            if rabbit.weight is not None:
+                weighing_date = form.cleaned_data["weighing_date"] or date.today()
+
+                existing_record = WeightRecord.objects.filter(
+                    rabbit=rabbit,
+                    date=weighing_date,
+                    weight=rabbit.weight
+                ).exists()
+
+                if not existing_record:
+                    WeightRecord.objects.create(
+                        rabbit=rabbit,
+                        date=weighing_date,
+                        weight=rabbit.weight
+                    )
+
             messages.success(request, "Rabbit updated successfully")
             return redirect("rabbit_list")
+
     else:
         form = RabbitForm(instance=rabbit)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)

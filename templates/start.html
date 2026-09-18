@@ -23,7 +23,7 @@
     <div class="container nav-container">
 
         <div class="logo">
-            🐇 RabbitFarm
+    <img src="{% static 'images/rabbitfarm-logo.png' %}" alt="RabbitFarm">
         </div>
         <form action="{% url 'set_language' %}" method="post" class="language-switcher">
     {% csrf_token %}

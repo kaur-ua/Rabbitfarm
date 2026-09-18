@@ -176,3 +176,27 @@ class Rabbit(models.Model):
         return self.name
 
 
+class WeightRecord(models.Model):
+    rabbit = models.ForeignKey(
+        Rabbit,
+        on_delete=models.CASCADE,
+        related_name="weight_records",
+        verbose_name=_("Rabbit")
+    )
+
+    date = models.DateField(
+        verbose_name=_("Date")
+    )
+
+    weight = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        verbose_name=_("Weight")
+    )
+
+    class Meta:
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.rabbit.name} — {self.date} — {self.weight} kg"
+
