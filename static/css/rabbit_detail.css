@@ -37,42 +37,42 @@
     }
 
     .event-history-table td:nth-child(1)::before {
-        content: "Date";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(2)::before {
-        content: "Event Type";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(3)::before {
-        content: "Next Action";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(4)::before {
-        content: "Next Action Date";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(5)::before {
-        content: "Status";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(6)::before {
-        content: "Note";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(7)::before {
-        content: "Born Alive";
+        content: attr(data-label);
         font-weight: bold;
     }
 
     .event-history-table td:nth-child(8)::before {
-        content: "Born Dead";
+        content: attr(data-label);
         font-weight: bold;
     }
 }

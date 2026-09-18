@@ -101,11 +101,10 @@
     <tbody>
         {% for event in events %}
         <tr>
-            <td>{{ event.date|date:"d.m.Y" }}</td>
-            <td>{{ event.get_event_type_display }}</td>
-            <td>{{ event.get_next_action_display }}</td>
-
-            <td>
+            <td data-label="{% trans 'Date' %}">{{ event.date|date:"d.m.Y" }}</td>
+            <td data-label="{% trans 'Event Type' %}">{{ event.get_event_type_display }}</td>
+            <td data-label="{% trans 'Next Action' %}">{{ event.get_next_action_display }}</td>
+            <td data-label="{% trans 'Next Action Date' %}">
                 {% if event.next_action_date %}
                     {{ event.next_action_date|date:"d.m.Y" }}
                 {% else %}
@@ -113,10 +112,10 @@
                 {% endif %}
             </td>
 
-            <td>{{ event.status|default:"—" }}</td>
-            <td>{{ event.note }}</td>
-            <td>{{ event.born_alive|default:"—" }}</td>
-            <td>{{ event.born_dead|default:"—" }}</td>
+            <td data-label="{% trans 'Status' %}">{{ event.status|default:"—" }}</td>
+            <td data-label="{% trans 'Note' %}">{{ event.note }}</td>
+            <td data-label="{% trans 'Born Alive' %}">{{ event.born_alive|default:"—" }}</td>
+            <td data-label="{% trans 'Born Dead' %}">{{ event.born_dead|default:"—" }}</td>
         </tr>
         {% endfor %}
     </tbody>
