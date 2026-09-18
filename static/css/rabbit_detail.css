@@ -1,0 +1,92 @@
+/* ===================================
+   Rabbit Detail — Mobile Event History
+   =================================== */
+
+@media (max-width: 768px) {
+
+    .event-history {
+        overflow-x: visible;
+    }
+
+    .event-history-table {
+        display: block;
+    }
+
+    .event-history-table thead {
+        display: none;
+    }
+
+    .event-history-table tbody,
+    .event-history-table tr,
+    .event-history-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .event-history-table tr {
+        margin-bottom: 20px;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .event-history-table td {
+        display: grid;
+        grid-template-columns: 42% 58%;
+        padding: 4px 0;
+        border: none;
+    }
+
+    .event-history-table td:nth-child(1)::before {
+        content: "Date";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(2)::before {
+        content: "Event Type";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(3)::before {
+        content: "Next Action";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(4)::before {
+        content: "Next Action Date";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(5)::before {
+        content: "Status";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(6)::before {
+        content: "Note";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(7)::before {
+        content: "Born Alive";
+        font-weight: bold;
+    }
+
+    .event-history-table td:nth-child(8)::before {
+        content: "Born Dead";
+        font-weight: bold;
+    }
+}
+@media (max-width: 768px) {
+
+    .event-history-table td:first-child {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        padding-bottom: 10px;
+    }
+
+    .event-history-table td:first-child::before {
+        display: none;
+    }
+}
