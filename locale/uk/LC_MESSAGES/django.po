@@ -100,7 +100,7 @@ msgstr "Facebook"
 
 #: rabbits/forms.py:8
 msgid "Weighing date"
-msgstr "Вага"
+msgstr "Дата зважування"
 
 #: rabbits/forms.py:48 rabbits/models.py:188
 #: rabbits/templates/rabbits/rabbit_detail.html:55
