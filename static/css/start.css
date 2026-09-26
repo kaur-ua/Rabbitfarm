@@ -408,6 +408,10 @@ body {
     font-weight: bold;
     color: #28a745;
 }
+    .language-switcher {
+    margin-left: 0;
+    margin-right: 0;
+}
 
    
 
