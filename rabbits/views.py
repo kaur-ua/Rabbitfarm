@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from rabbits.models import Rabbit, WeightRecord
+from django.http import request
+from rabbits.models import Rabbit, WeightRecord, RabbitBreed
 from events.models import Event
 from datetime import date, timedelta
 from farms.models import Farm
@@ -304,8 +305,9 @@ def rabbit_create(request):
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {
-        "form": form
-    })
+    "form": form,
+    "breed_suggestions": RabbitBreed.objects.order_by("name").values_list("name", flat=True),
+})
 
 def start(request):
     return render(request, "start.html")
@@ -422,8 +424,9 @@ def rabbit_edit(request, pk):
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {
-        "form": form
-    })
+    "form": form,
+    "breed_suggestions": RabbitBreed.objects.order_by("name").values_list("name", flat=True),
+})
     
 @login_required
 def rabbit_delete(request, pk):

@@ -4,6 +4,17 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 
 class RabbitForm(forms.ModelForm):
+    CONDITIONAL_CLASS_CHOICES = [
+        ("medium", _("Середній клас")),
+        ("large", _("Великий клас")),
+    ]
+
+    conditional_class = forms.ChoiceField(
+        choices=CONDITIONAL_CLASS_CHOICES,
+        label=_("Орієнтовний клас"),
+        required=False,
+        widget=forms.RadioSelect,
+    )
     weighing_date = forms.DateField(
     label=_("Weighing date"),
     required=False,
@@ -17,6 +28,7 @@ class RabbitForm(forms.ModelForm):
             "name",
             "sex",
             "breed",
+            "conditional_class",
             "cage",
             "status",
             "birth_date",
@@ -31,8 +43,14 @@ class RabbitForm(forms.ModelForm):
         widgets = {
     "birth_date": forms.DateInput(
         attrs={"type": "date"}
-    )
-    }
+    ),
+    "breed": forms.TextInput(
+        attrs={
+            "list": "breed-suggestions",
+            "autocomplete": "off",
+        }
+    ),
+}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
 
@@ -13,11 +13,35 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+    {% if field.name == "conditional_class" %}
+        <div id="conditional-class-field" style="display: none;">
+            {{ field.label_tag }}
+            {{ field }}
+            {% for error in field.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            {{ field.label_tag }}
+            {{ field }}
+            {% for error in field.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </p>
+    {% endif %}
+{% endfor %}
+    <datalist id="breed-suggestions">
+    {% for breed in breed_suggestions %}
+        <option value="{{ breed }}"></option>
+    {% endfor %}
+</datalist>
 
     <button type="submit" class="btn btn-outline-secondary px-4">
     {% trans "Save" %}
     </button>
 </form>
+<script src="{% static 'js/rabbit_form.js' %}"></script>
 
 {% endblock %}

@@ -5,6 +5,44 @@ from datetime import date
 from django.utils.translation import gettext_lazy as _
 
 
+class RabbitBreed(models.Model):
+    CLASS_CHOICES = [
+        ("medium", _("Середній")),
+        ("large", _("Великий")),
+        ("decorative", _("Декоративний")),
+        ("cross_medium", _("Крос — середній")),
+        ("cross_large", _("Крос — великий")),
+    ]
+
+    name = models.CharField(
+        max_length=150,
+        unique=True,
+        verbose_name=_("Breed name")
+    )
+    conditional_class = models.CharField(
+        max_length=20,
+        choices=CLASS_CHOICES,
+        verbose_name=_("Conditional class")
+    )
+    first_mating_age_months = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        verbose_name=_("Recommended first mating age (months)")
+    )
+    first_mating_weight_kg = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name=_("Recommended first mating weight (kg)")
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Rabbit breed")
+        verbose_name_plural = _("Rabbit breeds")
+
 class Group(models.Model):
     name = models.CharField(max_length=100)
 
@@ -77,6 +115,16 @@ class Rabbit(models.Model):
         max_length=100,
         blank=True,
         verbose_name=_("Breed")
+    )
+    
+    conditional_class = models.CharField(
+        max_length=20,
+        choices=[
+            ("medium", _("Середній клас")),
+            ("large", _("Великий клас")),
+        ],
+        blank=True,
+        verbose_name=_("Conditional class")
     )
 
     cage = models.CharField(
