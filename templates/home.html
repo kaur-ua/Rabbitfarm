@@ -54,7 +54,32 @@
   </div>
 
 </div>
+<div class="row">
+    <div class="col-md-4">
+<div class="mating-ready-panel">
+    <div class="mating-ready-header">
+        <span>🐇 {% trans "Ready for Mating" %}</span>
+    </div>
 
+    {% if mating_ready_rabbits %}
+        <div class="mating-ready-list">
+            {% for rabbit in mating_ready_rabbits %}
+                <div class="mating-ready-rabbit">
+                    <span class="mating-ready-name">{{ rabbit.name }}</span>
+                    <span class="mating-ready-status">
+                        ✓ {% trans "Ready for mating" %}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+</div>
+    {% else %}
+        <div class="mating-ready-empty">
+            {% trans "No rabbits ready for mating today" %}
+        </div>
+    {% endif %}
+</div>
 <h5>🚦 {% trans "Action Required" %}</h5>
 
 {% for group in sex_check_groups %}

@@ -42,8 +42,9 @@ class RabbitForm(forms.ModelForm):
 
         widgets = {
     "birth_date": forms.DateInput(
-        attrs={"type": "date"}
-    ),
+    format="%Y-%m-%d",
+    attrs={"type": "date"},
+),
     "breed": forms.TextInput(
         attrs={
             "list": "breed-suggestions",

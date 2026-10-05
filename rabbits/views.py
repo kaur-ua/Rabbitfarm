@@ -12,6 +12,7 @@ from events.forms import EventForm
 from django import forms
 from events.models import Event
 from .forms import RabbitForm, WeightRecordForm, GroupForm, SexSeparationForm
+from rabbits.services import get_mating_readiness, READY
 
 @login_required
 def create_group(request):
@@ -223,7 +224,26 @@ def rabbit_detail(request, pk):
         form = WeightRecordForm()
 
     events = rabbit.events.all().order_by("-date")
-    weight_records = rabbit.weight_records.all()
+    weight_records = list(rabbit.weight_records.order_by("-date"))
+
+    today = date.today()
+    rabbit.mating_readiness = get_mating_readiness(
+        rabbit,
+        today=today,
+)
+
+    for index, record in enumerate(weight_records):
+        record.growth_per_day = None
+
+        if index + 1 < len(weight_records):
+            older_record = weight_records[index + 1]
+            days = (record.date - older_record.date).days
+
+            if days > 0:
+                record.growth_per_day = round(
+                    (record.weight - older_record.weight) * 1000 / days,
+                    1,
+                )
 
     return render(
         request,
@@ -245,7 +265,7 @@ def rabbit_list(request):
     paginator = Paginator(rabbits_list, 5)
     page_number = request.GET.get("page")
     rabbits = paginator.get_page(page_number)
-
+    today = date.today()
     for rabbit in rabbits:
         rabbit.last_event = Event.objects.filter(
             rabbit=rabbit
@@ -276,6 +296,11 @@ def rabbit_list(request):
                 rabbit.age_display = f"{years}  yr. {months} mo."
         else:
             rabbit.age_display = "—"
+            
+        rabbit.mating_readiness = get_mating_readiness(
+            rabbit,
+            today=today,
+        )
     return render(request, "rabbits/rabbit_list.html", {
         "rabbits": rabbits,
         "farm": farm
@@ -333,6 +358,14 @@ def home(request):
     females = rabbits.filter(sex="F").count()
 
     today = date.today()
+    mating_ready_rabbits = [
+        rabbit
+        for rabbit in rabbits.filter(
+            status="ACTIVE",
+            sex__in=["F", "M"],
+        )
+        if get_mating_readiness(rabbit, today=today) == READY
+    ]
 
     tomorrow = today + timedelta(days=1)
 
@@ -384,6 +417,7 @@ def home(request):
         "green_light": green_light,
         "upcoming_event": upcoming_event,
         "sex_check_groups": sex_check_groups,
+        "mating_ready_rabbits": mating_ready_rabbits,
     }
     
     return render(request, "home.html", context)

@@ -27,3 +27,53 @@ box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
 .active-red {
     background: #e74c3c;
 }
+
+.mating-ready-panel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.mating-ready-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e5e5e5;
+    background: #f8fbf9;
+    color: #174f3d;
+    font-weight: 600;
+}
+
+.mating-ready-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 12px 16px;
+}
+
+.mating-ready-rabbit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border: 1px solid #dfe7e3;
+    border-radius: 8px;
+    background: #f8fbf9;
+    
+
+.mating-ready-name {
+    font-weight: 600;
+}
+
+.mating-ready-status {
+    color: #198754;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.mating-ready-empty {
+    padding: 12px 16px;
+    color: #6c757d;
+}

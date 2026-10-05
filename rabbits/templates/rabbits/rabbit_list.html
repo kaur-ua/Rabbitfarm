@@ -28,6 +28,7 @@
             <th>{% trans "Next Action" %}</th>
             <th>{% trans "Next Action Date" %}</th>
             <th>{% trans "Status" %}</th>
+            <th>{% trans "Mating Readiness" %}</th>
             <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
@@ -91,6 +92,17 @@
                {% else %}
                     —
                {% endif %}
+            </td>
+            <td>
+                {% if rabbit.mating_readiness == "Готовий до парування" %}
+                    🟢 {% trans "Ready for mating" %}
+                {% elif rabbit.mating_readiness == "Не готовий до парування" %}
+                    🟡 {% trans "Not ready for mating" %}
+                {% elif rabbit.mating_readiness == "Недостатньо даних для аналізу" %}
+                    ⚪ {% trans "Insufficient data" %}
+                {% else %}
+                    —
+                {% endif %}
             </td>
             <td>
     <div class="dropdown">
