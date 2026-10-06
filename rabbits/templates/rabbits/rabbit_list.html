@@ -1,5 +1,6 @@
-
 {% extends "base.html" %}
+{% load rabbit_filters %}
+{% load i18n %}
 {% load i18n %}
 
 {% block content %}
@@ -49,7 +50,7 @@
                     —
                 {% endif %}
             </td>
-            <td>{{ rabbit.breed }}</td>
+            <td>{{ rabbit.breed|breed_name }}</td>
 
             <td>
                 {% if rabbit.last_event %}
@@ -170,7 +171,7 @@
         </p>
 
         <p class="mb-1">
-            🧬 {{ rabbit.breed }}
+            🧬 {{ rabbit.breed|breed_name }}
         </p>
 
         <p class="mb-1">

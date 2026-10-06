@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load rabbit_filters %}
 
 {% load static i18n %}
 
@@ -25,7 +26,7 @@
     <p><strong>{% trans "Sex:" %}</strong> {{ rabbit.get_sex_display }}</p>
     <p><strong>{% trans "Status:" %}</strong> {{ rabbit.get_status_display }}</p>
     <p><strong>{% trans "Birth Date:" %}</strong> {{ rabbit.birth_date|date:"d.m.Y" }}</p>
-    <p><strong>{% trans "Breed:" %}</strong> {{ rabbit.breed }}</p>
+    <p><strong>{% trans "Breed:" %}</strong> {{ rabbit.breed|breed_name }}</p>
     <p><strong>{% trans "Cage:" %}</strong> {{ rabbit.cage }}</p>
     <p><strong>{% trans "Current Weight:" %}</strong>
         {% if rabbit.weight %}

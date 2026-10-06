@@ -2,6 +2,7 @@ from django import forms
 from .models import Rabbit, Group
 from django.utils.translation import gettext_lazy as _
 from datetime import date
+from rabbits.breed_translations import BREED_TRANSLATIONS
 
 class RabbitForm(forms.ModelForm):
     CONDITIONAL_CLASS_CHOICES = [
@@ -61,6 +62,16 @@ class RabbitForm(forms.ModelForm):
         self.fields["mother"].label_from_instance = (
             lambda obj: f"{obj.inventory_number} | {obj.name}"
         )
+
+    def clean_breed(self):
+        breed = self.cleaned_data.get("breed", "").strip()
+
+        reverse_translations = {
+            translated: original
+            for original, translated in BREED_TRANSLATIONS.items()
+        }
+
+        return reverse_translations.get(breed, breed)
 
 class WeightRecordForm(forms.Form):
     date = forms.DateField(

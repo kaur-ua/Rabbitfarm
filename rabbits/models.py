@@ -120,8 +120,8 @@ class Rabbit(models.Model):
     conditional_class = models.CharField(
         max_length=20,
         choices=[
-            ("medium", _("Середній клас")),
-            ("large", _("Великий клас")),
+            ("medium", _("Medium class")),
+            ("large", _("Large class")),
         ],
         blank=True,
         verbose_name=_("Conditional class")

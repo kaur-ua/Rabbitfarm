@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-05 13:39+0000\n"
+"POT-Creation-Date: 2026-10-06 08:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,11 +98,11 @@ msgstr "Електронна пошта"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: rabbits/forms.py:8 rabbits/models.py:123
+#: rabbits/forms.py:8
 msgid "Середній клас"
 msgstr ""
 
-#: rabbits/forms.py:9 rabbits/models.py:124
+#: rabbits/forms.py:9
 msgid "Великий клас"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr "Племінний облік"
 
 #: rabbits/models.py:25 rabbits/models.py:127
 msgid "Conditional class"
-msgstr ""
+msgstr "Умовний клас"
 
 #: rabbits/models.py:30
 msgid "Recommended first mating age (months)"
@@ -231,6 +231,14 @@ msgstr "Стать"
 #: rabbits/models.py:117 rabbits/templates/rabbits/rabbit_list.html:25
 msgid "Breed"
 msgstr "Порода"
+
+#: rabbits/models.py:123
+msgid "Medium class"
+msgstr "Середній клас"
+
+#: rabbits/models.py:124
+msgid "Large class"
+msgstr "Великий клас"
 
 #: rabbits/models.py:133 rabbits/templates/rabbits/group_list.html:19
 #: rabbits/templates/rabbits/rabbit_list.html:21

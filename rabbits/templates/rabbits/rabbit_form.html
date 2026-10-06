@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static rabbit_filters %}
 
 {% block content %}
 
@@ -34,7 +34,7 @@
 {% endfor %}
     <datalist id="breed-suggestions">
     {% for breed in breed_suggestions %}
-        <option value="{{ breed }}"></option>
+        <option value="{{ breed }}" label="{{ breed|breed_name }}"></option>
     {% endfor %}
 </datalist>
 
