@@ -233,6 +233,9 @@ msgid "Breed"
 msgstr "Порода"
 
 #: rabbits/models.py:123
+msgid "Estimated class"
+msgstr "Орієнтовний клас"
+
 msgid "Medium class"
 msgstr "Середній клас"
 

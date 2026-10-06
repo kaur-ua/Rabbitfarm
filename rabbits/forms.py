@@ -6,13 +6,13 @@ from rabbits.breed_translations import BREED_TRANSLATIONS
 
 class RabbitForm(forms.ModelForm):
     CONDITIONAL_CLASS_CHOICES = [
-        ("medium", _("Середній клас")),
-        ("large", _("Великий клас")),
+        ("medium", _("Medium class")),
+        ("large", _("Large class")),
     ]
 
     conditional_class = forms.ChoiceField(
         choices=CONDITIONAL_CLASS_CHOICES,
-        label=_("Орієнтовний клас"),
+        label=_("Estimated class"),
         required=False,
         widget=forms.RadioSelect,
     )
