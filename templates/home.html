@@ -65,7 +65,14 @@
         <div class="mating-ready-list">
             {% for rabbit in mating_ready_rabbits %}
                 <div class="mating-ready-rabbit">
-                    <span class="mating-ready-name">{{ rabbit.name }}</span>
+                    <span class="mating-ready-name">
+    {% if rabbit.sex == "M" %}
+        <span class="mating-ready-sex mating-ready-sex-male">♂</span>
+    {% elif rabbit.sex == "F" %}
+        <span class="mating-ready-sex mating-ready-sex-female">♀</span>
+    {% endif %}
+    {{ rabbit.name }}
+</span>
                     <span class="mating-ready-status">
                         ✓ {% trans "Ready for mating" %}
                     </span>
