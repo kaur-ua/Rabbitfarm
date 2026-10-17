@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-06 08:41+0000\n"
+"POT-Creation-Date: 2026-10-17 08:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,41 +98,45 @@ msgstr "Електронна пошта"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: rabbits/forms.py:8
-msgid "Середній клас"
-msgstr ""
+#: rabbits/forms.py:9 rabbits/models.py:130
+msgid "Medium class"
+msgstr "Середній клас"
 
-#: rabbits/forms.py:9
-msgid "Великий клас"
-msgstr ""
+#: rabbits/forms.py:10 rabbits/models.py:131
+msgid "Large class"
+msgstr "Великий клас"
 
-#: rabbits/forms.py:14
-msgid "Орієнтовний клас"
-msgstr ""
+#: rabbits/forms.py:15
+msgid "Estimated class"
+msgstr "Орієнтовний клас"
 
-#: rabbits/forms.py:19
+#: rabbits/forms.py:20
 msgid "Weighing date"
 msgstr "Дата зважування"
 
-#: rabbits/forms.py:67 rabbits/models.py:236
-#: rabbits/templates/rabbits/rabbit_detail.html:67
-#: rabbits/templates/rabbits/rabbit_detail.html:103
-#: rabbits/templates/rabbits/rabbit_detail.html:116
-#: rabbits/templates/rabbits/rabbit_list.html:27
+#: rabbits/forms.py:93
+msgid "Select a parent or enter a name. If unknown, write 'Unknown'."
+msgstr ""
+
+#: rabbits/forms.py:100 rabbits/models.py:243
+#: rabbits/templates/rabbits/rabbit_detail.html:97
+#: rabbits/templates/rabbits/rabbit_detail.html:133
+#: rabbits/templates/rabbits/rabbit_detail.html:146
+#: rabbits/templates/rabbits/rabbit_list.html:28
 msgid "Date"
 msgstr "Дата"
 
-#: rabbits/forms.py:72 rabbits/models.py:183 rabbits/models.py:242
-#: rabbits/templates/rabbits/rabbit_detail.html:68
-#: rabbits/templates/rabbits/rabbit_list.html:24
+#: rabbits/forms.py:105 rabbits/models.py:190 rabbits/models.py:249
+#: rabbits/templates/rabbits/rabbit_detail.html:98
+#: rabbits/templates/rabbits/rabbit_list.html:25
 msgid "Weight"
 msgstr "Вага"
 
-#: rabbits/forms.py:91
+#: rabbits/forms.py:124
 msgid "Male Cage"
 msgstr "Клітка самців"
 
-#: rabbits/forms.py:96
+#: rabbits/forms.py:129
 msgid "Female Cage"
 msgstr "Клітка самиць"
 
@@ -162,7 +166,7 @@ msgstr ""
 msgid "Breed name"
 msgstr "Племінний облік"
 
-#: rabbits/models.py:25 rabbits/models.py:127
+#: rabbits/models.py:25 rabbits/models.py:134
 msgid "Conditional class"
 msgstr "Умовний клас"
 
@@ -198,7 +202,8 @@ msgstr "Самка"
 msgid "Male"
 msgstr "Самець"
 
-#: rabbits/models.py:89
+#: rabbits/models.py:89 rabbits/templates/rabbits/rabbit_detail.html:45
+#: rabbits/templates/rabbits/rabbit_detail.html:55
 #: venv/lib/python3.13/site-packages/django/forms/widgets.py:869
 msgid "Unknown"
 msgstr "Невідомо"
@@ -216,69 +221,62 @@ msgid "Culled"
 msgstr "Вибракуваний"
 
 #: rabbits/models.py:100 rabbits/templates/rabbits/group_list.html:18
-#: rabbits/templates/rabbits/rabbit_list.html:20
+#: rabbits/templates/rabbits/rabbit_list.html:21
 msgid "Name"
 msgstr "Ім'я"
 
-#: rabbits/models.py:106
+#: rabbits/models.py:106 rabbits/templates/rabbits/rabbit_detail.html:31
+msgid "Acquisition Source:"
+msgstr "Джерело придбання:"
+
+#: rabbits/models.py:113
 msgid "Inventory Number"
 msgstr "Інвентарний номер"
 
-#: rabbits/models.py:111 rabbits/templates/rabbits/rabbit_list.html:22
+#: rabbits/models.py:118 rabbits/templates/rabbits/rabbit_list.html:23
 msgid "Sex"
 msgstr "Стать"
 
-#: rabbits/models.py:117 rabbits/templates/rabbits/rabbit_list.html:25
+#: rabbits/models.py:124 rabbits/templates/rabbits/rabbit_list.html:26
 msgid "Breed"
 msgstr "Порода"
 
-#: rabbits/models.py:123
-msgid "Estimated class"
-msgstr "Орієнтовний клас"
-
-msgid "Medium class"
-msgstr "Середній клас"
-
-#: rabbits/models.py:124
-msgid "Large class"
-msgstr "Великий клас"
-
-#: rabbits/models.py:133 rabbits/templates/rabbits/group_list.html:19
-#: rabbits/templates/rabbits/rabbit_list.html:21
+#: rabbits/models.py:140 rabbits/templates/rabbits/group_list.html:19
+#: rabbits/templates/rabbits/rabbit_list.html:22
 msgid "Cage"
 msgstr "Клітка"
 
-#: rabbits/models.py:140 rabbits/templates/rabbits/rabbit_detail.html:107
-#: rabbits/templates/rabbits/rabbit_detail.html:127
-#: rabbits/templates/rabbits/rabbit_list.html:30
+#: rabbits/models.py:147 rabbits/templates/rabbits/rabbit_detail.html:137
+#: rabbits/templates/rabbits/rabbit_detail.html:157
+#: rabbits/templates/rabbits/rabbit_list.html:31
 msgid "Status"
 msgstr "Статус"
 
-#: rabbits/models.py:149
+#: rabbits/models.py:156
 msgid "Mother"
 msgstr "Мати"
 
-#: rabbits/models.py:155
+#: rabbits/models.py:162
 msgid "Mother (manual)"
 msgstr "Мати (вручну)"
 
-#: rabbits/models.py:164
+#: rabbits/models.py:171
 msgid "Father"
 msgstr "Батько"
 
-#: rabbits/models.py:169
+#: rabbits/models.py:176
 msgid "Father (manual)"
 msgstr "Батько (вручну)"
 
-#: rabbits/models.py:175
+#: rabbits/models.py:182
 msgid "Birth date"
 msgstr "Дата народження"
 
-#: rabbits/models.py:190
+#: rabbits/models.py:197
 msgid "Photo"
 msgstr "Фото"
 
-#: rabbits/models.py:232
+#: rabbits/models.py:239
 #, fuzzy
 #| msgid "Rabbits"
 msgid "Rabbit"
@@ -334,29 +332,29 @@ msgid "Groups"
 msgstr "Групи"
 
 #: rabbits/templates/rabbits/group_list.html:22
-#: rabbits/templates/rabbits/rabbit_list.html:26
+#: rabbits/templates/rabbits/rabbit_list.html:27
 msgid "Last Event"
 msgstr "Остання подія"
 
 #: rabbits/templates/rabbits/group_list.html:23
-#: rabbits/templates/rabbits/rabbit_detail.html:105
-#: rabbits/templates/rabbits/rabbit_detail.html:118
-#: rabbits/templates/rabbits/rabbit_list.html:28
+#: rabbits/templates/rabbits/rabbit_detail.html:135
+#: rabbits/templates/rabbits/rabbit_detail.html:148
+#: rabbits/templates/rabbits/rabbit_list.html:29
 msgid "Next Action"
 msgstr "Наступна дія"
 
 #: rabbits/templates/rabbits/group_list.html:24
-#: rabbits/templates/rabbits/rabbit_detail.html:106
-#: rabbits/templates/rabbits/rabbit_detail.html:119
-#: rabbits/templates/rabbits/rabbit_list.html:29
+#: rabbits/templates/rabbits/rabbit_detail.html:136
+#: rabbits/templates/rabbits/rabbit_detail.html:149
+#: rabbits/templates/rabbits/rabbit_list.html:30
 msgid "Next Action Date"
 msgstr "Дата наступної дії"
 
 #: rabbits/templates/rabbits/group_list.html:25
 #: rabbits/templates/rabbits/group_list.html:63
 #: rabbits/templates/rabbits/group_list.html:167
-#: rabbits/templates/rabbits/rabbit_list.html:32
-#: rabbits/templates/rabbits/rabbit_list.html:110
+#: rabbits/templates/rabbits/rabbit_list.html:33
+#: rabbits/templates/rabbits/rabbit_list.html:111
 msgid "Actions"
 msgstr "Дії"
 
@@ -372,14 +370,14 @@ msgstr "Видалити подію"
 
 #: rabbits/templates/rabbits/group_list.html:89
 #: rabbits/templates/rabbits/group_list.html:193
-#: rabbits/templates/rabbits/rabbit_list.html:115
-#: rabbits/templates/rabbits/rabbit_list.html:225
+#: rabbits/templates/rabbits/rabbit_list.html:116
+#: rabbits/templates/rabbits/rabbit_list.html:226
 msgid "Edit"
 msgstr "Редагувати"
 
 #: rabbits/templates/rabbits/group_list.html:96
 #: rabbits/templates/rabbits/group_list.html:200
-#: rabbits/templates/rabbits/rabbit_list.html:129
+#: rabbits/templates/rabbits/rabbit_list.html:130
 #: venv/lib/python3.13/site-packages/django/forms/formsets.py:499
 msgid "Delete"
 msgstr "Видалити"
@@ -397,8 +395,8 @@ msgstr ""
 "записів. До цього часу молодняк залишається з самкою."
 
 #: rabbits/templates/rabbits/group_list.html:129
-#: rabbits/templates/rabbits/rabbit_detail.html:29
-#: rabbits/templates/rabbits/rabbit_list.html:160
+#: rabbits/templates/rabbits/rabbit_detail.html:59
+#: rabbits/templates/rabbits/rabbit_list.html:161
 msgid "Cage:"
 msgstr "Клітка:"
 
@@ -407,112 +405,120 @@ msgid "Count:"
 msgstr "Кількість"
 
 #: rabbits/templates/rabbits/group_list.html:135
-#: rabbits/templates/rabbits/rabbit_list.html:177
+#: rabbits/templates/rabbits/rabbit_list.html:178
 msgid "Last Event:"
 msgstr "Остання подія:"
 
 #: rabbits/templates/rabbits/group_list.html:145
-#: rabbits/templates/rabbits/rabbit_list.html:186
+#: rabbits/templates/rabbits/rabbit_list.html:187
 msgid "Next Action:"
 msgstr "Наступна дія:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:7
+#: rabbits/templates/rabbits/rabbit_detail.html:8
 msgid "Rabbit Details"
 msgstr "Картка кролика"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:15
-#: rabbits/templates/rabbits/rabbit_detail.html:17
+#: rabbits/templates/rabbits/rabbit_detail.html:16
+#: rabbits/templates/rabbits/rabbit_detail.html:18
 msgid "Rabbit Photo"
 msgstr "Фото кролика"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:23
+#: rabbits/templates/rabbits/rabbit_detail.html:24
 msgid "Inventory Number:"
 msgstr "Інвентарний номер:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:24
+#: rabbits/templates/rabbits/rabbit_detail.html:25
 msgid "Name:"
 msgstr "Ім'я:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:25
+#: rabbits/templates/rabbits/rabbit_detail.html:26
 msgid "Sex:"
 msgstr "Стать:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:26
+#: rabbits/templates/rabbits/rabbit_detail.html:27
 msgid "Status:"
 msgstr "Статус:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:27
+#: rabbits/templates/rabbits/rabbit_detail.html:28
 msgid "Birth Date:"
 msgstr "Дата народження:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:28
+#: rabbits/templates/rabbits/rabbit_detail.html:29
 msgid "Breed:"
 msgstr "Порода:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:30
+#: rabbits/templates/rabbits/rabbit_detail.html:39
+msgid "Mother:"
+msgstr "Мати"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:49
+msgid "Father:"
+msgstr "Батько"
+
+#: rabbits/templates/rabbits/rabbit_detail.html:60
 msgid "Current Weight:"
 msgstr "Поточна вага"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:38
+#: rabbits/templates/rabbits/rabbit_detail.html:68
 msgid "Mating Readiness:"
 msgstr "Готовність до парування:"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:40
-#: rabbits/templates/rabbits/rabbit_list.html:98 templates/home.html:70
+#: rabbits/templates/rabbits/rabbit_detail.html:70
+#: rabbits/templates/rabbits/rabbit_list.html:99 templates/home.html:77
 msgid "Ready for mating"
 msgstr "Готовий до парування"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:42
-#: rabbits/templates/rabbits/rabbit_list.html:100
+#: rabbits/templates/rabbits/rabbit_detail.html:72
+#: rabbits/templates/rabbits/rabbit_list.html:101
 msgid "Not ready for mating"
 msgstr "Не готовий до парування"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:44
-#: rabbits/templates/rabbits/rabbit_list.html:102
+#: rabbits/templates/rabbits/rabbit_detail.html:74
+#: rabbits/templates/rabbits/rabbit_list.html:103
 msgid "Insufficient data"
 msgstr "Недостатньо даних"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:52
+#: rabbits/templates/rabbits/rabbit_detail.html:82
 msgid "Weight History"
 msgstr "Історія зважувань"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:58
+#: rabbits/templates/rabbits/rabbit_detail.html:88
 msgid "Add weighing"
 msgstr "Додати зважування"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:82
+#: rabbits/templates/rabbits/rabbit_detail.html:112
 msgid "No weight records yet."
 msgstr "Записів про зважування ще немає."
 
-#: rabbits/templates/rabbits/rabbit_detail.html:91
+#: rabbits/templates/rabbits/rabbit_detail.html:121
 msgid "Back to List"
 msgstr "Назад до списку"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:96
+#: rabbits/templates/rabbits/rabbit_detail.html:126
 msgid "Event History"
 msgstr "Історія подій"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:104
-#: rabbits/templates/rabbits/rabbit_detail.html:117
+#: rabbits/templates/rabbits/rabbit_detail.html:134
+#: rabbits/templates/rabbits/rabbit_detail.html:147
 msgid "Event Type"
 msgstr "Тип події"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:108
-#: rabbits/templates/rabbits/rabbit_detail.html:128
+#: rabbits/templates/rabbits/rabbit_detail.html:138
+#: rabbits/templates/rabbits/rabbit_detail.html:158
 msgid "Note"
 msgstr "Примітка"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:109
-#: rabbits/templates/rabbits/rabbit_detail.html:129
+#: rabbits/templates/rabbits/rabbit_detail.html:139
+#: rabbits/templates/rabbits/rabbit_detail.html:159
 msgid "Born Alive"
 msgstr "Народилося живих"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:110
-#: rabbits/templates/rabbits/rabbit_detail.html:130
+#: rabbits/templates/rabbits/rabbit_detail.html:140
+#: rabbits/templates/rabbits/rabbit_detail.html:160
 msgid "Born Dead"
 msgstr "Народилося мертвих"
 
-#: rabbits/templates/rabbits/rabbit_detail.html:136
+#: rabbits/templates/rabbits/rabbit_detail.html:166
 msgid "No events yet."
 msgstr "Подій ще немає."
 
@@ -521,62 +527,62 @@ msgid "Edit Rabbit"
 msgstr "Редагувати кролика"
 
 #: rabbits/templates/rabbits/rabbit_form.html:10
-#: rabbits/templates/rabbits/rabbit_list.html:281
+#: rabbits/templates/rabbits/rabbit_list.html:282
 msgid "Add Rabbit"
 msgstr "Додати кролика"
 
-#: rabbits/templates/rabbits/rabbit_list.html:13 templates/base.html:62
+#: rabbits/templates/rabbits/rabbit_list.html:14 templates/base.html:62
 msgid "Rabbit Records"
 msgstr "Облік кроликів"
 
-#: rabbits/templates/rabbits/rabbit_list.html:23
+#: rabbits/templates/rabbits/rabbit_list.html:24
 msgid "Age"
 msgstr "Вік"
 
-#: rabbits/templates/rabbits/rabbit_list.html:31
+#: rabbits/templates/rabbits/rabbit_list.html:32
 msgid "Mating Readiness"
 msgstr "Готовність до парування"
 
-#: rabbits/templates/rabbits/rabbit_list.html:87
-#: rabbits/templates/rabbits/rabbit_list.html:205
+#: rabbits/templates/rabbits/rabbit_list.html:88
+#: rabbits/templates/rabbits/rabbit_list.html:206
 msgid "Critical"
 msgstr "Критично"
 
-#: rabbits/templates/rabbits/rabbit_list.html:89
-#: rabbits/templates/rabbits/rabbit_list.html:207
+#: rabbits/templates/rabbits/rabbit_list.html:90
+#: rabbits/templates/rabbits/rabbit_list.html:208
 msgid "Attention"
 msgstr "Увага"
 
-#: rabbits/templates/rabbits/rabbit_list.html:91
-#: rabbits/templates/rabbits/rabbit_list.html:209
+#: rabbits/templates/rabbits/rabbit_list.html:92
+#: rabbits/templates/rabbits/rabbit_list.html:210
 msgid "Normal"
 msgstr "Норма"
 
-#: rabbits/templates/rabbits/rabbit_list.html:121
+#: rabbits/templates/rabbits/rabbit_list.html:122
 msgid "Edit Event"
 msgstr "Редагувати подію"
 
-#: rabbits/templates/rabbits/rabbit_list.html:128
+#: rabbits/templates/rabbits/rabbit_list.html:129
 msgid "Delete rabbit?"
 msgstr "Видалити кролика?"
 
-#: rabbits/templates/rabbits/rabbit_list.html:168
+#: rabbits/templates/rabbits/rabbit_list.html:169
 msgid "Weight not specified"
 msgstr "Вага не вказана"
 
-#: rabbits/templates/rabbits/rabbit_list.html:194
+#: rabbits/templates/rabbits/rabbit_list.html:195
 msgid "Next Action Date:"
 msgstr "Дата наступної дії:"
 
-#: rabbits/templates/rabbits/rabbit_list.html:214
+#: rabbits/templates/rabbits/rabbit_list.html:215
 msgid "No Events"
 msgstr "Немає подій"
 
-#: rabbits/templates/rabbits/rabbit_list.html:221
+#: rabbits/templates/rabbits/rabbit_list.html:222
 msgid "View Details"
 msgstr "Переглянути"
 
-#: rabbits/templates/rabbits/rabbit_list.html:237
+#: rabbits/templates/rabbits/rabbit_list.html:238
 msgid ""
 "To create events such as breeding, kindling and weaning, go to the "
 "\"Events\" tab."
@@ -584,13 +590,13 @@ msgstr ""
 "Для створення подій, таких як парування, окрол та відлучення, перейдіть до "
 "вкладки \"Події\"."
 
-#: rabbits/templates/rabbits/rabbit_list.html:244
-#: rabbits/templates/rabbits/rabbit_list.html:248
+#: rabbits/templates/rabbits/rabbit_list.html:245
+#: rabbits/templates/rabbits/rabbit_list.html:249
 msgid "Previous"
 msgstr "Попередня"
 
-#: rabbits/templates/rabbits/rabbit_list.html:266
-#: rabbits/templates/rabbits/rabbit_list.html:270
+#: rabbits/templates/rabbits/rabbit_list.html:267
+#: rabbits/templates/rabbits/rabbit_list.html:271
 msgid "Next"
 msgstr "Наступна"
 
@@ -771,27 +777,27 @@ msgstr "Самець"
 msgid "Ready for Mating"
 msgstr "Готові до парування"
 
-#: templates/home.html:79
+#: templates/home.html:86
 msgid "No rabbits ready for mating today"
 msgstr "Сьогодні немає кроликів, готових до парування"
 
-#: templates/home.html:83
+#: templates/home.html:90
 msgid "Action Required"
 msgstr "Потрібна дія"
 
-#: templates/home.html:87
+#: templates/home.html:94
 msgid "Sex must be determined in group ..."
 msgstr "Стать потрібно визначити в групі ..."
 
-#: templates/home.html:92
+#: templates/home.html:99
 msgid "Overdue events detected"
 msgstr "Виявлено прострочені події"
 
-#: templates/home.html:94
+#: templates/home.html:101
 msgid "Upcoming event:"
 msgstr "Найближча подія:"
 
-#: templates/home.html:96
+#: templates/home.html:103
 msgid "No tasks for today"
 msgstr "На сьогодні завдань немає"
 

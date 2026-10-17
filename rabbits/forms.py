@@ -27,6 +27,7 @@ class RabbitForm(forms.ModelForm):
 
             "group",
             "name",
+            "origin_source",
             "sex",
             "breed",
             "conditional_class",
@@ -57,6 +58,9 @@ class RabbitForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields["mother"].required = False
+        self.fields["father"].required = False
+
         self.fields["weighing_date"].initial = date.today()
 
         self.fields["mother"].label_from_instance = (
@@ -72,6 +76,24 @@ class RabbitForm(forms.ModelForm):
         }
 
         return reverse_translations.get(breed, breed)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        for parent_field, manual_field in (
+            ("mother", "mother_manual"),
+            ("father", "father_manual"),
+        ):
+            parent = cleaned_data.get(parent_field)
+            manual_name = (cleaned_data.get(manual_field) or "").strip()
+
+            if not parent and not manual_name:
+                self.add_error(
+                    manual_field,
+                    _("Select a parent or enter a name. If unknown, write 'Unknown'.")
+                )
+
+        return cleaned_data
 
 class WeightRecordForm(forms.Form):
     date = forms.DateField(

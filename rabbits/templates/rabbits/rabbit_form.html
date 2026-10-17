@@ -24,7 +24,7 @@
         </div>
     {% else %}
         <p>
-            {{ field.label_tag }}
+            {{ field.label_tag }}{% if field.name == "mother" or field.name == "father" %}<span class="text-danger">*</span>{% endif %}
             {{ field }}
             {% for error in field.errors %}
                 <span class="text-danger">{{ error }}</span>

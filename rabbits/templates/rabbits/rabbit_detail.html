@@ -27,14 +27,43 @@
     <p><strong>{% trans "Status:" %}</strong> {{ rabbit.get_status_display }}</p>
     <p><strong>{% trans "Birth Date:" %}</strong> {{ rabbit.birth_date|date:"d.m.Y" }}</p>
     <p><strong>{% trans "Breed:" %}</strong> {{ rabbit.breed|breed_name }}</p>
-    <p><strong>{% trans "Cage:" %}</strong> {{ rabbit.cage }}</p>
-    <p><strong>{% trans "Current Weight:" %}</strong>
-        {% if rabbit.weight %}
-            {{ rabbit.weight }} kg
+
+    <p><strong>{% trans "Acquisition Source:" %}</strong>
+    {% if rabbit.origin_source %}
+        {{ rabbit.origin_source }}
+    {% else %}
+        —
+    {% endif %}
+</p>
+
+    <p><strong>{% trans "Mother:" %}</strong>
+    {% if rabbit.mother %}
+        {{ rabbit.mother.name }}
+    {% elif rabbit.mother_manual %}
+        {{ rabbit.mother_manual }}
+    {% else %}
+        {% trans "Unknown" %}
+    {% endif %}
+    </p>
+
+    <p><strong>{% trans "Father:" %}</strong>
+        {% if rabbit.father %}
+            {{ rabbit.father.name }}
+        {% elif rabbit.father_manual %}
+            {{ rabbit.father_manual }}
         {% else %}
-            —
+            {% trans "Unknown" %}
         {% endif %}
     </p>
+
+    <p><strong>{% trans "Cage:" %}</strong> {{ rabbit.cage }}</p>
+        <p><strong>{% trans "Current Weight:" %}</strong>
+            {% if rabbit.weight %}
+                {{ rabbit.weight }} kg
+            {% else %}
+                —
+            {% endif %}
+        </p>
 
     <p><strong>{% trans "Mating Readiness:" %}</strong>
     {% if rabbit.mating_readiness == "Готовий до парування" %}

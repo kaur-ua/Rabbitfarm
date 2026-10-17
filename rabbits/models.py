@@ -98,6 +98,13 @@ class Rabbit(models.Model):
 
 
     name = models.CharField(max_length=100, verbose_name=_("Name"))
+
+    origin_source = models.CharField(
+        max_length=200,
+        blank=True,
+        default="",
+        verbose_name=_("Acquisition Source:")
+    )
     inventory_number = models.CharField(
         max_length=20,
         unique=True,
