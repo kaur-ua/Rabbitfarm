@@ -98,3 +98,190 @@ def get_mating_readiness(rabbit, today=None):
         return NOT_READY
 
     return READY
+
+def get_pairing_candidates(farm):
+    """
+    Повертає активних самців і самок одного господарства.
+    Готовність до парування перевіряється окремо.
+    """
+    from rabbits.models import Rabbit
+
+    rabbits = Rabbit.objects.filter(
+        farm=farm,
+        status="ACTIVE",
+        sex__in=("F", "M"),
+    ).select_related(
+        "mother",
+        "father",
+    ).order_by("inventory_number")
+
+    females = rabbits.filter(sex="F")
+    males = rabbits.filter(sex="M")
+
+    return females, males
+
+def _get_ancestors(rabbit, max_depth=3):
+    """Збирає відомих предків і перевіряє повноту родоводу."""
+    ancestors = {}
+    frontier = [(rabbit, 0)]
+    visited = {rabbit.pk}
+    pedigree_complete = True
+
+    while frontier:
+        current, depth = frontier.pop(0)
+
+        if depth >= max_depth:
+            if current.mother_id or current.father_id:
+                pedigree_complete = False
+            continue
+
+        if (
+            not current.mother_id
+            or not current.father_id
+            or current.mother_manual
+            or current.father_manual
+        ):
+            pedigree_complete = False
+
+        for parent in (current.mother, current.father):
+            if parent is None or parent.pk in visited:
+                continue
+
+            visited.add(parent.pk)
+            ancestors[parent.pk] = depth + 1
+            frontier.append((parent, depth + 1))
+
+    return ancestors, pedigree_complete
+
+
+def check_pair_relatedness(female, male):
+    """
+    Перевіряє спільних предків до трьох поколінь.
+    Неповний родовід повертає unknown.
+    """
+    if female.pk == male.pk:
+        return "same_rabbit"
+
+    female_ancestors, female_complete = _get_ancestors(female)
+    male_ancestors, male_complete = _get_ancestors(male)
+
+    if set(female_ancestors) & set(male_ancestors):
+        return "related"
+
+    if not female_complete or not male_complete:
+        return "unknown"
+
+    return "no_known_relation"
+
+def evaluate_pairing(female, male):
+    """
+    Оцінює пару кролів за спорідненістю.
+    Неповний родовід не блокує рекомендацію,
+    але додає попередження.
+    """
+    if female.pk == male.pk:
+        return {
+            "recommended": False,
+            "relatedness": "same_rabbit",
+            "warnings": ["Не можна рекомендувати кролика самому собі."],
+        }
+
+    if female.sex != "F" or male.sex != "M":
+        return {
+            "recommended": False,
+            "relatedness": "invalid_sex",
+            "warnings": ["Для пари потрібні самка та самець."],
+        }
+
+    if female.farm_id != male.farm_id:
+        return {
+            "recommended": False,
+            "relatedness": "different_farm",
+            "warnings": ["Кролі належать до різних господарств."],
+        }
+
+    if female.status != "ACTIVE" or male.status != "ACTIVE":
+        return {
+            "recommended": False,
+            "relatedness": "inactive",
+            "warnings": ["Обидва кролі мають бути активними."],
+        }
+
+    relatedness = check_pair_relatedness(female, male)
+    warnings = []
+
+    if relatedness == "related":
+        warnings.append("Виявлено спільних предків.")
+        return {
+            "recommended": False,
+            "relatedness": relatedness,
+            "warnings": warnings,
+        }
+
+    if relatedness == "unknown":
+        warnings.append(
+            "Родовід неповний — спорідненість не встановлена."
+        )
+
+    return {
+        "recommended": True,
+        "relatedness": relatedness,
+        "warnings": warnings,
+}
+def get_recommended_pairs(farm):
+    """
+    Формує рекомендовані пари активних кролів.
+    Перевіряє спорідненість і готовність до першого парування.
+    """
+    females, males = get_pairing_candidates(farm)
+    recommended_pairs = []
+
+    for female in females:
+        for male in males:
+            evaluation = evaluate_pairing(female, male)
+
+            if not evaluation["recommended"]:
+                continue
+
+            warnings = list(evaluation["warnings"])
+
+            for rabbit in (female, male):
+                has_mating_event = rabbit.events.filter(
+                    event_type="mating"
+                ).exists()
+
+                # Якщо парування вже було, повторно готовність
+                # до першого парування не перевіряємо.
+                if has_mating_event:
+                    continue
+
+                readiness = get_mating_readiness(rabbit)
+
+                if readiness == NOT_READY:
+                    evaluation["recommended"] = False
+                    break
+
+                if readiness == INSUFFICIENT_DATA:
+                    warning = (
+                        f"{rabbit.name}: недостатньо даних "
+                        "для оцінки готовності до першого парування."
+                    )
+                    if warning not in warnings:
+                        warnings.append(warning)
+
+                elif readiness is None:
+                    # Оцінювання ще не почалося: кролик надто молодий.
+                    evaluation["recommended"] = False
+                    break
+
+            if not evaluation["recommended"]:
+                continue
+
+            recommended_pairs.append({
+                "female": female,
+                "male": male,
+                "relatedness": evaluation["relatedness"],
+                "warnings": warnings,
+            })
+
+    return recommended_pairs
