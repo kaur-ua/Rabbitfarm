@@ -78,14 +78,53 @@
                     </span>
                 </div>
             {% endfor %}
-        </div>
-      </div>
-</div>
+               </div>
     {% else %}
         <div class="mating-ready-empty">
             {% trans "No rabbits ready for mating today" %}
         </div>
     {% endif %}
+</div>
+</div>
+<div class="col-md-8">
+    <div class="mating-ready-panel mt-3">
+    <div class="mating-ready-header">
+        <span>🤝 {% trans "Recommended Pairs" %}</span>
+    </div>
+
+    {% if recommended_pairs %}
+        <div class="row g-2 recommended-pairs-list">
+            {% for pair in recommended_pairs %}
+                <div class="col-12 col-md-6">
+                    <div class="mating-ready-rabbit">
+                    <div class="mating-ready-name">
+                        <span class="mating-ready-sex mating-ready-sex-female">♀</span>
+                        {{ pair.female.name }}
+                        <span class="pair-separator">+</span>
+
+                        <span class="mating-ready-sex mating-ready-sex-male">♂</span>
+                        {{ pair.male.name }}
+
+                    </div>
+
+                    {% if pair.warnings %}
+                        <div class="text-warning small mt-1">
+                            {% for warning in pair.warnings %}
+                                <div>⚠ {{ warning }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="mating-ready-empty">
+            {% trans "No recommended pairs at the moment" %}
+        </div>
+    {% endif %}
+    </div>
+</div>
 </div>
 <h5>🚦 {% trans "Action Required" %}</h5>
 

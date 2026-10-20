@@ -2339,7 +2339,6 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#, fuzzy
-#~| msgid "Cage"
-#~ msgid "№ Cage"
-#~ msgstr "Клітка"
+#: templates/home.html
+msgid "Recommended Pairs"
+msgstr "Рекомендовані пари"

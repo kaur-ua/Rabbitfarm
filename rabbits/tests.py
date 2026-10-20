@@ -126,7 +126,7 @@ class PairRelatednessTests(TestCase):
         self.assertFalse(result["recommended"])
         self.assertEqual(result["relatedness"], "related")
 
-    def test_incomplete_pedigree_has_warning(self):
+    def test_incomplete_pedigree_does_not_add_warning(self):
         female = self.create_rabbit(sex="F")
         male = self.create_rabbit(sex="M")
 
@@ -134,7 +134,7 @@ class PairRelatednessTests(TestCase):
 
         self.assertTrue(result["recommended"])
         self.assertEqual(result["relatedness"], "unknown")
-        self.assertTrue(result["warnings"])
+        self.assertEqual(result["warnings"], [])
 
     def test_pair_without_known_common_ancestors_is_recommended(self):
         female = self.create_rabbit(sex="F")
@@ -291,7 +291,9 @@ class PairRelatednessTests(TestCase):
 
         self.assertIsNotNone(pair)
         self.assertEqual(pair["relatedness"], "unknown")
-        self.assertTrue(pair["warnings"])
+        self.assertFalse(
+            any("родовід" in warning.lower() for warning in pair["warnings"])
+        )
 
     def test_recommended_pairs_include_unrelated_rabbits(self):
         female_mother = self.create_rabbit("Female Mother", "F")

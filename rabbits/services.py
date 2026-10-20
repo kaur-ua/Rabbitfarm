@@ -218,10 +218,7 @@ def evaluate_pairing(female, male):
             "warnings": warnings,
         }
 
-    if relatedness == "unknown":
-        warnings.append(
-            "Родовід неповний — спорідненість не встановлена."
-        )
+
 
     return {
         "recommended": True,

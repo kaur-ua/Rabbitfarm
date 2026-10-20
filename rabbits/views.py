@@ -12,7 +12,11 @@ from events.forms import EventForm
 from django import forms
 from events.models import Event
 from .forms import RabbitForm, WeightRecordForm, GroupForm, SexSeparationForm
-from rabbits.services import get_mating_readiness, READY
+from rabbits.services import (
+    get_mating_readiness,
+    get_recommended_pairs,
+    READY,
+)
 
 @login_required
 def create_group(request):
@@ -367,6 +371,8 @@ def home(request):
         if get_mating_readiness(rabbit, today=today) == READY
     ]
 
+    recommended_pairs = get_recommended_pairs(farm)
+
     tomorrow = today + timedelta(days=1)
 
     sex_check_groups = Group.objects.filter(
@@ -418,6 +424,7 @@ def home(request):
         "upcoming_event": upcoming_event,
         "sex_check_groups": sex_check_groups,
         "mating_ready_rabbits": mating_ready_rabbits,
+        "recommended_pairs": recommended_pairs,
     }
     
     return render(request, "home.html", context)
