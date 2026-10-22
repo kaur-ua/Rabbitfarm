@@ -63,6 +63,15 @@ box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
     background: #f8fbf9;
     flex-wrap: wrap;
 }
+.pair-warning {
+    flex-basis: 100%;
+    width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #704500;
+    padding-top: 6px;
+    border-top: 1px solid #e5e9e6;
+}
 
 .mating-ready-name {
     font-weight: 600;

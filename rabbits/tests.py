@@ -127,8 +127,8 @@ class PairRelatednessTests(TestCase):
         self.assertEqual(result["relatedness"], "related")
 
     def test_incomplete_pedigree_does_not_add_warning(self):
-        female = self.create_rabbit(sex="F")
-        male = self.create_rabbit(sex="M")
+        female = self.create_rabbit(sex="F", breed="New Zealand White")
+        male = self.create_rabbit(sex="M", breed="New Zealand White")
 
         result = evaluate_pairing(female, male)
 
@@ -324,6 +324,76 @@ class PairRelatednessTests(TestCase):
 
         self.assertIsNotNone(pair)
         self.assertEqual(pair["relatedness"], "unknown")
+
+    def test_same_known_breed_is_recommended_without_cross_warning(self):
+        female = self.create_rabbit(
+            sex="F",
+            breed="New Zealand White",
+        )
+        male = self.create_rabbit(
+            sex="M",
+            breed="New Zealand White",
+        )
+
+        result = evaluate_pairing(female, male)
+
+        self.assertTrue(result["recommended"])
+        self.assertFalse(
+            any("кросовим" in warning for warning in result["warnings"])
+        )
+
+    def test_different_known_breeds_are_not_recommended(self):
+        female = self.create_rabbit(
+            sex="F",
+            breed="New Zealand White",
+        )
+        male = self.create_rabbit(
+            sex="M",
+            breed="New Zealand Blue",
+        )
+
+        result = evaluate_pairing(female, male)
+
+        self.assertFalse(result["recommended"])
+        self.assertTrue(
+            any("кросовим" in warning for warning in result["warnings"])
+        )
+
+    def test_missing_breed_allows_pair_with_cross_warning(self):
+        female = self.create_rabbit(
+            sex="F",
+            breed="New Zealand White",
+        )
+        male = self.create_rabbit(sex="M")
+
+        result = evaluate_pairing(female, male)
+
+        self.assertTrue(result["recommended"])
+        self.assertTrue(
+            any("кросовим" in warning for warning in result["warnings"])
+        )
+
+    def test_unknown_breed_allows_pair_with_cross_warning(self):
+        for unknown_breed in ("unknown", "невідома"):
+            with self.subTest(breed=unknown_breed):
+                female = self.create_rabbit(
+                    sex="F",
+                    breed=unknown_breed,
+                )
+                male = self.create_rabbit(
+                    sex="M",
+                    breed="New Zealand White",
+                )
+
+                result = evaluate_pairing(female, male)
+
+                self.assertTrue(result["recommended"])
+                self.assertTrue(
+                    any(
+                        "кросовим" in warning
+                        for warning in result["warnings"]
+                    )
+                )
 
 class MatingReadinessTests(TestCase):
     def setUp(self):

@@ -71,7 +71,7 @@
     {% elif rabbit.sex == "F" %}
         <span class="mating-ready-sex mating-ready-sex-female">♀</span>
     {% endif %}
-    {{ rabbit.name }}
+    <a href="{% url 'rabbit_detail' rabbit.pk %}">{{ rabbit.name }}</a>
 </span>
                     <span class="mating-ready-status">
                         ✓ {% trans "Ready for mating" %}
@@ -108,7 +108,7 @@
                     </div>
 
                     {% if pair.warnings %}
-                        <div class="text-warning small mt-1">
+                        <div class="text-warning small mt-2">
                             {% for warning in pair.warnings %}
                                 <div>⚠ {{ warning }}</div>
                             {% endfor %}

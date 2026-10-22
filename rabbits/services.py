@@ -218,6 +218,31 @@ def evaluate_pairing(female, male):
             "warnings": warnings,
         }
 
+    female_breed = (female.breed or "").strip()
+    male_breed = (male.breed or "").strip()
+
+    unknown_breeds = {"", "unknown", "невідома", "невідомо"}
+
+    female_breed_unknown = female_breed.casefold() in unknown_breeds
+    male_breed_unknown = male_breed.casefold() in unknown_breeds
+
+    if female_breed_unknown or male_breed_unknown:
+        warnings.append(
+            "Можливе міжпородне схрещування. "
+            "Потомство може бути кросовим. "
+            "Чистопородність майбутніх кроленят не гарантована."
+        )
+    elif female_breed.casefold() != male_breed.casefold():
+        warnings.append(
+            "Можливе міжпородне схрещування. "
+            "Потомство може бути кросовим. "
+            "Чистопородність майбутніх кроленят не гарантована."
+        )
+        return {
+            "recommended": False,
+            "relatedness": relatedness,
+            "warnings": warnings,
+        }
 
 
     return {
