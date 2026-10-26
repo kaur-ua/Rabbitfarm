@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from .models import Event
 from django.db import transaction
+from django.db import models
 
 
 
@@ -20,6 +21,7 @@ def add_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
         if form.is_valid():
             event = form.save(commit=False)
@@ -102,6 +104,7 @@ def add_event(request):
     else:
         form = EventForm()
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "events/add_event.html", {
         "form": form,
@@ -120,6 +123,7 @@ def edit_event(request, rabbit_id):
     if request.method == "POST":
         form = EventForm(request.POST, instance=event)
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
         form.fields["rabbit"].disabled = True
         form.fields["event_type"].disabled = True
@@ -175,6 +179,7 @@ def edit_event(request, rabbit_id):
     else:
         form = EventForm(instance=event)
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
         form.fields["rabbit"].disabled = True
         form.fields["event_type"].disabled = True
@@ -225,12 +230,26 @@ def create_group_event(request, group_id):
 
 @login_required
 def delete_event(request, pk):
-    event = get_object_or_404(Event, pk=pk)
+    farm = request.user.farms.first()
+    if not farm:
+        return redirect("create_farm")
+
+    event = get_object_or_404(
+        Event.objects.filter(
+            models.Q(rabbit__farm=farm) |
+            models.Q(group__farm=farm)
+        ),
+        pk=pk,
+    )
 
     if request.method == "POST":
         event.delete()
         return redirect("home")
 
-    return render(request, "events/confirm_delete.html", {"event": event})
+    return render(
+        request,
+        "events/confirm_delete.html",
+        {"event": event},
+    )
 
     

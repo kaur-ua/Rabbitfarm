@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 08:07+0000\n"
+"POT-Creation-Date: 2026-10-26 09:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,9 +116,9 @@ msgstr "Дата зважування"
 
 #: rabbits/forms.py:93
 msgid "Select a parent or enter a name. If unknown, write 'Unknown'."
-msgstr ""
+msgstr "Виберіть одного з батьків або введіть ім’я. Якщо невідомо — напишіть «Невідомо»."
 
-#: rabbits/forms.py:100 rabbits/models.py:243
+#: rabbits/forms.py:100 rabbits/models.py:257
 #: rabbits/templates/rabbits/rabbit_detail.html:97
 #: rabbits/templates/rabbits/rabbit_detail.html:133
 #: rabbits/templates/rabbits/rabbit_detail.html:146
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Date"
 msgstr "Дата"
 
-#: rabbits/forms.py:105 rabbits/models.py:190 rabbits/models.py:249
+#: rabbits/forms.py:105 rabbits/models.py:190 rabbits/models.py:263
 #: rabbits/templates/rabbits/rabbit_detail.html:98
 #: rabbits/templates/rabbits/rabbit_list.html:25
 msgid "Weight"
@@ -142,27 +142,25 @@ msgstr "Клітка самиць"
 
 #: rabbits/models.py:10
 msgid "Середній"
-msgstr ""
+msgstr "Середній"
 
 #: rabbits/models.py:11
 msgid "Великий"
-msgstr ""
+msgstr "Великий"
 
 #: rabbits/models.py:12
 msgid "Декоративний"
-msgstr ""
+msgstr "Декоративний"
 
 #: rabbits/models.py:13
 msgid "Крос — середній"
-msgstr ""
+msgstr "Крос — середній"
 
 #: rabbits/models.py:14
 msgid "Крос — великий"
-msgstr ""
+msgstr "Крос — великий"
 
 #: rabbits/models.py:20
-#, fuzzy
-#| msgid "Breeding management"
 msgid "Breed name"
 msgstr "Племінний облік"
 
@@ -172,15 +170,13 @@ msgstr "Умовний клас"
 
 #: rabbits/models.py:30
 msgid "Recommended first mating age (months)"
-msgstr ""
+msgstr "Рекомендований вік першого парування"
 
 #: rabbits/models.py:35
 msgid "Recommended first mating weight (kg)"
-msgstr ""
+msgstr "Рекомендована вага для першого парування"
 
 #: rabbits/models.py:43
-#, fuzzy
-#| msgid "Rabbit records"
 msgid "Rabbit breed"
 msgstr "Облік кроликів"
 
@@ -276,11 +272,17 @@ msgstr "Дата народження"
 msgid "Photo"
 msgstr "Фото"
 
-#: rabbits/models.py:239
+#: rabbits/models.py:253
 #, fuzzy
 #| msgid "Rabbits"
 msgid "Rabbit"
 msgstr "Кролики"
+
+#: rabbits/services.py:234 rabbits/services.py:242
+msgid ""
+"Possible crossbreeding. The offspring may be crossbred. Purebred status of "
+"future kits is not guaranteed."
+msgstr "Можливе міжпородне схрещування. Потомство може бути кросовим.Чистопородність майбутніх кроленят не гарантована."
 
 #: rabbits/templates/rabbits/create_group.html:9
 #: rabbits/templates/rabbits/group_list.html:9
@@ -777,27 +779,35 @@ msgstr "Самець"
 msgid "Ready for Mating"
 msgstr "Готові до парування"
 
-#: templates/home.html:86
+#: templates/home.html:84
 msgid "No rabbits ready for mating today"
 msgstr "Сьогодні немає кроликів, готових до парування"
 
-#: templates/home.html:90
+#: templates/home.html:92
+msgid "Recommended Pairs"
+msgstr "Рекомендовані пари"
+
+#: templates/home.html:123
+msgid "No recommended pairs at the moment"
+msgstr "Наразі немає рекомендованих пар"
+
+#: templates/home.html:129
 msgid "Action Required"
 msgstr "Потрібна дія"
 
-#: templates/home.html:94
+#: templates/home.html:133
 msgid "Sex must be determined in group ..."
 msgstr "Стать потрібно визначити в групі ..."
 
-#: templates/home.html:99
+#: templates/home.html:138
 msgid "Overdue events detected"
 msgstr "Виявлено прострочені події"
 
-#: templates/home.html:101
+#: templates/home.html:140
 msgid "Upcoming event:"
 msgstr "Найближча подія:"
 
-#: templates/home.html:103
+#: templates/home.html:142
 msgid "No tasks for today"
 msgstr "На сьогодні завдань немає"
 
@@ -2338,7 +2348,3 @@ msgstr ""
 #: venv/lib/python3.13/site-packages/django/views/templates/default_urlconf.html:236
 msgid "Connect, get help, or contribute"
 msgstr ""
-
-#: templates/home.html
-msgid "Recommended Pairs"
-msgstr "Рекомендовані пари"

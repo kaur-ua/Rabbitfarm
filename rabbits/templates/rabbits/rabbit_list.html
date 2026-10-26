@@ -118,7 +118,7 @@
         </li>
         {% if rabbit.last_event %}
 <li>
-    <a class="dropdown-item" href="{% url 'rabbit_edit_event' rabbit.last_event.id %}">
+    <a class="dropdown-item" href="{% url 'edit_event' rabbit.pk %}">
         {% trans "Edit Event" %}
     </a>
 </li>

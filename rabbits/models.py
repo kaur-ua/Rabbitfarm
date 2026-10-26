@@ -107,7 +107,7 @@ class Rabbit(models.Model):
     )
     inventory_number = models.CharField(
         max_length=20,
-        unique=True,
+        db_index=True,
         null=True,
         blank=True,
         verbose_name=_("Inventory Number")
@@ -216,14 +216,28 @@ class Rabbit(models.Model):
 
         return 'none'
 
-    def save(self, *args, **kwargs):
-        if not self.inventory_number:
-            last_rabbit = Rabbit.objects.order_by("-id").first()
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["farm", "inventory_number"],
+                name="unique_inventory_number_per_farm",
+            ),
+        ]
 
-            if last_rabbit and last_rabbit.inventory_number:
-                self.inventory_number = str(int(last_rabbit.inventory_number) + 1).zfill(4)
-            else:
-                self.inventory_number = "0001"
+    def save(self, *args, **kwargs):
+        if not self.inventory_number and self.farm_id:
+            numbers = Rabbit.objects.filter(
+                farm_id=self.farm_id
+            ).values_list("inventory_number", flat=True)
+
+            numeric_numbers = [
+                int(number)
+                for number in numbers
+                if number and number.isdigit()
+            ]
+
+            next_number = max(numeric_numbers, default=0) + 1
+            self.inventory_number = str(next_number).zfill(4)
 
         super().save(*args, **kwargs)
 

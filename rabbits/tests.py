@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.utils.translation import override
 from django.contrib.auth.models import User
 from farms.models import Farm
 from events.models import Event
@@ -339,7 +340,7 @@ class PairRelatednessTests(TestCase):
 
         self.assertTrue(result["recommended"])
         self.assertFalse(
-            any("кросовим" in warning for warning in result["warnings"])
+            any("Possible crossbreeding" in warning for warning in result["warnings"])
         )
 
     def test_different_known_breeds_are_not_recommended(self):
@@ -356,7 +357,7 @@ class PairRelatednessTests(TestCase):
 
         self.assertFalse(result["recommended"])
         self.assertTrue(
-            any("кросовим" in warning for warning in result["warnings"])
+            any("Possible crossbreeding" in warning for warning in result["warnings"])
         )
 
     def test_missing_breed_allows_pair_with_cross_warning(self):
@@ -370,7 +371,7 @@ class PairRelatednessTests(TestCase):
 
         self.assertTrue(result["recommended"])
         self.assertTrue(
-            any("кросовим" in warning for warning in result["warnings"])
+            any("Possible crossbreeding" in warning for warning in result["warnings"])
         )
 
     def test_unknown_breed_allows_pair_with_cross_warning(self):
@@ -390,7 +391,7 @@ class PairRelatednessTests(TestCase):
                 self.assertTrue(result["recommended"])
                 self.assertTrue(
                     any(
-                        "кросовим" in warning
+                        "Possible crossbreeding" in warning
                         for warning in result["warnings"]
                     )
                 )
@@ -614,3 +615,41 @@ class RecommendedPairReadinessTests(TestCase):
                 for pair in pairs
             )
         )
+
+class FarmInventoryNumberTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="inventory_test",
+            password="test-password",
+        )
+        self.farm1 = Farm.objects.create(
+            name="Farm One",
+            owner=self.user,
+        )
+        self.farm2 = Farm.objects.create(
+            name="Farm Two",
+            owner=self.user,
+        )
+
+    def test_inventory_numbers_are_independent_per_farm(self):
+        rabbit1 = Rabbit.objects.create(
+            farm=self.farm1,
+            name="Rabbit One",
+            sex="F",
+        )
+        rabbit2 = Rabbit.objects.create(
+            farm=self.farm2,
+            name="Rabbit Two",
+            sex="F",
+        )
+
+        self.assertEqual(rabbit1.inventory_number, "0001")
+        self.assertEqual(rabbit2.inventory_number, "0001")
+
+        rabbit3 = Rabbit.objects.create(
+            farm=self.farm1,
+            name="Rabbit Three",
+            sex="F",
+)
+
+        self.assertEqual(rabbit3.inventory_number, "0002")

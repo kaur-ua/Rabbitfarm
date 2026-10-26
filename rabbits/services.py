@@ -1,8 +1,10 @@
 from calendar import monthrange
 from datetime import date, timedelta
 from decimal import Decimal
+import warnings
 
 from rabbits.models import RabbitBreed
+from django.utils.translation import gettext as _
 
 
 READY = "Готовий до парування"
@@ -228,16 +230,20 @@ def evaluate_pairing(female, male):
 
     if female_breed_unknown or male_breed_unknown:
         warnings.append(
-            "Можливе міжпородне схрещування. "
-            "Потомство може бути кросовим. "
-            "Чистопородність майбутніх кроленят не гарантована."
+    _(
+        "Possible crossbreeding. "
+        "The offspring may be crossbred. "
+        "Purebred status of future kits is not guaranteed."
+    )
         )
     elif female_breed.casefold() != male_breed.casefold():
         warnings.append(
-            "Можливе міжпородне схрещування. "
-            "Потомство може бути кросовим. "
-            "Чистопородність майбутніх кроленят не гарантована."
-        )
+    _(
+        "Possible crossbreeding. "
+        "The offspring may be crossbred. "
+        "Purebred status of future kits is not guaranteed."
+    )
+    )
         return {
             "recommended": False,
             "relatedness": relatedness,
