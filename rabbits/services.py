@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from decimal import Decimal
 import warnings
 
-from rabbits.models import RabbitBreed
+from rabbits.models import RabbitBreed, PedigreeNode
 from django.utils.translation import gettext as _
 
 
@@ -123,35 +123,48 @@ def get_pairing_candidates(farm):
     return females, males
 
 def _get_ancestors(rabbit, max_depth=3):
-    """Збирає відомих предків і перевіряє повноту родоводу."""
+    """
+    Збирає предків через PedigreeNode до max_depth поколінь.
+    Перевіряє цілісність і повноту родоводу.
+    """
     ancestors = {}
-    frontier = [(rabbit, 0)]
-    visited = {rabbit.pk}
+    visited = set()
     pedigree_complete = True
+
+    root = PedigreeNode.objects.filter(rabbit=rabbit).first()
+
+    if root is None:
+        return ancestors, False
+
+    frontier = [(root, 0)]
+    visited.add(root.pk)
 
     while frontier:
         current, depth = frontier.pop(0)
 
         if depth >= max_depth:
-            if current.mother_id or current.father_id:
-                pedigree_complete = False
             continue
 
-        if (
-            not current.mother_id
-            or not current.father_id
-            or current.mother_manual
-            or current.father_manual
-        ):
+        # Перевіряємо повноту поточного вузла,
+        # включно з кореневим.
+        if current.is_manual:
+            if not current.manual_name or not current.origin_farm:
+                pedigree_complete = False
+        elif current.rabbit_id:
+            if current.mother_id is None or current.father_id is None:
+                pedigree_complete = False
+        else:
             pedigree_complete = False
 
         for parent in (current.mother, current.father):
-            if parent is None or parent.pk in visited:
+            if parent is None:
+                pedigree_complete = False
                 continue
 
-            visited.add(parent.pk)
-            ancestors[parent.pk] = depth + 1
-            frontier.append((parent, depth + 1))
+            if parent.pk not in visited:
+                ancestors[parent.pk] = depth + 1
+                visited.add(parent.pk)
+                frontier.append((parent, depth + 1))
 
     return ancestors, pedigree_complete
 
@@ -230,20 +243,20 @@ def evaluate_pairing(female, male):
 
     if female_breed_unknown or male_breed_unknown:
         warnings.append(
-    _(
-        "Possible crossbreeding. "
-        "The offspring may be crossbred. "
-        "Purebred status of future kits is not guaranteed."
-    )
+            _(
+                "Possible crossbreeding. "
+                "The offspring may be crossbred. "
+                "Purebred status of future kits is not guaranteed."
+            )
         )
     elif female_breed.casefold() != male_breed.casefold():
         warnings.append(
-    _(
-        "Possible crossbreeding. "
-        "The offspring may be crossbred. "
-        "Purebred status of future kits is not guaranteed."
-    )
-    )
+            _(
+                "Possible crossbreeding. "
+                "The offspring may be crossbred. "
+                "Purebred status of future kits is not guaranteed."
+            )
+        )
         return {
             "recommended": False,
             "relatedness": relatedness,
@@ -255,7 +268,7 @@ def evaluate_pairing(female, male):
         "recommended": True,
         "relatedness": relatedness,
         "warnings": warnings,
-}
+    }
 def get_recommended_pairs(farm):
     """
     Формує рекомендовані пари активних кролів.

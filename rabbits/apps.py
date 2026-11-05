@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class RabbitsConfig(AppConfig):
-    name = 'rabbits'
+    name = "rabbits"
+
+    def ready(self):
+        import rabbits.signals

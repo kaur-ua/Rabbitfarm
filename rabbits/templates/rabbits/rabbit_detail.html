@@ -37,25 +37,28 @@
 </p>
 
     <p><strong>{% trans "Mother:" %}</strong>
-    {% if rabbit.mother %}
-        {{ rabbit.mother.name }}
-    {% elif rabbit.mother_manual %}
-        {{ rabbit.mother_manual }}
+    {% if pedigree_node and pedigree_node.mother %}
+        {% if pedigree_node.mother.rabbit %}
+            {{ pedigree_node.mother.rabbit.name }}
+        {% else %}
+            {{ pedigree_node.mother.manual_name|default:_("Unknown") }}
+        {% endif %}
     {% else %}
         {% trans "Unknown" %}
     {% endif %}
-    </p>
+</p>
 
-    <p><strong>{% trans "Father:" %}</strong>
-        {% if rabbit.father %}
-            {{ rabbit.father.name }}
-        {% elif rabbit.father_manual %}
-            {{ rabbit.father_manual }}
+<p><strong>{% trans "Father:" %}</strong>
+    {% if pedigree_node and pedigree_node.father %}
+        {% if pedigree_node.father.rabbit %}
+            {{ pedigree_node.father.rabbit.name }}
         {% else %}
-            {% trans "Unknown" %}
+            {{ pedigree_node.father.manual_name|default:_("Unknown") }}
         {% endif %}
-    </p>
-
+    {% else %}
+        {% trans "Unknown" %}
+    {% endif %}
+</p>
     <p><strong>{% trans "Cage:" %}</strong> {{ rabbit.cage }}</p>
         <p><strong>{% trans "Current Weight:" %}</strong>
             {% if rabbit.weight %}

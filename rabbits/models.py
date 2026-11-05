@@ -244,6 +244,78 @@ class Rabbit(models.Model):
     def __str__(self):
         return self.name
 
+class PedigreeNode(models.Model):
+    SEX_CHOICES = Rabbit.SEX_CHOICES
+    farm = models.ForeignKey(
+    Farm,
+    on_delete=models.CASCADE,
+    null=True,
+    blank=True,
+    related_name="pedigree_nodes",
+)
+
+    rabbit = models.OneToOneField(
+        Rabbit,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="pedigree_node",
+    )
+
+    manual_name = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_("Manual parent name"),
+    )
+
+    manual_sex = models.CharField(
+        max_length=1,
+        choices=SEX_CHOICES,
+        default="U",
+    )
+
+    manual_breed = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    origin_farm = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    is_manual = models.BooleanField(default=False)
+
+    mother = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children_from_mother",
+    )
+
+    father = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children_from_father",
+    )
+
+    def __str__(self):
+        if self.rabbit_id:
+            rabbit = self.rabbit
+            name = rabbit.name
+            sex = rabbit.get_sex_display()
+            breed = rabbit.breed or "Невідомо"
+            origin = rabbit.farm.name if rabbit.farm else "—"
+        else:
+            name = self.manual_name or "Без імені"
+            sex = self.get_manual_sex_display()
+            breed = self.manual_breed or "Невідомо"
+            origin = self.origin_farm or "—"
+
+        return f"{name} | {sex} | {breed} | {origin}"
 
 class WeightRecord(models.Model):
     rabbit = models.ForeignKey(

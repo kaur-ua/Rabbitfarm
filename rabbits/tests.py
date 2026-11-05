@@ -3,7 +3,7 @@ from django.utils.translation import override
 from django.contrib.auth.models import User
 from farms.models import Farm
 from events.models import Event
-from rabbits.models import Rabbit, RabbitBreed
+from rabbits.models import Rabbit, RabbitBreed, PedigreeNode
 from rabbits.services import (
     check_pair_relatedness,
     evaluate_pairing,
@@ -37,11 +37,19 @@ class PairRelatednessTests(TestCase):
             sex=sex,
             **kwargs,
         )
+    def set_parents(self, rabbit, mother=None, father=None):
+        node = rabbit.pedigree_node
+        node.mother = mother.pedigree_node if mother else None
+        node.father = father.pedigree_node if father else None
+        node.save()
 
     def test_rabbits_with_same_mother_are_related(self):
         mother = self.create_rabbit("Mother", "F")
-        female = self.create_rabbit("Female", "F", mother=mother)
-        male = self.create_rabbit("Male", "M", mother=mother)
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(female, mother=mother)
+        self.set_parents(male, mother=mother)
 
         self.assertEqual(
             check_pair_relatedness(female, male),
@@ -50,8 +58,11 @@ class PairRelatednessTests(TestCase):
 
     def test_rabbits_with_same_father_are_related(self):
         father = self.create_rabbit("Father", "M")
-        female = self.create_rabbit("Female", "F", father=father)
-        male = self.create_rabbit("Male", "M", father=father)
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(female, father=father)
+        self.set_parents(male, father=father)
 
         self.assertEqual(
             check_pair_relatedness(female, male),
@@ -70,19 +81,17 @@ class PairRelatednessTests(TestCase):
     def test_rabbits_with_common_grandparent_are_related(self):
         grandparent = self.create_rabbit("Grandparent", "F")
 
-        female_parent = self.create_rabbit(
-            "Female Parent", "F", mother=grandparent
-        )
-        male_parent = self.create_rabbit(
-            "Male Parent", "M", mother=grandparent
-        )
+        female_parent = self.create_rabbit("Female Parent", "F")
+        male_parent = self.create_rabbit("Male Parent", "M")
 
-        female = self.create_rabbit(
-            "Female", "F", mother=female_parent
-        )
-        male = self.create_rabbit(
-            "Male", "M", mother=male_parent
-        )
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(female_parent, mother=grandparent)
+        self.set_parents(male_parent, mother=grandparent)
+
+        self.set_parents(female, mother=female_parent)
+        self.set_parents(male, mother=male_parent)
 
         self.assertEqual(
             check_pair_relatedness(female, male),
@@ -95,13 +104,16 @@ class PairRelatednessTests(TestCase):
         male_mother = self.create_rabbit("Male Mother", "F")
         male_father = self.create_rabbit("Male Father", "M")
 
-        female = self.create_rabbit(
-            "Female", "F",
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(
+            female,
             mother=female_mother,
             father=female_father,
         )
-        male = self.create_rabbit(
-            "Male", "M",
+        self.set_parents(
+            male,
             mother=male_mother,
             father=male_father,
         )
@@ -114,13 +126,10 @@ class PairRelatednessTests(TestCase):
     def test_related_pair_is_not_recommended(self):
         female = self.create_rabbit(sex="F")
         male = self.create_rabbit(sex="M")
-
         common_mother = self.create_rabbit(sex="F")
-        female.mother = common_mother
-        female.save()
 
-        male.mother = common_mother
-        male.save()
+        self.set_parents(female, mother=common_mother)
+        self.set_parents(male, mother=common_mother)
 
         result = evaluate_pairing(female, male)
 
@@ -222,35 +231,44 @@ class PairRelatednessTests(TestCase):
     def test_unknown_ancestors_beyond_three_generations(self):
         great_grandparent = self.create_rabbit("Great Grandparent", "F")
 
-        female_grandparent = self.create_rabbit(
-            "Female Grandparent", "F",
-            mother=great_grandparent,
-        )
-        male_grandparent = self.create_rabbit(
-            "Male Grandparent", "M",
-            mother=great_grandparent,
-        )
+        female_grandparent = self.create_rabbit("Female Grandparent", "F")
+        male_grandparent = self.create_rabbit("Male Grandparent", "M")
 
-        female_parent = self.create_rabbit(
-            "Female Parent", "F",
+        female_grandfather = self.create_rabbit("Female Grandfather", "M")
+        male_grandfather = self.create_rabbit("Male Grandfather", "M")
+
+        female_parent = self.create_rabbit("Female Parent", "F")
+        male_parent = self.create_rabbit("Male Parent", "M")
+
+        female_father = self.create_rabbit("Female Father", "M")
+        male_father = self.create_rabbit("Male Father", "M")
+
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(female_grandparent, mother=great_grandparent)
+        self.set_parents(male_grandparent, mother=great_grandparent)
+
+        self.set_parents(
+            female_parent,
             mother=female_grandparent,
-            father=self.create_rabbit("Female Grandfather", "M"),
+            father=female_grandfather,
         )
-        male_parent = self.create_rabbit(
-            "Male Parent", "M",
+        self.set_parents(
+            male_parent,
             mother=male_grandparent,
-            father=self.create_rabbit("Male Grandfather", "M"),
+            father=male_grandfather,
         )
 
-        female = self.create_rabbit(
-            "Female", "F",
+        self.set_parents(
+            female,
             mother=female_parent,
-            father=self.create_rabbit("Female Father", "M"),
+            father=female_father,
         )
-        male = self.create_rabbit(
-            "Male", "M",
+        self.set_parents(
+            male,
             mother=male_parent,
-            father=self.create_rabbit("Male Father", "M"),
+            father=male_father,
         )
 
         result = evaluate_pairing(female, male)
@@ -260,12 +278,11 @@ class PairRelatednessTests(TestCase):
 
     def test_recommended_pairs_exclude_related_rabbits(self):
         common_mother = self.create_rabbit("Common Mother", "F")
-        female = self.create_rabbit(
-            "Female", "F", mother=common_mother
-        )
-        male = self.create_rabbit(
-            "Male", "M", mother=common_mother
-        )
+        female = self.create_rabbit("Female", "F")
+        male = self.create_rabbit("Male", "M")
+
+        self.set_parents(female, mother=common_mother)
+        self.set_parents(male, mother=common_mother)
 
         pairs = get_recommended_pairs(self.farm)
 
@@ -395,6 +412,15 @@ class PairRelatednessTests(TestCase):
                         for warning in result["warnings"]
                     )
                 )
+    def test_rabbit_creation_creates_pedigree_node(self):
+        rabbit = self.create_rabbit("Signal Test", "F")
+
+        self.assertTrue(
+            PedigreeNode.objects.filter(
+                rabbit=rabbit,
+                farm=self.farm,
+            ).exists()
+        )
 
 class MatingReadinessTests(TestCase):
     def setUp(self):

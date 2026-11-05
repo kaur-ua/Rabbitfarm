@@ -1,8 +1,9 @@
 from django import forms
-from .models import Rabbit, Group
+from .models import Rabbit, Group, PedigreeNode
 from django.utils.translation import gettext_lazy as _
 from datetime import date
 from rabbits.breed_translations import BREED_TRANSLATIONS
+from django.db.models import Q
 
 class RabbitForm(forms.ModelForm):
     CONDITIONAL_CLASS_CHOICES = [
@@ -19,8 +20,19 @@ class RabbitForm(forms.ModelForm):
     weighing_date = forms.DateField(
     label=_("Weighing date"),
     required=False,
-    widget=forms.DateInput(attrs={"type": "date"})
-)
+    widget=forms.DateInput(attrs={"type": "date"}),
+    )
+    mother_node = forms.ModelChoiceField(
+        queryset=PedigreeNode.objects.none(),
+        label=_("Mother from pedigree"),
+        required=False,
+    )
+    father_node = forms.ModelChoiceField(
+        queryset=PedigreeNode.objects.none(),
+        label=_("Father from pedigree"),
+        required=False,
+    )
+
     class Meta:
         model = Rabbit
         fields = [
@@ -56,16 +68,32 @@ class RabbitForm(forms.ModelForm):
 }
 
     def __init__(self, *args, **kwargs):
+        farm = kwargs.pop("farm", None)
         super().__init__(*args, **kwargs)
 
         self.fields["mother"].required = False
         self.fields["father"].required = False
 
-        self.fields["weighing_date"].initial = date.today()
+        nodes = PedigreeNode.objects.filter(farm=farm) if farm else PedigreeNode.objects.none()
 
-        self.fields["mother"].label_from_instance = (
-            lambda obj: f"{obj.inventory_number} | {obj.name}"
+        self.fields["mother_node"].queryset = nodes.filter(
+            Q(rabbit__sex="F") | Q(rabbit__isnull=True, manual_sex="F")
         )
+
+        self.fields["father_node"].queryset = nodes.filter(
+            Q(rabbit__sex="M") | Q(rabbit__isnull=True, manual_sex="M")
+        )
+
+        if self.instance.pk:
+            pedigree_node = PedigreeNode.objects.filter(
+                rabbit=self.instance
+            ).first()
+
+            if pedigree_node:
+                self.initial["mother_node"] = pedigree_node.mother_id
+                self.initial["father_node"] = pedigree_node.father_id
+
+        self.fields["weighing_date"].initial = date.today()
 
     def clean_breed(self):
         breed = self.cleaned_data.get("breed", "").strip()
@@ -79,21 +107,28 @@ class RabbitForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-
-        for parent_field, manual_field in (
-            ("mother", "mother_manual"),
-            ("father", "father_manual"),
-        ):
-            parent = cleaned_data.get(parent_field)
-            manual_name = (cleaned_data.get(manual_field) or "").strip()
-
-            if not parent and not manual_name:
-                self.add_error(
-                    manual_field,
-                    _("Select a parent or enter a name. If unknown, write 'Unknown'.")
-                )
-
         return cleaned_data
+
+    def save_pedigree(self):
+        rabbit = self.instance
+
+        pedigree_node, _ = PedigreeNode.objects.get_or_create(
+            rabbit=rabbit,
+            defaults={
+                "is_manual": False,
+                "farm": rabbit.farm,
+            },
+        )
+
+        if pedigree_node.farm_id != rabbit.farm_id:
+            pedigree_node.farm = rabbit.farm
+
+        pedigree_node.mother = self.cleaned_data.get("mother_node")
+        pedigree_node.father = self.cleaned_data.get("father_node")
+
+        pedigree_node.save(
+            update_fields=["farm", "mother", "father"]
+        )
 
 class WeightRecordForm(forms.Form):
     date = forms.DateField(
@@ -111,9 +146,9 @@ class WeightRecordForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["date"].initial = date.today()
-
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")
+
     class Meta:
         model = Group
         fields = ['name', 'cage_number', 'description']

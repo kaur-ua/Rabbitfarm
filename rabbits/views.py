@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import request
-from rabbits.models import Rabbit, WeightRecord, RabbitBreed
+from rabbits.models import Rabbit, WeightRecord, RabbitBreed, PedigreeNode
 from events.models import Event
 from datetime import date, timedelta
 from farms.models import Farm
@@ -228,6 +228,10 @@ def rabbit_detail(request, pk):
         form = WeightRecordForm()
 
     events = rabbit.events.all().order_by("-date")
+    pedigree_node = PedigreeNode.objects.filter(rabbit=rabbit).select_related(
+    "mother__rabbit",
+    "father__rabbit",
+).first()
     weight_records = list(rabbit.weight_records.order_by("-date"))
 
     today = date.today()
@@ -254,6 +258,7 @@ def rabbit_detail(request, pk):
         "rabbits/rabbit_detail.html",
         {
             "rabbit": rabbit,
+            "pedigree_node": pedigree_node,
             "events": events,
             "weight_records": weight_records,
             "weight_form": form,
@@ -317,12 +322,13 @@ def rabbit_create(request):
         return redirect("create_farm")
 
     if request.method == "POST":
-        form = RabbitForm(request.POST, request.FILES)
+        form = RabbitForm(request.POST, request.FILES, farm=farm)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
         if form.is_valid():
             rabbit = form.save(commit=False)
             rabbit.farm = farm
             rabbit.save()
+            form.save_pedigree()
             messages.success(request, "Rabbit added successfully")
             return redirect("rabbit_list")
         else:
@@ -330,7 +336,7 @@ def rabbit_create(request):
 
            
     else:
-        form = RabbitForm()
+        form = RabbitForm(farm=farm)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {
@@ -435,11 +441,12 @@ def rabbit_edit(request, pk):
     rabbit = get_object_or_404(Rabbit, pk=pk, farm=farm)
 
     if request.method == "POST":
-        form = RabbitForm(request.POST, request.FILES, instance=rabbit)
+        form = RabbitForm(request.POST, request.FILES, instance=rabbit, farm=farm)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
         if form.is_valid():
             rabbit = form.save()
+            form.save_pedigree()
 
             if rabbit.weight is not None:
                 weighing_date = form.cleaned_data["weighing_date"] or date.today()
@@ -461,7 +468,7 @@ def rabbit_edit(request, pk):
             return redirect("rabbit_list")
 
     else:
-        form = RabbitForm(instance=rabbit)
+        form = RabbitForm(instance=rabbit, farm=farm)
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "rabbits/rabbit_form.html", {

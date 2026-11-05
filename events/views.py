@@ -21,6 +21,10 @@ def add_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["male"].queryset = farm.rabbits.filter(
+            sex="M",
+            status="ACTIVE"
+        )
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
         if form.is_valid():
@@ -52,12 +56,18 @@ def add_event(request):
                     next_number = max(numeric_numbers, default=0) + 1
                     born_alive = event.born_alive or 0
                     mother = event.rabbit
+                    father = mother.events.filter(
+                        event_type="mating",
+                        date__lte=event.date,
+                        male__isnull=False
+                    ).order_by("-date").values_list("male", flat=True).first()
                     mother_short_name = mother.name.split()[-1]
 
                     for i in range(1, born_alive + 1):
                         Rabbit.objects.create(
                             farm=farm,
                             mother=mother,
+                            father_id=father,
                             name=f"G{mother_short_name}-{i:02}",
                             inventory_number=f"{next_number + i - 1:04}",
                             sex="U",
@@ -104,6 +114,10 @@ def add_event(request):
     else:
         form = EventForm()
         form.fields["rabbit"].queryset = farm.rabbits.all()
+        form.fields["male"].queryset = farm.rabbits.filter(
+            sex="M",
+            status="ACTIVE"
+        )
         form.fields["group"].queryset = Group.objects.filter(farm=farm)
 
     return render(request, "events/add_event.html", {

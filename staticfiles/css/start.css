@@ -24,6 +24,15 @@ body {
     font-weight: bold;
     color: #28a745;
 }
+.logo img {
+    height: 42px !important;
+    width: auto;
+    display: block;
+}
+.language-switcher {
+    margin-left: auto;
+    margin-right: 20px;
+}
 .nav-links {
     display: flex;
     align-items: center;
@@ -391,19 +400,36 @@ body {
     .nav-container {
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 10px;
     }
 
     .logo {
-        font-size: 26px;
-    }
+    font-size: 28px;
+    font-weight: bold;
+    color: #28a745;
+}
+    .language-switcher {
+    margin-left: 0;
+    margin-right: 0;
+}
 
-    .nav-links {
+
+
+    .nav-signup-btn {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
-        margin-left: 0;
+        align-items: center;
+
+        width: 240px;
+        height: 44px;
+        margin: 0 auto;
+
+        background: #28a745;
+
+        color: #ffffff !important;
+        text-align: center;
+        font-size: 17px;
+        font-weight: 600;
     }
 
     .nav-btn {
@@ -414,7 +440,7 @@ body {
     /* ---------- Hero ---------- */
 
     .hero {
-        padding: 50px 20px;
+        padding: 40px 20px;
     }
 
     .hero-container {
@@ -438,11 +464,11 @@ body {
         gap: 14px;
     }
 
-    .main-btn,
-    .secondary-btn {
+    .hero-buttons .main-btn,
+    .hero-buttons .secondary-btn {
         width: 240px;
         margin-right: 0;
-    }
+}
 
     .hero-image img {
         max-width: 100%;
@@ -484,16 +510,40 @@ body {
         text-align: center;
     }
 
+
 }
 
-@media (max-width: 768px) {
+/* ===== MANIFEST ===== */
 
-    .about-btn {
-        display: none !important;
-    }
+.manifest-section {
+    padding: 70px 0;
+}
 
-    .login-btn {
-        display: none !important;
-    }
+.manifest-box {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 50px;
+    background: #f4faf6;
+    border-radius: 20px;
+}
 
+
+.manifest-box h2 {
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 24px 0;
+}
+
+.manifest-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.manifest-box p:last-child {
+    margin-bottom: 0;
+}
+
+.manifest-box strong {
+    font-weight: 700;
 }

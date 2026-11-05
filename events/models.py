@@ -20,6 +20,15 @@ class Event(models.Model):
     blank=True
     )
 
+    male = models.ForeignKey(
+    "rabbits.Rabbit",
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="sired_events",
+    verbose_name=_("Male")
+    )
+
 
     group = models.ForeignKey(
     "rabbits.Group",
