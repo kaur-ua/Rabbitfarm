@@ -1,6 +1,7 @@
 from django import forms
 from .models import Rabbit, Group, PedigreeNode
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language
 from datetime import date
 from rabbits.breed_translations import BREED_TRANSLATIONS
 from django.db.models import Q
@@ -24,12 +25,12 @@ class RabbitForm(forms.ModelForm):
     )
     mother_node = forms.ModelChoiceField(
         queryset=PedigreeNode.objects.none(),
-        label=_("Mother from pedigree"),
+        label=_("Mother"),
         required=False,
     )
     father_node = forms.ModelChoiceField(
         queryset=PedigreeNode.objects.none(),
-        label=_("Father from pedigree"),
+        label=_("Father"),
         required=False,
     )
 
@@ -37,28 +38,26 @@ class RabbitForm(forms.ModelForm):
         model = Rabbit
         fields = [
 
-            "group",
-            "name",
-            "origin_source",
-            "sex",
-            "breed",
-            "conditional_class",
-            "cage",
-            "status",
-            "birth_date",
-            "weight",
-            "mother",
-            "mother_manual",
-            "father",
-            "father_manual",
-            "photo",
-        ]
+                "group",
+                "name",
+                "origin_source",
+                "mother_manual",
+                "father_manual",
+                "sex",
+                "breed",
+                "conditional_class",
+                "cage",
+                "status",
+                "birth_date",
+                "weight",
+                "photo",
+            ]
 
         widgets = {
-    "birth_date": forms.DateInput(
-    format="%Y-%m-%d",
-    attrs={"type": "date"},
-),
+                "birth_date": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={"type": "date"},
+            ),
     "breed": forms.TextInput(
         attrs={
             "list": "breed-suggestions",
@@ -71,8 +70,11 @@ class RabbitForm(forms.ModelForm):
         farm = kwargs.pop("farm", None)
         super().__init__(*args, **kwargs)
 
-        self.fields["mother"].required = False
-        self.fields["father"].required = False
+        if not self.is_bound and self.instance.pk and get_language() == "uk":
+            self.initial["breed"] = BREED_TRANSLATIONS.get(
+                self.instance.breed,
+                self.instance.breed,
+            )
 
         nodes = PedigreeNode.objects.filter(farm=farm) if farm else PedigreeNode.objects.none()
 
@@ -120,16 +122,57 @@ class RabbitForm(forms.ModelForm):
             },
         )
 
-        if pedigree_node.farm_id != rabbit.farm_id:
-            pedigree_node.farm = rabbit.farm
+        pedigree_node.farm = rabbit.farm
 
-        pedigree_node.mother = self.cleaned_data.get("mother_node")
-        pedigree_node.father = self.cleaned_data.get("father_node")
+        mother_node = self.cleaned_data.get("mother_node")
+        father_node = self.cleaned_data.get("father_node")
+
+        mother_name = (self.cleaned_data.get("mother_manual") or "").strip()
+        father_name = (self.cleaned_data.get("father_manual") or "").strip()
+
+        if not mother_node and mother_name:
+            mother_node, _ = PedigreeNode.objects.get_or_create(
+                farm=rabbit.farm,
+                manual_name=mother_name,
+                manual_sex="F",
+                is_manual=True,
+                defaults={
+                    "manual_breed": rabbit.breed,
+                    "origin_farm": rabbit.origin_source,
+                }
+            )
+
+            mother_node.manual_breed = rabbit.breed
+            mother_node.origin_farm = rabbit.origin_source
+            mother_node.save(update_fields=["manual_breed", "origin_farm"])
+
+        if not father_node and father_name:
+            father_node, _ = PedigreeNode.objects.get_or_create(
+                farm=rabbit.farm,
+                manual_name=father_name,
+                manual_sex="M",
+                is_manual=True,
+                defaults={
+                    "manual_breed": rabbit.breed,
+                    "origin_farm": rabbit.origin_source,
+                }
+            )
+
+            father_node.manual_breed = rabbit.breed
+            father_node.origin_farm = rabbit.origin_source
+            father_node.save(update_fields=["manual_breed", "origin_farm"])
+
+        pedigree_node.mother = mother_node
+        pedigree_node.father = father_node
 
         pedigree_node.save(
             update_fields=["farm", "mother", "father"]
         )
 
+        rabbit.mother = mother_node.rabbit if mother_node else None
+        rabbit.father = father_node.rabbit if father_node else None
+
+        rabbit.save(update_fields=["mother", "father"])
 class WeightRecordForm(forms.Form):
     date = forms.DateField(
         label=_("Date"),

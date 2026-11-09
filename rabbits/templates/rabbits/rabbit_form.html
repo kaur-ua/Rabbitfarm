@@ -23,18 +23,25 @@
             {% endfor %}
         </div>
     {% else %}
-        <p>
-            {{ field.label_tag }}{% if field.name == "mother_node" or field.name == "father_node" %}<span class="text-danger">*</span>{% endif %}
-            {{ field }}
-            {% for error in field.errors %}
-                <span class="text-danger">{{ error }}</span>
-            {% endfor %}
-        </p>
-    {% endif %}
+    <p>
+        {{ field.label_tag }}{% if field.name == "mother_node" or field.name == "father_node" %}<span class="text-danger">*</span>{% endif %}
+        {{ field }}
+        {% if field.name == "mother_node" or field.name == "father_node" %}
+            <button type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    data-clear-parent="{{ field.name }}">
+                Очистити
+            </button>
+        {% endif %}
+        {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
 {% endfor %}
     <datalist id="breed-suggestions">
     {% for breed in breed_suggestions %}
-        <option value="{{ breed }}" label="{{ breed|breed_name }}"></option>
+        <option value="{{ breed|breed_name }}" label="{{ breed }}"></option>
     {% endfor %}
 </datalist>
 

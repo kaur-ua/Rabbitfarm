@@ -4,24 +4,36 @@ document.addEventListener("DOMContentLoaded", () => {
         "conditional-class-field"
     );
 
-    if (!breedField || !conditionalClassField) {
-        return;
+    if (breedField && conditionalClassField) {
+        function updateConditionalClassVisibility() {
+            const breed = breedField.value.trim().toLowerCase();
+            const normalizedBreed = breed.replace(/[\s-]+/g, "");
+
+            const isUnknownBreed =
+                normalizedBreed.includes("невідом") ||
+                normalizedBreed.includes("unknown");
+
+            conditionalClassField.style.display =
+                isUnknownBreed ? "" : "none";
+        }
+
+        breedField.addEventListener("input", updateConditionalClassVisibility);
+        breedField.addEventListener("change", updateConditionalClassVisibility);
+
+        updateConditionalClassVisibility();
     }
 
-    function updateConditionalClassVisibility() {
-        const breed = breedField.value.trim().toLowerCase();
-        const normalizedBreed = breed.replace(/[\s-]+/g, "");
+    document.querySelectorAll("[data-clear-parent]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const fieldId = `id_${button.dataset.clearParent}`;
+            const parentField = document.getElementById(fieldId);
 
-        const isUnknownBreed =
-            normalizedBreed.includes("невідом") ||
-            normalizedBreed.includes("unknown");
-
-        conditionalClassField.style.display =
-            isUnknownBreed ? "" : "none";
-}
-
-    breedField.addEventListener("input", updateConditionalClassVisibility);
-    breedField.addEventListener("change", updateConditionalClassVisibility);
-
-    updateConditionalClassVisibility();
+            if (parentField) {
+                parentField.value = "";
+                parentField.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
+            }
+        });
+    });
 });

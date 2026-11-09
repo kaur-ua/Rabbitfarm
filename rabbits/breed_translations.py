@@ -36,4 +36,6 @@ BREED_TRANSLATIONS = {
     "Britannia Petite": "Британський малий",
     "Mini Lop": "Міні-лоп",
     "Florida White": "Флоридський білий",
+    "Cross": "Помісь",
+    "Unknown": "Невідома",
 }

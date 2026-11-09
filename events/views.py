@@ -1,7 +1,7 @@
 from datetime import timedelta
 from .forms import EventForm
 from farms.models import Farm
-from rabbits.models import Group, Rabbit
+from rabbits.models import Group, Rabbit, PedigreeNode
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
@@ -63,19 +63,48 @@ def add_event(request):
                     ).order_by("-date").values_list("male", flat=True).first()
                     mother_short_name = mother.name.split()[-1]
 
+                    mother_node, _ = PedigreeNode.objects.get_or_create(
+                        rabbit=mother,
+                        defaults={"is_manual": False, "farm": farm},
+                    )
+
+                    father_node = None
+                    if father:
+                        father_node, _ = PedigreeNode.objects.get_or_create(
+                            rabbit_id=father,
+                            defaults={"is_manual": False, "farm": farm},
+                        )
+
+                    father_breed = father_node.rabbit.breed if father_node and father_node.rabbit else ""
+
+                    if not mother.breed or not father_breed:
+                        offspring_breed = "Unknown"
+                    elif mother.breed == father_breed:
+                        offspring_breed = mother.breed
+                    else:
+                        offspring_breed = "Cross"
                     for i in range(1, born_alive + 1):
-                        Rabbit.objects.create(
+                        baby = Rabbit.objects.create(
                             farm=farm,
                             mother=mother,
                             father_id=father,
                             name=f"G{mother_short_name}-{i:02}",
                             inventory_number=f"{next_number + i - 1:04}",
                             sex="U",
-                            breed=mother.breed,
+                            breed=offspring_breed,
                             birth_date=event.date,
                             cage=mother.cage,
                             status="ACTIVE"
                         )
+
+                        baby_node, _ = PedigreeNode.objects.get_or_create(
+                            rabbit=baby,
+                            defaults={"is_manual": False, "farm": farm},
+                        )
+
+                        baby_node.mother = mother_node
+                        baby_node.father = father_node
+                        baby_node.save(update_fields=["mother", "father"])
 
                 # 🏠 ВІДСАДКА
                 if event.event_type == "weaning":

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from farms.models import Farm
 from events.models import Event
 from rabbits.models import Rabbit, RabbitBreed, PedigreeNode
+from rabbits.forms import RabbitForm
 from rabbits.services import (
     check_pair_relatedness,
     evaluate_pairing,
@@ -679,3 +680,143 @@ class FarmInventoryNumberTests(TestCase):
 )
 
         self.assertEqual(rabbit3.inventory_number, "0002")
+
+class RabbitFormParentTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="parent_test",
+            password="test-password",
+        )
+        self.farm = Farm.objects.create(
+            name="Parent Test Farm",
+            owner=self.user,
+        )
+
+    def test_registered_parents_are_saved_to_both_models(self):
+        mother = Rabbit.objects.create(
+            farm=self.farm,
+            name="Mother",
+            sex="F",
+        )
+        father = Rabbit.objects.create(
+            farm=self.farm,
+            name="Father",
+            sex="M",
+        )
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring",
+            sex="F",
+        )
+
+        form = RabbitForm(
+           data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "mother_node": mother.pedigree_node.pk,
+                "father_node": father.pedigree_node.pk,
+                "status": rabbit.status,
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        node = saved_rabbit.pedigree_node
+
+        self.assertEqual(saved_rabbit.mother, mother)
+        self.assertEqual(saved_rabbit.father, father)
+        self.assertEqual(node.mother, mother.pedigree_node)
+        self.assertEqual(node.father, father.pedigree_node)
+
+    def test_pedigree_only_parents_are_saved_without_rabbit_links(self):
+        mother_node = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            is_manual=True,
+        )
+        father_node = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Father",
+            manual_sex="M",
+            is_manual=True,
+        )
+
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring External",
+            sex="F",
+        )
+
+        form = RabbitForm(
+            data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "status": rabbit.status,
+                "mother_node": mother_node.pk,
+                "father_node": father_node.pk,
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        node = saved_rabbit.pedigree_node
+
+        self.assertIsNone(saved_rabbit.mother)
+        self.assertIsNone(saved_rabbit.father)
+        self.assertEqual(node.mother, mother_node)
+        self.assertEqual(node.father, father_node)
+
+    def test_manual_parent_names_create_pedigree_nodes(self):
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring Manual",
+            sex="F",
+        )
+
+        form = RabbitForm(
+            data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "status": rabbit.status,
+                "breed": "Vienna Blue",
+                "origin_source": "External Farm",
+                "mother_manual": "External Mother",
+                "father_manual": "External Father",
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        node = saved_rabbit.pedigree_node
+
+        self.assertIsNone(saved_rabbit.mother)
+        self.assertIsNone(saved_rabbit.father)
+
+        self.assertEqual(node.mother.manual_name, "External Mother")
+        self.assertEqual(node.mother.manual_sex, "F")
+        self.assertEqual(node.father.manual_name, "External Father")
+        self.assertEqual(node.father.manual_sex, "M")
+
+        self.assertEqual(node.mother.manual_breed, "Vienna Blue")
+        self.assertEqual(node.mother.origin_farm, "External Farm")
+        self.assertEqual(node.father.manual_breed, "Vienna Blue")
+        self.assertEqual(node.father.origin_farm, "External Farm")

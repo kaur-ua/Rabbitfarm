@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from farms.models import Farm
 from datetime import date
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
+from rabbits.breed_translations import BREED_TRANSLATIONS
 
 
 class RabbitBreed(models.Model):
@@ -307,13 +308,16 @@ class PedigreeNode(models.Model):
             rabbit = self.rabbit
             name = rabbit.name
             sex = rabbit.get_sex_display()
-            breed = rabbit.breed or "Невідомо"
-            origin = rabbit.farm.name if rabbit.farm else "—"
+            breed = rabbit.breed or _("Unknown")
+            origin = rabbit.farm.name if rabbit.farm else _("Not specified")
         else:
-            name = self.manual_name or "Без імені"
+            name = self.manual_name or _("Unnamed")
             sex = self.get_manual_sex_display()
-            breed = self.manual_breed or "Невідомо"
-            origin = self.origin_farm or "—"
+            breed = self.manual_breed or _("Unknown")
+            origin = self.origin_farm or _("Not specified")
+
+        if get_language() == "uk":
+            breed = BREED_TRANSLATIONS.get(breed, breed)
 
         return f"{name} | {sex} | {breed} | {origin}"
 
