@@ -33,7 +33,7 @@ box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
     margin-bottom: 20px;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    background: #ffffff;
+    background: #eef3f0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
@@ -114,4 +114,29 @@ box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
 
 .recommended-pairs-list {
     row-gap: 16px !important;
+}
+
+.recommended-pair-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #dfe7e3;
+}
+
+.recommended-pair-row .mating-ready-rabbit {
+    flex: 0 0 calc(50% - 8px);
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.recommended-pair-row .pair-warning {
+    flex: 0 0 calc(50% - 8px);
+    box-sizing: border-box;
+    min-width: 0;
+    width: auto;
+    border: 0;
+    padding: 6px 10px;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
