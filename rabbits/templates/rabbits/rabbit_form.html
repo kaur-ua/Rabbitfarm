@@ -30,7 +30,7 @@
             <button type="button"
                     class="btn btn-sm btn-outline-secondary"
                     data-clear-parent="{{ field.name }}">
-                Очистити
+                {% trans "Clear" %}
             </button>
         {% endif %}
         {% for error in field.errors %}
@@ -38,6 +38,16 @@
         {% endfor %}
     </p>
 {% endif %}
+    {% if field.name == "father_manual" %}
+        <div class="mb-3">
+            <button type="button"
+                    id="check-duplicate-parents"
+                    class="btn btn-outline-secondary">
+                {% trans "Check parents" %}
+            </button>
+            <div id="parent-check-result" class="mt-2" aria-live="polite"></div>
+        </div>
+    {% endif %}
 {% endfor %}
     <datalist id="breed-suggestions">
     {% for breed in breed_suggestions %}
@@ -49,6 +59,32 @@
     {% trans "Save" %}
     </button>
 </form>
+<!-- Duplicate parent warning modal -->
+<div id="duplicate-parent-modal"
+     data-check-url="{% url 'check_duplicate_parent' %}"
+     class="modal"
+     style="display: none;"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="duplicate-parent-title">
+
+    <div class="modal-content">
+        <h3 id="duplicate-parent-title">
+            {% trans "Duplicate parent found" %}
+        </h3>
+
+        <p>
+             {% trans "These parents already exist in the database." %}
+             {% trans "Select the matching parents in the form fields below." %}
+        </p>
+
+        <button type="button"
+                id="duplicate-parent-confirm"
+                class="btn btn-outline-secondary">
+            {% trans "OK" %}
+        </button>
+    </div>
+</div>
 <script src="{% static 'js/rabbit_form.js' %}"></script>
 
 {% endblock %}

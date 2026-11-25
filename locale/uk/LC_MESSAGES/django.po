@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 09:32+0000\n"
+"POT-Creation-Date: 2026-11-25 11:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "Відлучення"
 msgid "Separate by Sex"
 msgstr "Розділення за статтю"
 
-#: events/models.py:29 rabbits/models.py:88
+#: events/models.py:29 rabbits/models.py:89
 msgid "Male"
 msgstr "Самець"
 
@@ -102,31 +102,35 @@ msgstr "Електронна пошта"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: rabbits/forms.py:10 rabbits/models.py:130
+#: rabbits/forms.py:11 rabbits/models.py:131
 msgid "Medium class"
 msgstr "Середній клас"
 
-#: rabbits/forms.py:11 rabbits/models.py:131
+#: rabbits/forms.py:12 rabbits/models.py:132
 msgid "Large class"
 msgstr "Великий клас"
 
-#: rabbits/forms.py:16
+#: rabbits/forms.py:17
 msgid "Estimated class"
 msgstr "Орієнтовний клас"
 
-#: rabbits/forms.py:21
+#: rabbits/forms.py:22
 msgid "Weighing date"
 msgstr "Дата зважування"
 
-#: rabbits/forms.py:27 rabbits/models.py:156
+#: rabbits/forms.py:28 rabbits/forms.py:120 rabbits/models.py:157
 msgid "Mother"
 msgstr "Мати"
 
-#: rabbits/forms.py:32 rabbits/models.py:171
+#: rabbits/forms.py:33 rabbits/forms.py:121 rabbits/models.py:172
 msgid "Father"
 msgstr "Батько"
 
-#: rabbits/forms.py:163 rabbits/models.py:329
+#: rabbits/forms.py:146
+msgid "Select an existing matching parent from the list."
+msgstr ""
+
+#: rabbits/forms.py:209 rabbits/models.py:333
 #: rabbits/templates/rabbits/rabbit_detail.html:100
 #: rabbits/templates/rabbits/rabbit_detail.html:136
 #: rabbits/templates/rabbits/rabbit_detail.html:149
@@ -134,75 +138,75 @@ msgstr "Батько"
 msgid "Date"
 msgstr "Дата"
 
-#: rabbits/forms.py:168 rabbits/models.py:190 rabbits/models.py:335
+#: rabbits/forms.py:214 rabbits/models.py:191 rabbits/models.py:339
 #: rabbits/templates/rabbits/rabbit_detail.html:101
 #: rabbits/templates/rabbits/rabbit_list.html:25
 msgid "Weight"
 msgstr "Вага"
 
-#: rabbits/forms.py:187
+#: rabbits/forms.py:234
 msgid "Male Cage"
 msgstr "Клітка самців"
 
-#: rabbits/forms.py:192
+#: rabbits/forms.py:239
 msgid "Female Cage"
 msgstr "Клітка самиць"
 
-#: rabbits/models.py:10
+#: rabbits/models.py:11
 msgid "Середній"
 msgstr "Середній"
 
-#: rabbits/models.py:11
+#: rabbits/models.py:12
 msgid "Великий"
 msgstr "Великий"
 
-#: rabbits/models.py:12
+#: rabbits/models.py:13
 msgid "Декоративний"
 msgstr "Декоративний"
 
-#: rabbits/models.py:13
+#: rabbits/models.py:14
 msgid "Крос — середній"
 msgstr "Крос — середній"
 
-#: rabbits/models.py:14
+#: rabbits/models.py:15
 msgid "Крос — великий"
 msgstr "Крос — великий"
 
-#: rabbits/models.py:20
+#: rabbits/models.py:21
 msgid "Breed name"
 msgstr "Племінний облік"
 
-#: rabbits/models.py:25 rabbits/models.py:134
+#: rabbits/models.py:26 rabbits/models.py:135
 msgid "Conditional class"
 msgstr "Умовний клас"
 
-#: rabbits/models.py:30
+#: rabbits/models.py:31
 msgid "Recommended first mating age (months)"
 msgstr "Рекомендований вік першого парування"
 
-#: rabbits/models.py:35
+#: rabbits/models.py:36
 msgid "Recommended first mating weight (kg)"
 msgstr "Рекомендована вага для першого парування"
 
-#: rabbits/models.py:43
+#: rabbits/models.py:44
 msgid "Rabbit breed"
 msgstr "Облік кроликів"
 
-#: rabbits/models.py:44
+#: rabbits/models.py:45
 #, fuzzy
 #| msgid "Rabbit records"
 msgid "Rabbit breeds"
 msgstr "Облік кроликів"
 
-#: rabbits/models.py:84
+#: rabbits/models.py:85
 msgid "Group"
 msgstr "Група"
 
-#: rabbits/models.py:87
+#: rabbits/models.py:88
 msgid "Female"
 msgstr "Самка"
 
-#: rabbits/models.py:89 rabbits/models.py:310 rabbits/models.py:315
+#: rabbits/models.py:90 rabbits/models.py:311 rabbits/models.py:316
 #: rabbits/templates/rabbits/rabbit_detail.html:44
 #: rabbits/templates/rabbits/rabbit_detail.html:47
 #: rabbits/templates/rabbits/rabbit_detail.html:56
@@ -211,89 +215,88 @@ msgstr "Самка"
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: rabbits/models.py:93
+#: rabbits/models.py:94
 msgid "Active"
 msgstr "Активний"
 
-#: rabbits/models.py:94
+#: rabbits/models.py:95
 msgid "Sold"
 msgstr "Проданий"
 
-#: rabbits/models.py:95
+#: rabbits/models.py:96
 msgid "Culled"
 msgstr "Вибракуваний"
 
-#: rabbits/models.py:100 rabbits/templates/rabbits/group_list.html:18
+#: rabbits/models.py:101 rabbits/templates/rabbits/group_list.html:18
 #: rabbits/templates/rabbits/rabbit_list.html:21
 msgid "Name"
 msgstr "Ім'я"
 
-#: rabbits/models.py:106 rabbits/templates/rabbits/rabbit_detail.html:31
+#: rabbits/models.py:107 rabbits/templates/rabbits/rabbit_detail.html:31
 msgid "Acquisition Source:"
 msgstr "Джерело придбання:"
 
-#: rabbits/models.py:113
+#: rabbits/models.py:114
 msgid "Inventory Number"
 msgstr "Інвентарний номер"
 
-#: rabbits/models.py:118 rabbits/templates/rabbits/rabbit_list.html:23
+#: rabbits/models.py:119 rabbits/templates/rabbits/rabbit_list.html:23
 msgid "Sex"
 msgstr "Стать"
 
-#: rabbits/models.py:124 rabbits/templates/rabbits/rabbit_list.html:26
+#: rabbits/models.py:125 rabbits/templates/rabbits/rabbit_list.html:26
 msgid "Breed"
 msgstr "Порода"
 
-#: rabbits/models.py:140 rabbits/templates/rabbits/group_list.html:19
+#: rabbits/models.py:141 rabbits/templates/rabbits/group_list.html:19
 #: rabbits/templates/rabbits/rabbit_list.html:22
 msgid "Cage"
 msgstr "Клітка"
 
-#: rabbits/models.py:147 rabbits/templates/rabbits/rabbit_detail.html:140
+#: rabbits/models.py:148 rabbits/templates/rabbits/rabbit_detail.html:140
 #: rabbits/templates/rabbits/rabbit_detail.html:160
-#: rabbits/templates/rabbits/rabbit_list.html:31
 msgid "Status"
 msgstr "Статус"
 
-#: rabbits/models.py:162
+#: rabbits/models.py:163
 msgid "Mother (manual)"
 msgstr "Мати (вручну)"
 
-#: rabbits/models.py:176
+#: rabbits/models.py:177
 msgid "Father (manual)"
 msgstr "Батько (вручну)"
 
-#: rabbits/models.py:182
+#: rabbits/models.py:183
 msgid "Birth date"
 msgstr "Дата народження"
 
-#: rabbits/models.py:197
+#: rabbits/models.py:198
 msgid "Photo"
 msgstr "Фото"
 
-#: rabbits/models.py:268
+#: rabbits/models.py:269
 msgid "Manual parent name"
 msgstr ""
 
-#: rabbits/models.py:311 rabbits/models.py:316
+#: rabbits/models.py:312 rabbits/models.py:317
 #, fuzzy
 #| msgid "Weight not specified"
 msgid "Not specified"
 msgstr "Не вказано"
 
-#: rabbits/models.py:313
+#: rabbits/models.py:314
 #, fuzzy
 #| msgid "Username"
 msgid "Unnamed"
 msgstr "Без імені"
 
-#: rabbits/models.py:325
+#: rabbits/models.py:329
 #, fuzzy
 #| msgid "Rabbits"
 msgid "Rabbit"
 msgstr "Кролики"
 
-#: rabbits/services.py:247 rabbits/services.py:255
+#: rabbits/services.py:295 rabbits/services.py:303
 msgid ""
 "Possible crossbreeding. The offspring may be crossbred. Purebred status of "
 "future kits is not guaranteed."
@@ -333,7 +336,7 @@ msgstr "Походження, стать або призначення груп�
 
 #: rabbits/templates/rabbits/create_group.html:51
 #: rabbits/templates/rabbits/edit_group.html:45
-#: rabbits/templates/rabbits/rabbit_form.html:49
+#: rabbits/templates/rabbits/rabbit_form.html:59
 #: templates/farms/edit_farm.html:50
 msgid "Save"
 msgstr "Зберегти"
@@ -550,6 +553,31 @@ msgstr "Редагувати кролика"
 msgid "Add Rabbit"
 msgstr "Додати кролика"
 
+#: rabbits/templates/rabbits/rabbit_form.html:33
+#: venv/lib/python3.13/site-packages/django/forms/widgets.py:528
+msgid "Clear"
+msgstr "Очистити"
+
+#: rabbits/templates/rabbits/rabbit_form.html:46
+msgid "Check parents"
+msgstr "Перевірити батьків"
+
+#: rabbits/templates/rabbits/rabbit_form.html:73
+msgid "Duplicate parent found"
+msgstr "Знайдено дубліката одного з батьків"
+
+#: rabbits/templates/rabbits/rabbit_form.html:77
+msgid "These parents already exist in the database."
+msgstr "Такі батьки вже є в базі даних."
+
+#: rabbits/templates/rabbits/rabbit_form.html:78
+msgid "Select the matching parents in the form fields below."
+msgstr "Виберіть відповідних батьків у полях форми нижче."
+
+#: rabbits/templates/rabbits/rabbit_form.html:84
+msgid "OK"
+msgstr "Гаразд"
+
 #: rabbits/templates/rabbits/rabbit_list.html:14 templates/base.html:62
 msgid "Rabbit Records"
 msgstr "Облік кроликів"
@@ -557,6 +585,10 @@ msgstr "Облік кроликів"
 #: rabbits/templates/rabbits/rabbit_list.html:24
 msgid "Age"
 msgstr "Вік"
+
+#: rabbits/templates/rabbits/rabbit_list.html:31
+msgid "Event Status"
+msgstr "Статус події"
 
 #: rabbits/templates/rabbits/rabbit_list.html:32
 msgid "Mating Readiness"
@@ -1737,10 +1769,6 @@ msgstr ""
 msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
-msgstr ""
-
-#: venv/lib/python3.13/site-packages/django/forms/widgets.py:528
-msgid "Clear"
 msgstr ""
 
 #: venv/lib/python3.13/site-packages/django/forms/widgets.py:529

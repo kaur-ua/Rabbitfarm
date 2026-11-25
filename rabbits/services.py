@@ -5,6 +5,7 @@ import warnings
 
 from rabbits.models import RabbitBreed, PedigreeNode
 from django.utils.translation import gettext as _
+from django.db.models import Q
 
 
 READY = "Готовий до парування"
@@ -122,6 +123,53 @@ def get_pairing_candidates(farm):
 
     return females, males
 
+def find_duplicate_parents(farm, name, sex, breed, origin):
+    """Шукає батьків із такими самими ідентифікаційними даними."""
+
+    name = (name or "").strip()
+    breed = (breed or "").strip()
+    origin = (origin or "").strip()
+
+    if not all((farm, name, sex, origin)):
+        return PedigreeNode.objects.none()
+
+    if "невідом" in breed.lower() or "unknown" in breed.lower():
+        breed = ""
+
+    manual_matches = Q(
+        is_manual=True,
+        manual_name__iexact=name,
+        manual_sex=sex,
+        manual_breed__iexact=breed,
+        origin_farm__iexact=origin,
+    )
+
+    rabbit_breed_filter = Q(rabbit__breed__iexact=breed)
+
+    if not breed:
+        rabbit_breed_filter = (
+            Q(rabbit__breed__isnull=True)
+            | Q(rabbit__breed="")
+            | Q(rabbit__breed__icontains="невідом")
+            | Q(rabbit__breed__icontains="unknown")
+        )
+
+    rabbit_matches = (
+        Q(
+            rabbit__isnull=False,
+            rabbit__name__iexact=name,
+            rabbit__sex=sex,
+            rabbit__origin_source__iexact=origin,
+        )
+        & rabbit_breed_filter
+    )
+    return (
+        PedigreeNode.objects
+        .filter(farm=farm)
+        .filter(manual_matches | rabbit_matches)
+        .select_related("rabbit")
+        .distinct()
+    )
 def _get_ancestors(rabbit, max_depth=3):
     """
     Збирає предків через PedigreeNode до max_depth поколінь.

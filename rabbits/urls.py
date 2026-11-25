@@ -17,6 +17,11 @@ urlpatterns = [
     views.separate_by_sex,
     name="separate_by_sex"
 ),
+    path(
+    "check-duplicate-parent/",
+    views.check_duplicate_parent,
+    name="check_duplicate_parent",
+),
 ]
     
 

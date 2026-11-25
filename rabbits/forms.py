@@ -68,6 +68,7 @@ class RabbitForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         farm = kwargs.pop("farm", None)
+        self.farm = farm
         super().__init__(*args, **kwargs)
 
         if not self.is_bound and self.instance.pk and get_language() == "uk":
@@ -109,10 +110,78 @@ class RabbitForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        from rabbits.services import find_duplicate_parents
+
+        breed = cleaned_data.get("breed") or ""
+        origin = (cleaned_data.get("origin_source") or "").strip()
+
+        parents = [
+            ("mother_manual", "mother_node", "F", _("Mother")),
+            ("father_manual", "father_node", "M", _("Father")),
+        ]
+
+        for name_field, node_field, sex, label in parents:
+            parent_name = (cleaned_data.get(name_field) or "").strip()
+            selected_node = cleaned_data.get(node_field)
+
+            if selected_node:
+                cleaned_data[name_field] = ""
+                continue
+
+            if not parent_name:
+                continue
+
+            matches = find_duplicate_parents(
+                self.farm,
+                parent_name,
+                sex,
+                breed,
+                origin,
+            )
+
+            if matches.exists():
+                self.add_error(
+                    node_field,
+                    _("Select an existing matching parent from the list."),
+                )
+
         return cleaned_data
+
+    
 
     def save_pedigree(self):
         rabbit = self.instance
+
+        parent_breed = (rabbit.breed or "").strip()
+        if "невідом" in parent_breed.lower() or "unknown" in parent_breed.lower():
+            parent_breed = ""
+
+        mother_node = self.cleaned_data.get("mother_node")
+        father_node = self.cleaned_data.get("father_node")
+
+        mother_name = (self.cleaned_data.get("mother_manual") or "").strip()
+        father_name = (self.cleaned_data.get("father_manual") or "").strip()
+
+        if not mother_node and mother_name:
+            mother_node = PedigreeNode.objects.create(
+                farm=rabbit.farm,
+                manual_name=mother_name,
+                manual_sex="F",
+                manual_breed=parent_breed,
+                origin_farm=rabbit.origin_source,
+                is_manual=True,
+            )
+
+        if not father_node and father_name:
+            father_node = PedigreeNode.objects.create(
+                farm=rabbit.farm,
+                manual_name=father_name,
+                manual_sex="M",
+                manual_breed=parent_breed,
+                origin_farm=rabbit.origin_source,
+                is_manual=True,
+            )
 
         pedigree_node, _ = PedigreeNode.objects.get_or_create(
             rabbit=rabbit,
@@ -123,45 +192,6 @@ class RabbitForm(forms.ModelForm):
         )
 
         pedigree_node.farm = rabbit.farm
-
-        mother_node = self.cleaned_data.get("mother_node")
-        father_node = self.cleaned_data.get("father_node")
-
-        mother_name = (self.cleaned_data.get("mother_manual") or "").strip()
-        father_name = (self.cleaned_data.get("father_manual") or "").strip()
-
-        if not mother_node and mother_name:
-            mother_node, _ = PedigreeNode.objects.get_or_create(
-                farm=rabbit.farm,
-                manual_name=mother_name,
-                manual_sex="F",
-                is_manual=True,
-                defaults={
-                    "manual_breed": rabbit.breed,
-                    "origin_farm": rabbit.origin_source,
-                }
-            )
-
-            mother_node.manual_breed = rabbit.breed
-            mother_node.origin_farm = rabbit.origin_source
-            mother_node.save(update_fields=["manual_breed", "origin_farm"])
-
-        if not father_node and father_name:
-            father_node, _ = PedigreeNode.objects.get_or_create(
-                farm=rabbit.farm,
-                manual_name=father_name,
-                manual_sex="M",
-                is_manual=True,
-                defaults={
-                    "manual_breed": rabbit.breed,
-                    "origin_farm": rabbit.origin_source,
-                }
-            )
-
-            father_node.manual_breed = rabbit.breed
-            father_node.origin_farm = rabbit.origin_source
-            father_node.save(update_fields=["manual_breed", "origin_farm"])
-
         pedigree_node.mother = mother_node
         pedigree_node.father = father_node
 
@@ -173,6 +203,7 @@ class RabbitForm(forms.ModelForm):
         rabbit.father = father_node.rabbit if father_node else None
 
         rabbit.save(update_fields=["mother", "father"])
+
 class WeightRecordForm(forms.Form):
     date = forms.DateField(
         label=_("Date"),
@@ -189,6 +220,7 @@ class WeightRecordForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["date"].initial = date.today()
+
 class GroupForm(forms.ModelForm):
     count = forms.IntegerField(min_value=1, label="Кількість")
 

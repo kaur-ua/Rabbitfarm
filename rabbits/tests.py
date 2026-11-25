@@ -8,13 +8,14 @@ from rabbits.forms import RabbitForm
 from rabbits.services import (
     check_pair_relatedness,
     evaluate_pairing,
+    find_duplicate_parents,
     get_mating_readiness,
     get_pairing_candidates,
     get_recommended_pairs,
     INSUFFICIENT_DATA,
     NOT_READY,
     READY,
-)
+    )
 from datetime import date
 
 class PairRelatednessTests(TestCase):
@@ -691,6 +692,157 @@ class RabbitFormParentTests(TestCase):
             name="Parent Test Farm",
             owner=self.user,
         )
+    
+    def test_finds_matching_registered_rabbit_by_origin_source(self):
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Registered Mother",
+            sex="F",
+            breed="Vienna Blue",
+            origin_source="External Farm",
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "Registered Mother",
+            "F",
+            "Vienna Blue",
+            "External Farm",
+        )
+
+        self.assertEqual(
+            list(matches),
+            [rabbit.pedigree_node],
+        )
+
+    def test_finds_matching_manual_parent(self):
+        parent = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="External Farm",
+            is_manual=True,
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "External Mother",
+            "F",
+            "Vienna Blue",
+            "External Farm",
+        )
+
+        self.assertEqual(list(matches), [parent])
+
+    def test_different_origin_is_not_a_duplicate(self):
+        PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="Farm One",
+            is_manual=True,
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "External Mother",
+            "F",
+            "Vienna Blue",
+            "Farm Two",
+        )
+
+        self.assertFalse(matches.exists())
+    def test_unknown_breed_matches_empty_breed(self):
+        PedigreeNode.objects.create(
+            farm=self.farm,
+            is_manual=True,
+            manual_name="Unknown Breed Mother",
+            manual_sex="F",
+            manual_breed="",
+            origin_farm="Farm One",
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "Unknown Breed Mother",
+            "F",
+            "Невідома",
+            "Farm One",
+        )
+
+        self.assertTrue(matches.exists())
+
+    def test_parent_from_another_farm_is_not_a_duplicate(self):
+        other_farm = Farm.objects.create(
+            name="Other Farm",
+            owner=self.user,
+        )
+
+        PedigreeNode.objects.create(
+            farm=other_farm,
+            is_manual=True,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="Farm One",
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "External Mother",
+            "F",
+            "Vienna Blue",
+            "Farm One",
+        )
+
+        self.assertFalse(matches.exists())
+
+    def test_parent_with_different_sex_is_not_a_duplicate(self):
+        PedigreeNode.objects.create(
+            farm=self.farm,
+            is_manual=True,
+            manual_name="Test Parent",
+            manual_sex="M",
+            manual_breed="Vienna Blue",
+            origin_farm="Farm One",
+        )
+
+        matches = find_duplicate_parents(
+            self.farm,
+            "Test Parent",
+            "F",
+            "Vienna Blue",
+            "Farm One",
+        )
+
+        self.assertFalse(matches.exists())
+
+    def test_duplicate_manual_parent_requires_explicit_selection(self):
+        PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="External Farm",
+            is_manual=True,
+        )
+
+        form = RabbitForm(
+            data={
+                "name": "Test Offspring",
+                "sex": "F",
+                "status": "ACTIVE",
+                "breed": "Vienna Blue",
+                "origin_source": "External Farm",
+                "mother_manual": "External Mother",
+                },
+            farm=self.farm,
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("mother_node", form.errors)
 
     def test_registered_parents_are_saved_to_both_models(self):
         mother = Rabbit.objects.create(
@@ -820,3 +972,174 @@ class RabbitFormParentTests(TestCase):
         self.assertEqual(node.mother.origin_farm, "External Farm")
         self.assertEqual(node.father.manual_breed, "Vienna Blue")
         self.assertEqual(node.father.origin_farm, "External Farm")
+
+    
+    def test_existing_manual_parent_is_reused_without_losing_pedigree_links(self):
+        grandmother = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="Grandmother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="External Farm",
+            is_manual=True,
+        )
+
+        existing_mother = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="External Farm",
+            is_manual=True,
+            mother=grandmother,
+        )
+
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring Reuse",
+            sex="F",
+        )
+
+        form = RabbitForm(
+            data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "status": rabbit.status,
+                "breed": "Vienna Blue",
+                "origin_source": "External Farm",
+                "mother_manual": "External Mother",
+                "mother_node": existing_mother.pk,
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        offspring_node = saved_rabbit.pedigree_node
+        existing_mother.refresh_from_db()
+
+        self.assertEqual(offspring_node.mother_id, existing_mother.pk)
+        self.assertEqual(existing_mother.mother_id, grandmother.pk)
+
+        self.assertEqual(
+            PedigreeNode.objects.filter(
+                farm=self.farm,
+                manual_name="External Mother",
+                manual_sex="F",
+                manual_breed="Vienna Blue",
+                origin_farm="External Farm",
+                is_manual=True,
+            ).count(),
+            1,
+        )
+
+    
+    def test_same_parent_name_with_different_breed_creates_separate_node(self):
+        existing_mother = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="External Farm",
+            is_manual=True,
+        )
+
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring Different Breed",
+            sex="F",
+        )
+
+        form = RabbitForm(
+            data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "status": rabbit.status,
+                "breed": "Pannon White",
+                "origin_source": "External Farm",
+                "mother_manual": "External Mother",
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        offspring_node = saved_rabbit.pedigree_node
+
+        self.assertNotEqual(offspring_node.mother_id, existing_mother.pk)
+        self.assertEqual(offspring_node.mother.manual_name, "External Mother")
+        self.assertEqual(offspring_node.mother.manual_breed, "Pannon White")
+        self.assertEqual(offspring_node.mother.origin_farm, "External Farm")
+
+        self.assertEqual(
+            PedigreeNode.objects.filter(
+                farm=self.farm,
+                manual_name="External Mother",
+                manual_sex="F",
+                is_manual=True,
+            ).count(),
+            2,
+        )
+
+
+    def test_same_parent_name_and_breed_with_different_origin_creates_separate_node(self):
+        existing_mother = PedigreeNode.objects.create(
+            farm=self.farm,
+            manual_name="External Mother",
+            manual_sex="F",
+            manual_breed="Vienna Blue",
+            origin_farm="Farm One",
+            is_manual=True,
+        )
+
+        rabbit = Rabbit.objects.create(
+            farm=self.farm,
+            name="Offspring Different Origin",
+            sex="F",
+        )
+
+        form = RabbitForm(
+            data={
+                "name": rabbit.name,
+                "sex": rabbit.sex,
+                "status": rabbit.status,
+                "breed": "Vienna Blue",
+                "origin_source": "Farm Two",
+                "mother_manual": "External Mother",
+            },
+            instance=rabbit,
+            farm=self.farm,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        saved_rabbit = form.save()
+        form.save_pedigree()
+
+        saved_rabbit.refresh_from_db()
+        offspring_node = saved_rabbit.pedigree_node
+
+        self.assertNotEqual(offspring_node.mother_id, existing_mother.pk)
+        self.assertEqual(offspring_node.mother.manual_name, "External Mother")
+        self.assertEqual(offspring_node.mother.manual_breed, "Vienna Blue")
+        self.assertEqual(offspring_node.mother.origin_farm, "Farm Two")
+
+        self.assertEqual(
+            PedigreeNode.objects.filter(
+                farm=self.farm,
+                manual_name="External Mother",
+                manual_sex="F",
+                is_manual=True,
+            ).count(),
+            2,
+        )  

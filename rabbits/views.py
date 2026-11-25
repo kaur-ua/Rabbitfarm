@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.http import request
 from rabbits.models import Rabbit, WeightRecord, RabbitBreed, PedigreeNode
 from events.models import Event
 from datetime import date, timedelta
@@ -15,8 +14,11 @@ from .forms import RabbitForm, WeightRecordForm, GroupForm, SexSeparationForm
 from rabbits.services import (
     get_mating_readiness,
     get_recommended_pairs,
+    find_duplicate_parents,
     READY,
 )
+from django.http import JsonResponse
+from rabbits.breed_translations import BREED_TRANSLATIONS
 
 @login_required
 def create_group(request):
@@ -510,3 +512,31 @@ def edit_event(request, pk):
     return render(request, "events/edit_event.html", {
         "form": form
     })
+
+@login_required
+def check_duplicate_parent(request):
+    farm = request.user.farms.first()
+
+    if not farm:
+        return JsonResponse({"exists": False})
+
+    name = request.GET.get("name", "")
+    sex = request.GET.get("sex", "")
+    breed = request.GET.get("breed", "")
+    origin = request.GET.get("origin", "")
+
+    reverse_translations = {
+        translated: original
+        for original, translated in BREED_TRANSLATIONS.items()
+    }
+    breed = reverse_translations.get(breed.strip(), breed.strip())
+    
+    matches = find_duplicate_parents(
+        farm,
+        name,
+        sex,
+        breed,
+        origin,
+    )
+
+    return JsonResponse({"exists": matches.exists()})
