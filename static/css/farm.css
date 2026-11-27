@@ -217,3 +217,30 @@
     }
 
 }
+
+/* Rabbit edit form — mobile only */
+@media (max-width: 768px) {
+    .rabbit-edit-form p {
+        margin-bottom: 20px;
+    }
+
+    .rabbit-edit-form label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .rabbit-edit-form input,
+    .rabbit-edit-form select,
+    .rabbit-edit-form textarea {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .rabbit-edit-form input[type="file"] {
+        max-width: 100%;
+    }
+}

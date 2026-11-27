@@ -11,7 +11,7 @@
     {% endif %}
 </h2>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="rabbit-edit-form">
     {% csrf_token %}
     {% for field in form %}
     {% if field.name == "conditional_class" %}
